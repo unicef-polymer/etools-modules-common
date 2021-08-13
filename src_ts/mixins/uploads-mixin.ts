@@ -1,6 +1,6 @@
-import {LitElement, property} from 'lit-element';
-import {Constructor} from '@unicef-polymer/etools-types';
-import {getStore} from '..//utils/redux-store-access';
+import { LitElement, property } from 'lit-element';
+import { Constructor } from '@unicef-polymer/etools-types';
+import { getStore } from '..//utils/redux-store-access';
 
 const INCREASE_UPLOADS_IN_PROGRESS = 'INCREASE_UPLOADS_IN_PROGRESS';
 const DECREASE_UPLOADS_IN_PROGRESS = 'DECREASE_UPLOADS_IN_PROGRESS';
@@ -13,13 +13,13 @@ const DECREASE_UNSAVED_UPLOADS = 'DECREASE_UNSAVED_UPLOADS';
  */
 function UploadsMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class UploadsClass extends baseClass {
-    @property({type: String})
+    @property({ type: String })
     uploadEndpoint!: string;
 
-    @property({type: Number})
+    @property({ type: Number })
     uploadsInProgress!: number;
 
-    @property({type: Number})
+    @property({ type: Number })
     unsavedUploads!: number;
 
     uploadsStateChanged(state: any) {
@@ -34,13 +34,13 @@ function UploadsMixin<T extends Constructor<LitElement>>(baseClass: T) {
 
     public _onUploadStarted(e: any) {
       e.stopImmediatePropagation();
-      getStore().dispatch({type: INCREASE_UPLOADS_IN_PROGRESS});
+      getStore().dispatch({ type: INCREASE_UPLOADS_IN_PROGRESS });
     }
 
     public _onUploadFinished(success: any) {
-      getStore().dispatch({type: DECREASE_UPLOADS_IN_PROGRESS});
+      getStore().dispatch({ type: DECREASE_UPLOADS_IN_PROGRESS });
       if (success) {
-        getStore().dispatch({type: INCREASE_UNSAVED_UPLOADS});
+        getStore().dispatch({ type: INCREASE_UNSAVED_UPLOADS });
       }
     }
 
@@ -58,7 +58,7 @@ function UploadsMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     decreaseUnsavedUploads() {
-      getStore().dispatch({type: DECREASE_UNSAVED_UPLOADS});
+      getStore().dispatch({ type: DECREASE_UNSAVED_UPLOADS });
     }
   }
   return UploadsClass;

@@ -1,6 +1,6 @@
-import {logWarn} from '@unicef-polymer/etools-behaviors/etools-logging.js';
-import {LitElement} from 'lit-element';
-import {Constructor} from '@unicef-polymer/etools-types';
+import { logWarn } from '@unicef-polymer/etools-behaviors/etools-logging.js';
+import { LitElement } from 'lit-element';
+import { Constructor } from '@unicef-polymer/etools-types';
 
 function UtilsMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class UtilsClass extends baseClass {
@@ -12,7 +12,13 @@ function UtilsMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return Number(val);
     }
 
-    _formatNumber(val: any, placeholder: any, decimals: any, thousandsPoint: any, decimalsPoint?: any) {
+    _formatNumber(
+      val: any,
+      placeholder: any,
+      decimals: any,
+      thousandsPoint: any,
+      decimalsPoint?: any
+    ) {
       placeholder = placeholder ? placeholder : '—';
 
       let nr: any = Number(val);
@@ -27,7 +33,10 @@ function UtilsMixin<T extends Constructor<LitElement>>(baseClass: T) {
       thousandsPoint = thousandsPoint ? thousandsPoint : '';
 
       if (decimalsPoint && thousandsPoint && decimalsPoint === thousandsPoint) {
-        logWarn('thousandsPoint and decimalsPoint should be different', 'utils-mixin');
+        logWarn(
+          'thousandsPoint and decimalsPoint should be different',
+          'utils-mixin'
+        );
         return nr;
       }
       const nrParts = nr.split('.');
@@ -90,7 +99,11 @@ function UtilsMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return value ? value : defaultValue;
     }
 
-    _formatIndicatorValue(displayType: string, value: any, percentize: boolean) {
+    _formatIndicatorValue(
+      displayType: string,
+      value: any,
+      percentize: boolean
+    ) {
       if (value == null) {
         return value;
       }

@@ -1,7 +1,7 @@
-import {prettyDate} from '../utils/date-utils';
-import {LitElement} from 'lit-element';
-import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
-import {get} from 'lit-translate';
+import { prettyDate } from '../utils/date-utils';
+import { LitElement } from 'lit-element';
+import { AnyObject, Constructor } from '@unicef-polymer/etools-types';
+import { get } from 'lit-translate';
 
 function CommonMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class CommonClass extends baseClass {
@@ -18,7 +18,9 @@ function CommonMixin<T extends Constructor<LitElement>>(baseClass: T) {
           separator = ', ';
         }
         if (skipSpaces) {
-          return value.filter((v) => v !== undefined && v !== '' && v !== null).join(separator);
+          return value
+            .filter((v) => v !== undefined && v !== '' && v !== null)
+            .join(separator);
         }
         return value.join(separator);
       } else if (typeof value === 'number') {
@@ -42,8 +44,8 @@ function CommonMixin<T extends Constructor<LitElement>>(baseClass: T) {
           {
             id: null,
             file_name: fileName,
-            path: fileUrl
-          }
+            path: fileUrl,
+          },
         ];
       }
       return files;
