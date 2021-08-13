@@ -6,11 +6,11 @@ import {sharedStyles} from '../../styles/shared-styles-lit';
 
 @customElement('reason-popup')
 export class ReasonPopup extends LitElement {
-  @property() protected dialogOpened = true;
-  @property() protected popupTitle = '';
-  @property() protected label = '';
-  @property() protected reason = '';
-  @property() protected error = '';
+  @property() dialogOpened = true;
+  @property() popupTitle = '';
+  @property() label = '';
+  @property() reason = '';
+  @property() error = '';
 
   set dialogData({popupTitle, label}: any) {
     this.popupTitle = popupTitle;

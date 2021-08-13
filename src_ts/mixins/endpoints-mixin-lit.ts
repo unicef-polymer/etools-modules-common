@@ -26,7 +26,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       }
     }
 
-    protected _getPrpCountryId() {
+    _getPrpCountryId() {
       const currentCountry = this.currentUser.countries_available.find((country: AnyObject) => {
         return (country as any).id === this.currentUser.country.id;
       });
@@ -46,7 +46,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return prpCountry.id;
     }
 
-    protected _urlTemplateHasCountryId(template: string): boolean {
+    _urlTemplateHasCountryId(template: string): boolean {
       return template.indexOf('<%=countryId%>') > -1;
     }
 
@@ -70,7 +70,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return endpoint;
     }
 
-    protected _generateUrlFromTemplate(tmpl: string, data: AnyObject | undefined) {
+    _generateUrlFromTemplate(tmpl: string, data: AnyObject | undefined) {
       if (!tmpl) {
         throw new Error('To generate URL from endpoint url template you need valid template string');
       }
@@ -87,11 +87,11 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return tmpl;
     }
 
-    protected _hasUrlTemplate(endpoint: AnyObject) {
+    _hasUrlTemplate(endpoint: AnyObject) {
       return endpoint && endpoint.template;
     }
 
-    protected _getDeferrer() {
+    _getDeferrer() {
       // create defer object (utils behavior contains to many other unneeded methods to be used)
       const defer: any = {};
       defer.promise = new Promise(function (resolve, reject) {
@@ -134,7 +134,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       });
     }
 
-    protected _buildOptionsWithTokenHeader(options: any, token: string) {
+    _buildOptionsWithTokenHeader(options: any, token: string) {
       options.headers = this.getAuthorizationHeader(token);
       delete options.endpoint.token; // cleanup token from endpoint object
       return options;
@@ -183,7 +183,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return defer.promise;
     }
 
-    protected _addAdditionalRequestOptions(options: any, requestAdditionalOptions: any) {
+    _addAdditionalRequestOptions(options: any, requestAdditionalOptions: any) {
       if (requestAdditionalOptions) {
         Object.keys(requestAdditionalOptions).forEach(function (key) {
           switch (key) {

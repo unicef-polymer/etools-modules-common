@@ -11,10 +11,10 @@ export type ListHelperResponse<T> = {
 };
 
 export class ListHelper<T> {
-  private listData: T[] = [];
-  private lastParams!: GenericObject<string>;
-  private requestInProcess = false;
-  private readonly requestUid = 'INTERVENTIONS_REQUEST';
+  listData: T[] = [];
+  lastParams!: GenericObject<string>;
+  requestInProcess = false;
+  readonly requestUid = 'INTERVENTIONS_REQUEST';
 
   constructor(public endpoint: EtoolsEndpoint, public store: any) {}
 
@@ -33,7 +33,7 @@ export class ListHelper<T> {
     };
   }
 
-  private async getFilteredList(filtersParams: GenericObject<string>, forceReGet: boolean): Promise<T[]> {
+  async getFilteredList(filtersParams: GenericObject<string>, forceReGet: boolean): Promise<T[]> {
     if (isEqual(filtersParams, this.lastParams) && !forceReGet) {
       // return cached list if params wasn't changed
       return this.listData;
@@ -53,7 +53,7 @@ export class ListHelper<T> {
     }
   }
 
-  private listRequest(filtersParams: GenericObject<string>): Promise<T[]> {
+  listRequest(filtersParams: GenericObject<string>): Promise<T[]> {
     return sendRequest(
       {
         endpoint: getEndpoint(this.endpoint),
@@ -78,7 +78,7 @@ export class ListHelper<T> {
       });
   }
 
-  private sortList(list: T[], sort = ''): T[] {
+  sortList(list: T[], sort = ''): T[] {
     const [field, direction] = sort.split('.') as [keyof T, string];
     if (!field || !direction || !list.length || !Object.hasOwnProperty.call(list[0], field)) {
       return list;
@@ -94,13 +94,13 @@ export class ListHelper<T> {
     return direction === 'asc' ? sorted : sorted.reverse();
   }
 
-  private paginate(page: number, pageSize: number, data: T[]): T[] {
+  paginate(page: number, pageSize: number, data: T[]): T[] {
     const fromIndex: number = (page - 1) * pageSize;
     const toIndex: number = fromIndex + pageSize;
     return data.slice(fromIndex, toIndex);
   }
 
-  private getPaginationData(page: number, pageSize: number, count: number): EtoolsPaginator {
+  getPaginationData(page: number, pageSize: number, count: number): EtoolsPaginator {
     return {
       page,
       page_size: pageSize,
@@ -110,7 +110,7 @@ export class ListHelper<T> {
     };
   }
 
-  private getVisibleRange(pageSize: number, page: number, count: number): [number, number] {
+  getVisibleRange(pageSize: number, page: number, count: number): [number, number] {
     const from: number = (page - 1) * pageSize;
     const to: number = from + pageSize;
     if (from > count) {

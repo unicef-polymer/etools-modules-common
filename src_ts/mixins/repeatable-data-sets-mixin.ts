@@ -33,7 +33,7 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(baseClass: T
     @property({type: Object})
     dataSetModel!: AnyObject | null;
 
-    private elToDeleteIndex!: number;
+    elToDeleteIndex!: number;
 
     async _openDeleteConfirmation(event: CustomEvent, index: number) {
       event.stopPropagation();

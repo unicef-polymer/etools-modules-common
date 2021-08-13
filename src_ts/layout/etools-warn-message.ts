@@ -39,7 +39,7 @@ export class EtoolsWarnMessage extends LitElement {
     `;
   }
 
-  private _messages: string | string[] = [];
+  _messages: string | string[] = [];
 
   @property({type: Array})
   set messages(messages: string | string[]) {

@@ -44,7 +44,7 @@ export class EtoolsFilters extends LitElement {
   @property({type: Array})
   filters: EtoolsFilter[] = [];
 
-  private lastSelectedValues: any = null;
+  lastSelectedValues: any = null;
 
   static get styles() {
     return [

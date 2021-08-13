@@ -24,7 +24,7 @@ export class AvailableActions extends LitElement {
   static get styles() {
     return [ActionsStyles];
   }
-  protected render() {
+  render() {
     if (!this.actions) {
       return '';
     }
@@ -52,7 +52,7 @@ export class AvailableActions extends LitElement {
     }
   });
 
-  private renderExport(actions: string[]) {
+  renderExport(actions: string[]) {
     const preparedExportActions = actions.map((action: string) => ({
       name: this.actionsNamesMap[action],
       type: action
@@ -62,7 +62,7 @@ export class AvailableActions extends LitElement {
       : html``;
   }
 
-  private renderBackAction(action?: string) {
+  renderBackAction(action?: string) {
     return action
       ? html`
           <paper-button class="main-button back-button" @click="${() => this.processAction(action)}">
@@ -72,7 +72,7 @@ export class AvailableActions extends LitElement {
       : html``;
   }
 
-  private renderGroupedActions(mainAction: string, actions: string[]) {
+  renderGroupedActions(mainAction: string, actions: string[]) {
     const withAdditional = actions.length ? ' with-additional' : '';
     const onlyCancel = !actions.length && mainAction === this.CANCEL ? ` cancel-background` : '';
     const className = `main-button${withAdditional}${onlyCancel}`;
@@ -85,7 +85,7 @@ export class AvailableActions extends LitElement {
       : html``;
   }
 
-  private getAdditionalTransitions(actions?: string[]) {
+  getAdditionalTransitions(actions?: string[]) {
     if (!actions || !actions.length) {
       return html``;
     }
@@ -168,14 +168,14 @@ export class AvailableActions extends LitElement {
       });
   }
 
-  private closeDropdown(): void {
+  closeDropdown(): void {
     const element: PaperMenuButton | null = this.shadowRoot!.querySelector('paper-menu-button');
     if (element) {
       element.close();
     }
   }
 
-  private openActionsWithInputsDialogs(action: string) {
+  openActionsWithInputsDialogs(action: string) {
     // TODO
     switch (action) {
       case 'cancel':
@@ -187,7 +187,7 @@ export class AvailableActions extends LitElement {
     }
   }
 
-  private openCancelReason(action: string): Promise<any> {
+  openCancelReason(action: string): Promise<any> {
     // TODO
     return openDialog({
       dialog: 'reason-popup',

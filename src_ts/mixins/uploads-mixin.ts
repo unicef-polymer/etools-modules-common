@@ -57,7 +57,7 @@ function UploadsMixin<T extends Constructor<LitElement>>(baseClass: T) {
       this.decreaseUnsavedUploads();
     }
 
-    private decreaseUnsavedUploads() {
+    decreaseUnsavedUploads() {
       getStore().dispatch({type: DECREASE_UNSAVED_UPLOADS});
     }
   }

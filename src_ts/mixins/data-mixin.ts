@@ -57,7 +57,7 @@ export const DataMixin = <T extends Constructor<LitElement>>() => <B>(superclass
      *  When valueA or B are objects the equality that is being performed looks like this:
      * '[object Object]' === '[object Object]'.Recomandation to use areEqual from utils
      */
-    private checkEquality(valueA: any, valueB: any): boolean {
+    checkEquality(valueA: any, valueB: any): boolean {
       const baseValue: any[] = [valueA].flat();
       const valueToMatch: any[] = [valueB].flat();
       return (

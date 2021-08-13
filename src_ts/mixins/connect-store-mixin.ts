@@ -11,7 +11,7 @@ interface CustomElement {
 
 export function connectStore<T extends Constructor<CustomElement>>(baseClass: T) {
   return class ConnectStoreMixin extends baseClass {
-    private _storeUnsubscribe!: Unsubscribe;
+    _storeUnsubscribe!: Unsubscribe;
 
     constructor(...args: any[]) {
       super(...args);
