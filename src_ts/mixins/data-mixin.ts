@@ -2,14 +2,14 @@ import {LitElement, PropertyDeclarations} from 'lit-element';
 import {cloneDeep} from '../utils/utils';
 import {GenericObject} from '@unicef-polymer/etools-types';
 
-type Constructor<T> = new (...args: any[]) => T;
+type Constructor<B> = new (...args: any[]) => B;
 
 /* @polymerMixin */
-export const DataMixin = <B extends Constructor<LitElement>>() => <T>(superclass: B) =>
+export const DataMixin = <T extends Constructor<LitElement>>() => <B>(superclass: T) =>
   class extends superclass {
     /* eslint-enable @typescript-eslint/typedef,@typescript-eslint/explicit-function-return-type */
-    editedData: Partial<T> = {};
-    originalData!: T | null;
+    editedData: Partial<B> = {};
+    originalData!: B | null;
     errors: GenericObject = {};
 
     static get properties(): PropertyDeclarations {
@@ -22,7 +22,7 @@ export const DataMixin = <B extends Constructor<LitElement>>() => <T>(superclass
       };
     }
 
-    set data(data: T | null) {
+    set data(data: B | null) {
       this.editedData = !data ? {} : {...this.editedData, ...data};
       this.originalData = cloneDeep(data);
     }
@@ -39,7 +39,7 @@ export const DataMixin = <B extends Constructor<LitElement>>() => <T>(superclass
       this.performUpdate();
     }
 
-    updateModelValue(fieldName: keyof T, value: any): void {
+    updateModelValue(fieldName: keyof B, value: any): void {
       if (!this.editedData) {
         return;
       }

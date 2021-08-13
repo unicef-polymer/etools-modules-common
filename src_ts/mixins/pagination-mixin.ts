@@ -1,4 +1,5 @@
-import { property } from 'lit-element';
+import {LitElement, property} from 'lit-element';
+import {Constructor} from '@unicef-polymer/etools-types';
 
 const DEFAULT_LIST_SIZE = 10;
 
@@ -9,15 +10,15 @@ class Paginator {
   visible_range: string[] | number[] = [];
 }
 
-function PaginationMixin(baseClass: any) {
+function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class PaginationClass extends baseClass {
-    @property({ type: Object })
+    @property({type: Object})
     paginator = new Paginator();
 
     set pageSize(pageSize: number) {
       this.resetPageNumber();
       this.paginator = Object.assign({}, this.paginator, {
-        page_size: pageSize,
+        page_size: pageSize
       });
     }
 
@@ -32,14 +33,14 @@ function PaginationMixin(baseClass: any) {
 
     visibleRangeChanged(e: CustomEvent) {
       this.paginator = Object.assign({}, this.paginator, {
-        visible_range: e.detail.value,
+        visible_range: e.detail.value
       });
     }
 
     getRequestPaginationParams() {
       return {
         page: this.paginator.page,
-        page_size: this.paginator.page_size,
+        page_size: this.paginator.page_size
       };
     }
 
@@ -47,31 +48,22 @@ function PaginationMixin(baseClass: any) {
       if (reqResponse && reqResponse.count) {
         const count = parseInt(reqResponse.count, 10);
         if (!isNaN(count)) {
-          this.paginator = Object.assign({}, this.paginator, { count: count });
-          this._pageInsidePaginationRange(
-            this.paginator.page,
-            this.paginator.count
-          );
+          this.paginator = Object.assign({}, this.paginator, {count: count});
+          this._pageInsidePaginationRange(this.paginator.page, this.paginator.count);
           return;
         }
       }
-      this.paginator = Object.assign({}, this.paginator, { count: 0 });
-      this._pageInsidePaginationRange(
-        this.paginator.page,
-        this.paginator.count
-      );
+      this.paginator = Object.assign({}, this.paginator, {count: 0});
+      this._pageInsidePaginationRange(this.paginator.page, this.paginator.count);
     }
 
     setPageSize(size: number) {
-      this.paginator = Object.assign({}, this.paginator, { page_size: size });
+      this.paginator = Object.assign({}, this.paginator, {page_size: size});
     }
 
     setPageNumber(page: number) {
-      this.paginator = Object.assign({}, this.paginator, { page: page });
-      this._pageInsidePaginationRange(
-        this.paginator.page,
-        this.paginator.count
-      );
+      this.paginator = Object.assign({}, this.paginator, {page: page});
+      this._pageInsidePaginationRange(this.paginator.page, this.paginator.count);
     }
 
     resetPageNumber() {
@@ -80,9 +72,7 @@ function PaginationMixin(baseClass: any) {
 
     setPaginationDataFromUrlParams(urlParams: any) {
       this.setPageNumber(urlParams.page ? parseInt(urlParams.page) : 1);
-      this.setPageSize(
-        urlParams.size ? parseInt(urlParams.size) : DEFAULT_LIST_SIZE
-      );
+      this.setPageSize(urlParams.size ? parseInt(urlParams.size) : DEFAULT_LIST_SIZE);
     }
 
     _pageInsidePaginationRange(page: number, total: number | null) {

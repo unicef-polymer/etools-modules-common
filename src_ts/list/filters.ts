@@ -1,121 +1,14 @@
-import {translate} from 'lit-translate';
 import {AnyObject, RouteQueryParams} from '@unicef-polymer/etools-types';
-import {EtoolsFilter, EtoolsFilterTypes} from '../layout/filters/etools-filters';
+import {EtoolsFilter} from '../layout/filters/etools-filters';
 import {isJsonStrMatch} from '../utils/utils';
 
-export enum FilterKeys {
-  search = 'search',
-  status = 'status',
-  document_type = 'document_type',
-  partners = 'partners',
-  start = 'start',
-  end = 'end',
-  end_after = 'end_after',
-  contingency_pd = 'contingency_pd'
+let selectedValueTypeByFilterKey: any;
+
+export function setselectedValueTypeByFilterKey(val: any) {
+  selectedValueTypeByFilterKey = val;
 }
 
-export type FilterKeysAndTheirSelectedValues = {[key in FilterKeys]?: any};
-
-export const defaultSelectedFilters: FilterKeysAndTheirSelectedValues = {
-  search: '',
-  status: [],
-  document_type: [],
-  partners: [],
-  start: null,
-  end: null,
-  end_after: null,
-  contingency_pd: false
-};
-
-export const selectedValueTypeByFilterKey: AnyObject = {
-  [FilterKeys.search]: 'string',
-  [FilterKeys.status]: 'Array',
-  [FilterKeys.document_type]: 'Array',
-  [FilterKeys.partners]: 'Array',
-  [FilterKeys.start]: 'string',
-  [FilterKeys.end]: 'string',
-  [FilterKeys.end_after]: 'string',
-  [FilterKeys.contingency_pd]: 'boolean'
-};
-
-export const defaultFilters: EtoolsFilter[] = [
-  {
-    filterName: translate('INTERVENTIONS_LIST.SEARCH_RECORDS'),
-    filterKey: FilterKeys.search,
-    type: EtoolsFilterTypes.Search,
-    selectedValue: '',
-    selected: true
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.STATUS'),
-    filterKey: FilterKeys.status,
-    type: EtoolsFilterTypes.DropdownMulti,
-    selectionOptions: [],
-    optionValue: 'value',
-    optionLabel: 'label',
-    selectedValue: [],
-    selected: true,
-    minWidth: '350px',
-    hideSearch: true,
-    disabled: false
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.PD_TYPE'),
-    filterKey: FilterKeys.document_type,
-    type: EtoolsFilterTypes.DropdownMulti,
-    selectionOptions: [],
-    optionValue: 'value',
-    optionLabel: 'label',
-    selectedValue: [],
-    selected: false,
-    minWidth: '350px',
-    hideSearch: true,
-    disabled: false
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.PARTNER_ORG'),
-    filterKey: FilterKeys.partners,
-    type: EtoolsFilterTypes.DropdownMulti,
-    selectionOptions: [],
-    selectedValue: [],
-    selected: false,
-    minWidth: '350px',
-    hideSearch: false,
-    disabled: false,
-    optionValue: 'id',
-    optionLabel: 'name'
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.CONTINGENCY_PD'),
-    type: EtoolsFilterTypes.Toggle,
-    filterKey: FilterKeys.contingency_pd,
-    selectedValue: false,
-    selected: true
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.ENDS_BEFORE'),
-    type: EtoolsFilterTypes.Date,
-    filterKey: FilterKeys.end,
-    selectedValue: '',
-    selected: false
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.STARTS_AFTER'),
-    filterKey: FilterKeys.start,
-    type: EtoolsFilterTypes.Date,
-    selectedValue: null,
-    selected: false
-  },
-  {
-    filterName: translate('INTERVENTIONS_LIST.ENDS_AFTER'),
-    type: EtoolsFilterTypes.Date,
-    filterKey: FilterKeys.end_after,
-    selectedValue: '',
-    selected: false
-  }
-];
-
-export const getSelectedFiltersFromUrlParams = (params: AnyObject): FilterKeysAndTheirSelectedValues => {
+export const getSelectedFiltersFromUrlParams = (params: AnyObject) => {
   const selectedFilters: AnyObject = {};
 
   for (const filterKey in params) {
@@ -129,16 +22,16 @@ export const getSelectedFiltersFromUrlParams = (params: AnyObject): FilterKeysAn
       }
     }
   }
-  return selectedFilters as FilterKeysAndTheirSelectedValues;
+  return selectedFilters;
 };
 
 export const updateFiltersSelectedValues = (params: RouteQueryParams, filters: EtoolsFilter[]) => {
   const availableFilters = [...filters];
 
-  const selectedFilters: FilterKeysAndTheirSelectedValues = getSelectedFiltersFromUrlParams(params);
+  const selectedFilters = getSelectedFiltersFromUrlParams(params);
   for (const fKey in selectedFilters) {
     if (fKey) {
-      const selectedValue = selectedFilters[fKey as FilterKeys];
+      const selectedValue = selectedFilters[fKey];
       if (selectedValue) {
         const filter = availableFilters.find((f: EtoolsFilter) => f.filterKey === fKey);
         if (filter) {

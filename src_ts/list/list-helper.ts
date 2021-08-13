@@ -64,7 +64,7 @@ export class ListHelper<T> {
       .then((response) => {
         this.store.dispatch({
           type: 'SHOULD_REGET_LIST',
-          shouldReGetList: true
+          shouldReGetList: false
         });
         return response;
       })
