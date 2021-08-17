@@ -35,10 +35,13 @@
     "@unicef-polymer/etools-dialog": "^4.3.0",
     "@unicef-polymer/etools-table": "^1.2.1",
     "@unicef-polymer/etools-types": "^1.10.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
     "lit-element": "^2.5.1",
     "lit-translate": "^1.2.1",
     "lodash-es": "^4.17.21",
     "redux": "^4.1.1",
+    "through2": "^2.0.5",
     "typescript": "^4.3.5"
   },
   "devDependencies": {
