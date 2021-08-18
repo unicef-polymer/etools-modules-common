@@ -1,0 +1,47 @@
+{
+  "name": "@unicef-polymer/etools-modules-common",
+  "version": "0.0.1",
+  "description": "Common styles, mixins, utils",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/unicef-polymer/etools-modules-common.git"
+  },
+  "keywords": [
+    "utils"
+  ],
+  "author": "UNICEF eTools Team",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/unicef-polymer/etools-modules-common/issues"
+  },
+  "homepage": "https://github.com/unicef-polymer/etools-modules-common#readme",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {},
+  "dependencies": {
+    "@polymer/iron-icon": "^3.0.1",
+    "@polymer/iron-icons": "^3.0.1",
+    "@polymer/paper-icon-button": "^3.0.2",
+    "@polymer/paper-input": "^3.2.1",
+    "@polymer/paper-menu-button": "^3.1.0",
+    "@polymer/paper-tabs": "^3.1.0",
+    "@unicef-polymer/etools-ajax": "^4.2.0",
+    "@unicef-polymer/etools-behaviors": "^3.0.4",
+    "@unicef-polymer/etools-content-panel": "^4.0.1",
+    "@unicef-polymer/etools-currency-amount-input": "^3.1.0",
+    "@unicef-polymer/etools-dialog": "^4.3.0",
+    "@unicef-polymer/etools-table": "^1.2.1",
+    "@unicef-polymer/etools-types": "^1.10.0",
+    "lit-element": "^2.5.1",
+    "lit-translate": "^1.2.1",
+    "lodash-es": "^4.17.21",
+    "redux": "^4.1.1",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/lodash-es": "^4.17.4"
+  }
+}
