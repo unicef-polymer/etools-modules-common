@@ -1,7 +1,7 @@
 import { LitElement, property } from 'lit-element';
 import { sendRequest } from '@unicef-polymer/etools-ajax/etools-ajax-request';
 import { cloneDeep } from '../utils/utils';
-import '../../etools-pages-common/layout/are-you-sure';
+import '../layout/are-you-sure';
 import { AnyObject, Constructor } from '@unicef-polymer/etools-types';
 import { translate } from 'lit-translate';
 import { openDialog } from '../utils/dialog';
