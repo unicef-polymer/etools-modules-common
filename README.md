@@ -2,8 +2,17 @@
 
 Common styles, mixins, utils
 
-## Workaround for tsc not being able to generate definition files for mixins
+## Publish process
 
-CTRL+Shift+H `<T extends Constructor<LitElement>>` with `<T extends Constructor<any>>`. Run tsc.
-After, replace back `any` with `LitElement` (including in d.ts files).
-Delete indexer method from the d.ts of the mixins.
+### Auto-generate
+First of all build src files using comand
+`./node_modules/.bin/gulp`
+Then publish package using
+`npm publish`
+
+### Manual
+Run `tsc`
+`tsc` will fail for some mixin, because of the dependency on LitElement wich has protected members.
+The `d.ts` files for these, can be be moved manually from `mixins/definition_files/` to `dist/mixins`. 
+If there are ny changes made to the mixins, make sure to update `mixins/definition_files`
+
