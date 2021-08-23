@@ -13,6 +13,6 @@ Then publish package using
 ### Manual
 Run `tsc`.
 `tsc` will fail for some mixin, because of the dependency on LitElement wich has protected members.
-The `d.ts` files for these, can be be moved manually from `mixins/definition_files/` to `dist/mixins`. 
+The `d.ts` files for these, can be moved manually from `mixins/definition_files/` to `dist/mixins`. 
 If there are ny changes made to the mixins, make sure to update `mixins/definition_files`
 
