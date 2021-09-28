@@ -12,7 +12,7 @@ export const validateRequiredFields = (
   let isValid = true;
   element!
     .shadowRoot!.querySelectorAll<ValidatableElement>(
-      '[required]:not([readonly])'
+      '[required]:not([readonly]):not([hidden])'
     )
     .forEach((el) => {
       if (el && el.validate && !el.validate()) {
