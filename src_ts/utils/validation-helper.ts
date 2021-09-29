@@ -2,15 +2,19 @@ import {LitElement} from 'lit-element';
 import {PolymerElement} from '@polymer/polymer';
 import {AnyObject} from '@unicef-polymer/etools-types';
 
-type ValidatableElement = (LitElement | PolymerElement) & {validate(): boolean};
+type ValidatableElement = (LitElement | PolymerElement) & {
+  validate(): boolean;
+};
 
 export const validateRequiredFields = (element: LitElement | PolymerElement) => {
   let isValid = true;
-  element!.shadowRoot!.querySelectorAll<ValidatableElement>('[required]').forEach((el) => {
-    if (el && el.validate && !el.validate()) {
-      isValid = false;
-    }
-  });
+  element!
+    .shadowRoot!.querySelectorAll<ValidatableElement>('[required]:not([readonly]):not([hidden])')
+    .forEach((el) => {
+      if (el && el.validate && !el.validate()) {
+        isValid = false;
+      }
+    });
   return isValid;
 };
 
@@ -26,7 +30,9 @@ export const fieldValidationReset = (element: LitElement | PolymerElement, selec
   if (!useValidate) {
     useValidate = false;
   }
-  const field = element.shadowRoot!.querySelector(selector) as LitElement & {validate(): boolean};
+  const field = element.shadowRoot!.querySelector(selector) as LitElement & {
+    validate(): boolean;
+  };
   if (field) {
     if (useValidate) {
       field.validate();
