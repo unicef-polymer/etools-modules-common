@@ -6,7 +6,8 @@ export const ReadonlyStyles = html`<style>
   datepicker-lite[readonly],
   paper-input[readonly],
   paper-textarea[readonly],
-  etools-currency-amount-input[readonly] {
+  etools-currency-amount-input[readonly],
+  paper-textarea-with-icon[readonly] {
     --paper-input-container-underline: {
       display: none;
     }
