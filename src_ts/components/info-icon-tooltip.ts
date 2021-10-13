@@ -14,7 +14,7 @@ export class InfoIconTooltip extends LitElement {
           color: var(--primary-color);
         }
 
-        .content {
+        #etools-iit-content {
           padding: 20px;
           position: relative;
         }
@@ -23,7 +23,7 @@ export class InfoIconTooltip extends LitElement {
           padding: 6px;
           margin: 10px 0px;
           box-sizing: border-box;
-          font-size: 16px;
+          font-size: var(--iit-font-size, 14px);
           color: var(--primary-text-color);
           line-height: 22px;
           font-weight: bold;
@@ -35,8 +35,10 @@ export class InfoIconTooltip extends LitElement {
         }
         iron-icon {
           margin: var(--iit-margin, 0);
+          width: var(--iit-icon-size, 24px);
+          height: var(--iit-icon-size, 24px);
         }
-        .close-link {
+        #close-link {
           font-weight: bold;
           top: 8px;
           right: 10px;
@@ -76,8 +78,8 @@ export class InfoIconTooltip extends LitElement {
         .position="${this.position}"
         .offset="${this.offset}"
       >
-        <div class="content elevation" elevation="1">
-          <a id="close" href="#" @click="${this.close}" class="close-link"> Close</a>
+        <div id="etools-iit-content" class="elevation" elevation="1">
+          <a id="close-link" href="#" @click="${this.close}"> Close</a>
           <div class="tooltip-info gray-border">${unsafeHTML(this.tooltipText)}</div>
         </div>
       </paper-tooltip>
@@ -110,7 +112,7 @@ export class InfoIconTooltip extends LitElement {
 
   hideTooltip(e: PointerEvent) {
     // @ts-ignore
-    if (e.path[0].id !== 'close' && this._isInPath(e.path, 'localName', 'info-icon-tooltip')) {
+    if (e.path[0].id !== 'close-link' && this._isInPath(e.path, 'id', 'etools-iit-content')) {
       return;
     }
 
