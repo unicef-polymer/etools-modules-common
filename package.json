@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -20,7 +20,10 @@
   ],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "scripts": {},
+  "scripts": {
+    "tsToJs": "gulp",
+    "publishPackage": "npm run tsToJs && npm publish"
+  },
   "dependencies": {
     "@polymer/iron-icon": "^3.0.1",
     "@polymer/iron-icons": "^3.0.1",
