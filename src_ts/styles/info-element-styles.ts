@@ -1,14 +1,15 @@
 import {html} from 'lit-element';
-import {sharedStyles} from './shared-styles-lit';
 
 export const InfoElementStyles = html`
-  ${sharedStyles}
   <style>
     :host {
       display: block;
       margin-bottom: 24px;
     }
-    section.table {
+    section {
+      display: flex !important;
+    }
+    table {
       display: flex;
       position: relative;
       justify-content: flex-start;
@@ -35,21 +36,16 @@ export const InfoElementStyles = html`
     .not-allowed label {
       cursor: not-allowed !important;
     }
-    section.not-allowed.table {
-      padding-right: 40px !important;
+
+    .icon-tooltip-div {
+      width: 24px;
+      padding-top: 7px;
+      padding-right: 10px;
     }
-    #not-allowed-icon {
-      --etools-tooltip-trigger-icon: {
-        position: absolute;
-        right: 24px;
-        top: 12px;
-        color: var(--primary-color);
-        cursor: default !important;
-      }
-      --paper-tooltip: {
-        font-size: 14px !important;
-        white-space: normal !important;
-      }
+
+    info-icon-tooltip {
+      color: var(--primary-color);
+      cursor: pointer;
     }
   </style>
 `;
