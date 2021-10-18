@@ -6,7 +6,8 @@ export const RequiredFieldsStyles = html`<style>
   paper-input-container[required],
   datepicker-lite[required],
   etools-upload[required],
-  etools-currency-amount-input[required] {
+  etools-currency-amount-input[required],
+  paper-textarea-with-icon[required] {
     --paper-input-container-label: {
       @apply --required-star-style;
       color: var(--secondary-text-color, #737373);
