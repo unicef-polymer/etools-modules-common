@@ -9,7 +9,7 @@ export const InfoElementStyles = html`
     section {
       display: flex !important;
     }
-    table {
+    .table {
       display: flex;
       position: relative;
       justify-content: flex-start;
