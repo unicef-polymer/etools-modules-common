@@ -15,6 +15,7 @@ export const InfoElementStyles = html`
       justify-content: flex-start;
       padding: 0 24px;
       flex-wrap: wrap;
+      width: 100%;
     }
     .data-column {
       margin: 14px 0;
