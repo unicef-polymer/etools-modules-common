@@ -286,6 +286,11 @@ export const sharedStylesContent = `
   etools-dialog::part(ed-button-styles) {
     margin-top: 0;
   }
+
+  etools-content-panel::part(ecp-header-btns-wrapper) {
+    display: flex;
+    align-item: center;
+  }
 `;
 // export const sharedStyles = html`${unsafeCSS(sharedStylesContent)}`;
 export const sharedStyles = html`
