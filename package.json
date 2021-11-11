@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "0.0.9",
+  "version": "0.1.0-rc.1",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -32,6 +32,7 @@
     "@polymer/paper-menu-button": "^3.1.0",
     "@polymer/paper-tabs": "^3.1.0",
     "@polymer/paper-tooltip": "^3.0.1",
+    "@popperjs/core": "^2.10.2",
     "@unicef-polymer/etools-ajax": "^4.2.0",
     "@unicef-polymer/etools-behaviors": "^3.0.4",
     "@unicef-polymer/etools-content-panel": "^4.1.0",
