@@ -1,6 +1,6 @@
-import { LitElement, query } from 'lit-element';
-import { EtoolsContentPanel } from '@unicef-polymer/etools-content-panel/etools-content-panel';
-import { Constructor } from '@unicef-polymer/etools-types';
+import {LitElement, query} from 'lit-element';
+import {EtoolsContentPanel} from '@unicef-polymer/etools-content-panel/etools-content-panel';
+import {Constructor} from '@unicef-polymer/etools-types';
 
 function ContentPanelMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class ContentPanelMixin extends baseClass {
@@ -9,7 +9,7 @@ function ContentPanelMixin<T extends Constructor<LitElement>>(baseClass: T) {
 
     openContentPanel(): void {
       if (this.contentPanel) {
-        this.contentPanel.set('open', true);
+        this.contentPanel.open = true;
       }
     }
   }
