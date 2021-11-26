@@ -22,6 +22,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "tsToJs": "gulp",
+    "lint": "eslint . --ext js,html --ignore-path .gitignore",
     "publishPackage": "npm run tsToJs && npm publish"
   },
   "dependencies": {
