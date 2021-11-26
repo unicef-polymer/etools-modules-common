@@ -1,24 +1,17 @@
-import { LitElement, property } from 'lit-element';
-import {
-  EtoolsRequestEndpoint,
-  sendRequest,
-} from '@unicef-polymer/etools-ajax/etools-ajax-request';
-import { isJsonStrMatch } from '../utils/utils';
-import { logError } from '@unicef-polymer/etools-behaviors/etools-logging';
-import {
-  tokenEndpointsHost,
-  tokenStorageKeys,
-  getTokenEndpoints,
-} from '../config/config';
-import { AnyObject, Constructor, User } from '@unicef-polymer/etools-types';
+import {LitElement, property} from 'lit-element';
+import {EtoolsRequestEndpoint, sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {isJsonStrMatch} from '../utils/utils';
+import {logError} from '@unicef-polymer/etools-behaviors/etools-logging';
+import {tokenEndpointsHost, tokenStorageKeys, getTokenEndpoints} from '../config/config';
+import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
 import get from 'lodash-es/get';
 
 function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class EndpointsMixinLitClass extends baseClass {
-    @property({ type: Object })
+    @property({type: Object})
     prpCountries!: AnyObject[];
 
-    @property({ type: Object })
+    @property({type: Object})
     currentUser!: User;
 
     endStateChanged(state: any) {
@@ -28,25 +21,17 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       ) {
         this.prpCountries = [...state.commonData!.PRPCountryData!];
       }
-      if (
-        get(state, 'user.data') &&
-        !isJsonStrMatch(state.user.data, this.currentUser)
-      ) {
+      if (get(state, 'user.data') && !isJsonStrMatch(state.user.data, this.currentUser)) {
         this.currentUser = JSON.parse(JSON.stringify(state.user.data));
       }
     }
 
     _getPrpCountryId() {
-      const currentCountry = this.currentUser.countries_available.find(
-        (country: AnyObject) => {
-          return (country as any).id === this.currentUser.country.id;
-        }
-      );
+      const currentCountry = this.currentUser.countries_available.find((country: AnyObject) => {
+        return (country as any).id === this.currentUser.country.id;
+      });
       const prpCountry = this.prpCountries.find((prpCountry: AnyObject) => {
-        return (
-          (prpCountry as any).business_area_code ===
-          currentCountry!.business_area_code
-        );
+        return (prpCountry as any).business_area_code === currentCountry!.business_area_code;
       });
 
       if (!prpCountry) {
@@ -65,31 +50,17 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return template.indexOf('<%=countryId%>') > -1;
     }
 
-    getEndpoint(
-      endpointsList: AnyObject,
-      endpointName: string,
-      data?: AnyObject
-    ) {
-      const endpoint = JSON.parse(
-        JSON.stringify((endpointsList as any)[endpointName])
-      );
-      const authorizationTokenMustBeAdded =
-        this.authorizationTokenMustBeAdded(endpoint);
-      const baseSite = authorizationTokenMustBeAdded
-        ? tokenEndpointsHost(endpoint.token)
-        : window.location.origin;
+    getEndpoint(endpointsList: AnyObject, endpointName: string, data?: AnyObject) {
+      const endpoint = JSON.parse(JSON.stringify((endpointsList as any)[endpointName]));
+      const authorizationTokenMustBeAdded = this.authorizationTokenMustBeAdded(endpoint);
+      const baseSite = authorizationTokenMustBeAdded ? tokenEndpointsHost(endpoint.token) : window.location.origin;
 
       if (this._hasUrlTemplate(endpoint)) {
-        if (
-          data &&
-          authorizationTokenMustBeAdded &&
-          this._urlTemplateHasCountryId(endpoint.template!)
-        ) {
+        if (data && authorizationTokenMustBeAdded && this._urlTemplateHasCountryId(endpoint.template!)) {
           // we need to get corresponding PRP country ID
           (data as any).countryId = this._getPrpCountryId();
         }
-        endpoint.url =
-          baseSite + this._generateUrlFromTemplate(endpoint.template!, data);
+        endpoint.url = baseSite + this._generateUrlFromTemplate(endpoint.template!, data);
       } else {
         if (endpoint.url!.indexOf(baseSite!) === -1) {
           endpoint.url = baseSite + endpoint.url!;
@@ -101,9 +72,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
 
     _generateUrlFromTemplate(tmpl: string, data: AnyObject | undefined) {
       if (!tmpl) {
-        throw new Error(
-          'To generate URL from endpoint url template you need valid template string'
-        );
+        throw new Error('To generate URL from endpoint url template you need valid template string');
       }
 
       if (data && Object.keys(data).length > 0) {
@@ -141,10 +110,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     storeToken(tokenKey: string, tokenBase64Encoded: string) {
-      localStorage.setItem(
-        (tokenStorageKeys as AnyObject)[tokenKey],
-        tokenBase64Encoded
-      );
+      localStorage.setItem((tokenStorageKeys as AnyObject)[tokenKey], tokenBase64Encoded);
     }
 
     decodeBase64Token(encodedToken: string) {
@@ -159,12 +125,12 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     getAuthorizationHeader(token: string) {
-      return { Authorization: 'JWT ' + token };
+      return {Authorization: 'JWT ' + token};
     }
 
     requestToken(endpoint: EtoolsRequestEndpoint) {
       return sendRequest({
-        endpoint: endpoint,
+        endpoint: endpoint
       });
     }
 
@@ -178,18 +144,10 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return (getTokenEndpoints as AnyObject)[tokenKey];
     }
 
-    addTokenToRequestOptions(
-      endpointsCollection: AnyObject,
-      endpointName: string,
-      data: AnyObject
-    ) {
+    addTokenToRequestOptions(endpointsCollection: AnyObject, endpointName: string, data: AnyObject) {
       let options: any = {};
       try {
-        options.endpoint = this.getEndpoint(
-          endpointsCollection,
-          endpointName,
-          data
-        );
+        options.endpoint = this.getEndpoint(endpointsCollection, endpointName, data);
       } catch (e) {
         return Promise.reject(e);
       }
@@ -208,15 +166,10 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
         } else {
           // request new token
           const tokenEndpointName = this.getTokenEndpointName(tokenKey);
-          this.requestToken(
-            this.getEndpoint(endpointsCollection, tokenEndpointName)
-          )
+          this.requestToken(this.getEndpoint(endpointsCollection, tokenEndpointName))
             .then((response: any) => {
               this.storeToken(options.endpoint.token, response.token);
-              options = this._buildOptionsWithTokenHeader(
-                options,
-                response.token
-              );
+              options = this._buildOptionsWithTokenHeader(options, response.token);
               defer.resolve(options);
             })
             .catch((error: any) => {
@@ -238,11 +191,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
               break;
             case 'headers':
               // add additional headers
-              options.headers = Object.assign(
-                {},
-                options.headers,
-                requestAdditionalOptions[key]
-              );
+              options.headers = Object.assign({}, options.headers, requestAdditionalOptions[key]);
               break;
             default:
               options[key] = requestAdditionalOptions[key];
@@ -264,16 +213,9 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
         return;
       }
       const defer = this._getDeferrer();
-      this.addTokenToRequestOptions(
-        endpointsCollection,
-        endpoint,
-        endpointTemplateData
-      )
+      this.addTokenToRequestOptions(endpointsCollection, endpoint, endpointTemplateData)
         .then((requestOptions: any) => {
-          const options = this._addAdditionalRequestOptions(
-            requestOptions,
-            requestAdditionalOptions
-          );
+          const options = this._addAdditionalRequestOptions(requestOptions, requestAdditionalOptions);
           return sendRequest(options, activeReqKey);
         })
         .then((endpointResponse: any) => {

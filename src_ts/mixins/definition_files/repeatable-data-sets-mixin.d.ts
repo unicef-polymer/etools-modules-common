@@ -1,6 +1,6 @@
 import '../layout/are-you-sure';
-import { AnyObject, Constructor } from '@unicef-polymer/etools-types';
-import { LitElement } from 'lit-element';
+import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
+import {LitElement} from 'lit-element';
 declare function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
