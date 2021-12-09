@@ -1,8 +1,8 @@
 import {LitElement, html, property, customElement, css} from 'lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import {elevationStyles} from '@unicef-polymer/etools-modules-common/dist/styles/elevation-styles';
-import {PaperTooltipElement} from '@polymer/paper-tooltip';
 import {callClickOnEnterPushListener} from '@unicef-polymer/etools-modules-common/dist/utils/common-methods';
+import {createPopper, Placement} from "@popperjs/core";
 
 @customElement('info-icon-tooltip')
 export class InfoIconTooltip extends LitElement {
@@ -14,9 +14,16 @@ export class InfoIconTooltip extends LitElement {
           color: var(--primary-color);
         }
 
-        #etools-iit-content {
+        #tooltip {
           padding: 20px;
-          position: relative;
+          display: none;
+          background-color: #ffffff;
+          width: auto;
+          z-index: 9999;
+        }
+
+        #tooltip[data-show] {
+          display: block;
         }
 
         .tooltip-info {
@@ -55,34 +62,18 @@ export class InfoIconTooltip extends LitElement {
     // language=HTML
     return html`
       <style>
-        paper-tooltip {
-          --paper-tooltip-background: #ffffff;
-          --paper-tooltip: {
-            padding: 0;
-          }
-          width: auto;
-        }
         :host {
           display: inline-block;
           cursor: pointer;
         }
       </style>
 
-      <iron-icon tabindex="0" id="info-icon" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
-      <paper-tooltip
-        for="info-icon"
-        id="tooltip"
-        fit-to-visible-bounds
-        manual-mode
-        animation-entry="noanimation"
-        .position="${this.position}"
-        .offset="${this.offset}"
-      >
-        <div id="etools-iit-content" class="elevation" elevation="1">
+        <iron-icon tabindex="0" id="info-icon" aria-describedby="tooltip" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
+
+        <div id="tooltip" role="tooltip" class="elevation" elevation="1">
           <a id="close-link" href="#" @click="${this.close}"> Close</a>
           <div class="tooltip-info gray-border">${unsafeHTML(this.tooltipText)}</div>
         </div>
-      </paper-tooltip>
     `;
   }
 
@@ -96,42 +87,48 @@ export class InfoIconTooltip extends LitElement {
   offset = 14;
 
   private tooltipHandler: any;
+  private popperInstance: any;
+  private tooltipEl: any;
 
   connectedCallback() {
     super.connectedCallback();
-    setTimeout(() => callClickOnEnterPushListener(this.shadowRoot?.querySelector('#info-icon')), 200);
+
+    setTimeout(() => {
+      callClickOnEnterPushListener(this.shadowRoot?.querySelector('#info-icon'));
+      this.setTooltip();
+    }, 200);
+  }
+
+  setTooltip() {
+     const iconEl = this.shadowRoot?.querySelector('#info-icon');
+     this.tooltipEl = this.shadowRoot?.querySelector('#tooltip');
+     this.popperInstance = createPopper(iconEl!, this.tooltipEl, {placement: this.position as Placement,
+     modifiers: [
+    {
+      name: 'offset',
+      options: {
+        offset: [0, this.offset],
+      },
+    },
+    ],});
   }
 
   showTooltip() {
-    const tooltip = this.shadowRoot?.querySelector<PaperTooltipElement>('#tooltip')!;
-    tooltip.show();
+    this.tooltipEl.setAttribute('data-show', '');
+    this.popperInstance.update();
 
     this.tooltipHandler = this.hideTooltip.bind(this);
     document.addEventListener('click', this.tooltipHandler, true);
   }
 
-  hideTooltip(e: PointerEvent) {
-    // @ts-ignore
-    if (e.path[0].id !== 'close-link' && this._isInPath(e.path, 'id', 'etools-iit-content')) {
-      return;
-    }
-
-    this.shadowRoot?.querySelector<PaperTooltipElement>('#tooltip')?.hide();
+  hideTooltip() {
+    this.tooltipEl.removeAttribute('data-show');
     document.removeEventListener('click', this.tooltipHandler);
   }
 
   close(e: PointerEvent) {
     e.preventDefault();
-    this.hideTooltip(e);
+    this.hideTooltip();
   }
 
-  _isInPath(path: [], propertyName: string, elementName: string) {
-    path = path || [];
-    for (let i = 0; i < path.length; i++) {
-      if (path[i][propertyName] === elementName) {
-        return true;
-      }
-    }
-    return false;
-  }
 }
