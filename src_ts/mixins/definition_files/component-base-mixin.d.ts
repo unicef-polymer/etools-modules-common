@@ -1,9 +1,5 @@
-import {
-  AnyObject,
-  Constructor,
-  MinimalUser,
-} from '@unicef-polymer/etools-types';
-import { LitElement } from 'lit-element';
+import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
+import {LitElement} from 'lit-element';
 import ContentPanelMixin from './content-panel-mixin';
 declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
   baseClass: T
@@ -23,20 +19,12 @@ declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
     validate(): boolean;
     saveData(): Promise<any>;
     save(): void;
-    renderActions(
-      editMode: boolean,
-      canEditAnyFields: boolean
-    ): import('lit-element').TemplateResult;
-    renderEditBtn(
-      editMode: boolean,
-      canEditAnyFields: boolean
-    ): import('lit-element').TemplateResult;
+    renderActions(editMode: boolean, canEditAnyFields: boolean): import('lit-element').TemplateResult;
+    renderEditBtn(editMode: boolean, canEditAnyFields: boolean): import('lit-element').TemplateResult;
     renderReadonlyUserDetails(
       selectedUsers: any[],
       allUsers?: any[] | undefined
-    ):
-      | import('lit-element').TemplateResult
-      | import('lit-element').TemplateResult[];
+    ): import('lit-element').TemplateResult | import('lit-element').TemplateResult[];
     renderNameEmailPhone(item: any): import('lit-element').TemplateResult;
     selectedItemChanged(detail: any, key: string, optionValue?: string): void;
     selectedUserChanged(detail: any, key: string): void;

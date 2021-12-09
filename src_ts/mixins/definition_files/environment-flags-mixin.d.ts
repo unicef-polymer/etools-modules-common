@@ -1,5 +1,5 @@
-import { EnvFlags, Constructor } from '@unicef-polymer/etools-types';
-import { LitElement } from 'lit-element';
+import {EnvFlags, Constructor} from '@unicef-polymer/etools-types';
+import {LitElement} from 'lit-element';
 /**
  * @polymer
  * @mixinFunction

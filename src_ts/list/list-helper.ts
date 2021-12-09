@@ -85,7 +85,7 @@ export class ListHelper<T> {
     }
     const sorted: T[] = sortBy(list, (intervention: T) => {
       if (field === 'end' || field === 'start') {
-        const stringDate: string | null = (intervention[field] as unknown) as string;
+        const stringDate: string | null = intervention[field] as unknown as string;
         return stringDate ? new Date(stringDate).getTime() : 0;
       } else {
         return intervention[field];

@@ -1,6 +1,6 @@
-import { LitElement, html, property, customElement } from 'lit-element';
+import {LitElement, html, property, customElement} from 'lit-element';
 import '@polymer/iron-icons/iron-icons';
-import { completedStatusIcon } from './status-icons';
+import {completedStatusIcon} from './status-icons';
 
 export type EtoolsStatusItem = [string, string];
 
@@ -13,9 +13,7 @@ export type EtoolsStatusItem = [string, string];
 export class EtoolsStatus extends LitElement {
   public render() {
     const activeStatusIndex: number = this.activeStatus
-      ? this.statuses.findIndex(
-          ([status]: EtoolsStatusItem) => status === this.activeStatus
-        )
+      ? this.statuses.findIndex(([status]: EtoolsStatusItem) => status === this.activeStatus)
       : 0;
 
     // language=HTML
@@ -77,23 +75,17 @@ export class EtoolsStatus extends LitElement {
           fill: #ffffff;
         }
       </style>
-      ${this.statuses.map((item: any, index: number) =>
-        this.getStatusHtml(item, index, activeStatusIndex)
-      )}
+      ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
     `;
   }
 
-  @property({ type: String })
+  @property({type: String})
   activeStatus!: string;
 
-  @property({ type: Array })
+  @property({type: Array})
   statuses: EtoolsStatusItem[] = [];
 
-  getStatusHtml(
-    item: EtoolsStatusItem,
-    index: number,
-    activeStatusIndex: number
-  ) {
+  getStatusHtml(item: EtoolsStatusItem, index: number, activeStatusIndex: number) {
     const completed = this.isCompleted(index, activeStatusIndex);
     // if status is terminated..we do not show active, and reverse
     // @lajos: this should be refactored to something better
@@ -101,15 +93,8 @@ export class EtoolsStatus extends LitElement {
       if (this.statuses.length - 1 == index) {
         // special icon for terminated status
         return html`
-          <div
-            class="status ${this.getStatusClasses(index, activeStatusIndex)}"
-          >
-            <iron-icon
-              class="custom-icon"
-              style="color: #ea4022"
-              icon="report-problem"
-            >
-            </iron-icon>
+          <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
+            <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>
             <span class="label">${item[1]}</span>
           </div>
         `;
@@ -118,11 +103,7 @@ export class EtoolsStatus extends LitElement {
 
     return html`
       <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-        <span class="icon">
-          ${completed
-            ? html`${completedStatusIcon}`
-            : html`${this.getBaseOneIndex(index)}`}
-        </span>
+        <span class="icon"> ${completed ? html`${completedStatusIcon}` : html`${this.getBaseOneIndex(index)}`} </span>
         <span class="label">${item[1]}</span>
       </div>
     `;
@@ -137,10 +118,7 @@ export class EtoolsStatus extends LitElement {
   }
 
   isCompleted(index: number, activeStatusIndex: number): boolean {
-    return (
-      index < activeStatusIndex ||
-      activeStatusIndex === this.statuses.length - 1
-    );
+    return index < activeStatusIndex || activeStatusIndex === this.statuses.length - 1;
   }
 
   getStatusClasses(index: number, activeStatusIndex: number): string {

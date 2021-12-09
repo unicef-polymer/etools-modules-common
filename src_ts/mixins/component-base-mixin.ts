@@ -1,39 +1,33 @@
-import { LitElement, property, html } from 'lit-element';
+import {LitElement, property, html} from 'lit-element';
 import cloneDeep from 'lodash-es/cloneDeep';
-import { areEqual, filterByIds } from '../utils/utils';
-import { fireEvent } from '../utils/fire-custom-event';
-import { validateRequiredFields } from '../utils/validation-helper';
-import { formatDate } from '../utils/date-utils';
+import {areEqual, filterByIds} from '../utils/utils';
+import {fireEvent} from '../utils/fire-custom-event';
+import {validateRequiredFields} from '../utils/validation-helper';
+import {formatDate} from '../utils/date-utils';
 import isEmpty from 'lodash-es/isEmpty';
 import ContentPanelMixin from './content-panel-mixin';
-import {
-  AnyObject,
-  Constructor,
-  MinimalUser,
-} from '@unicef-polymer/etools-types';
-import { translate } from 'lit-translate';
+import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
+import {translate} from 'lit-translate';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class ComponentBaseClass extends ContentPanelMixin(baseClass) {
-    @property({ type: Boolean })
+    @property({type: Boolean})
     editMode = false;
 
-    @property({ type: Boolean })
+    @property({type: Boolean})
     canEditAtLeastOneField = false;
 
-    @property({ type: Object })
+    @property({type: Object})
     originalData!: any;
 
-    @property({ type: Object })
+    @property({type: Object})
     data: any = {};
 
-    @property({ type: Object })
+    @property({type: Object})
     permissions!: any;
 
     set_canEditAtLeastOneField(editPermissions: AnyObject) {
-      this.canEditAtLeastOneField = Object.keys(editPermissions).some(
-        (key: string) => editPermissions[key] === true
-      );
+      this.canEditAtLeastOneField = Object.keys(editPermissions).some((key: string) => editPermissions[key] === true);
     }
 
     hideEditIcon(editMode: boolean, canEdit: boolean) {
@@ -74,12 +68,12 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     save() {
       fireEvent(this, 'global-loading', {
         active: true,
-        loadingSource: this.localName,
+        loadingSource: this.localName
       });
       this.saveData().finally(() => {
         fireEvent(this, 'global-loading', {
           active: false,
-          loadingSource: this.localName,
+          loadingSource: this.localName
         });
       });
     }
@@ -89,12 +83,8 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
         ? html``
         : html`
             <div class="layout-horizontal right-align row-padding-v">
-              <paper-button class="default" @click="${this.cancel}"
-                >${translate('GENERAL.CANCEL')}</paper-button
-              >
-              <paper-button class="primary" @click="${this.save}">
-                ${translate('GENERAL.SAVE')}
-              </paper-button>
+              <paper-button class="default" @click="${this.cancel}">${translate('GENERAL.CANCEL')}</paper-button>
+              <paper-button class="primary" @click="${this.save}"> ${translate('GENERAL.SAVE')} </paper-button>
             </div>
           `;
     }
@@ -102,10 +92,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     renderEditBtn(editMode: boolean, canEditAnyFields: boolean) {
       return this.hideEditIcon(editMode, canEditAnyFields)
         ? html``
-        : html`
-            <paper-icon-button @click="${this.allowEdit}" icon="create">
-            </paper-icon-button>
-          `;
+        : html` <paper-icon-button @click="${this.allowEdit}" icon="create"> </paper-icon-button> `;
     }
 
     renderReadonlyUserDetails(selectedUsers: any[], allUsers?: any[]) {
@@ -117,9 +104,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       }
 
       return selectedUsers.map((u: any) => {
-        return html`<div class="w100 padd-between">
-          ${this.renderNameEmailPhone(u)}
-        </div>`;
+        return html`<div class="w100 padd-between">${this.renderNameEmailPhone(u)}</div>`;
       });
     }
 
@@ -133,9 +118,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       if (detail.selectedItem === undefined) {
         return;
       }
-      const newValue = detail.selectedItem
-        ? detail.selectedItem[optionValue]
-        : null;
+      const newValue = detail.selectedItem ? detail.selectedItem[optionValue] : null;
       if (areEqual(this.data[key], newValue)) {
         return;
       }
@@ -167,7 +150,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       this.requestUpdate();
     }
 
-    dateHasChanged(detail: { date: Date }, key: string) {
+    dateHasChanged(detail: {date: Date}, key: string) {
       if (detail.date === undefined) {
         return;
       }
@@ -214,18 +197,8 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
      * check if already saved users exist on loaded data, if not they will be added
      * (they might be missing if changed country)
      */
-    handleUsersNoLongerAssignedToCurrentCountry(
-      availableUsers: AnyObject[],
-      savedUsers?: MinimalUser[]
-    ) {
-      if (
-        !(
-          savedUsers &&
-          savedUsers.length > 0 &&
-          availableUsers &&
-          availableUsers.length > 0
-        )
-      ) {
+    handleUsersNoLongerAssignedToCurrentCountry(availableUsers: AnyObject[], savedUsers?: MinimalUser[]) {
+      if (!(savedUsers && savedUsers.length > 0 && availableUsers && availableUsers.length > 0)) {
         return false;
       }
 
