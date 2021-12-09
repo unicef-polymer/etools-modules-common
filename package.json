@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "2.0.0-rc.2",
+  "version": "2.0.0-rc.3",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -39,6 +39,7 @@
     "@unicef-polymer/etools-dialog": "^6.0.0-rc.1",
     "@unicef-polymer/etools-table": "^1.2.1",
     "@unicef-polymer/etools-types": "^1.10.0",
+    "@popperjs/core": "^2.10.2",
     "lit-element": "^2.5.1",
     "lit-translate": "^1.2.1",
     "lodash-es": "^4.17.21",
