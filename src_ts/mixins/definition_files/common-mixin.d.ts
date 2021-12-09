@@ -1,4 +1,4 @@
-import { AnyObject, Constructor } from '@unicef-polymer/etools-types';
+import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
 declare function CommonMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
@@ -7,11 +7,7 @@ declare function CommonMixin<T extends Constructor<LitElement>>(
      * Prepare and return the string value we have to display on the interface.
      * Ex: partners and agreements lists data values.
      */
-    getDisplayValue(
-      value: any,
-      separator: string,
-      skipSpaces: boolean
-    ): string | number;
+    getDisplayValue(value: any, separator: string, skipSpaces: boolean): string | number;
     /**
      * Prepare date string and return it in a user readable format
      */

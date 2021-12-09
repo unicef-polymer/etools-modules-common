@@ -1,56 +1,41 @@
-import { LitElement, property } from 'lit-element';
-import { EtoolsCurrency } from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-mixin';
-import {
-  Constructor,
-  InterventionListData,
-} from '@unicef-polymer/etools-types';
-import { Fr, FrsDetails, Intervention } from '@unicef-polymer/etools-types';
+import {LitElement, property} from 'lit-element';
+import {EtoolsCurrency} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-mixin';
+import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
+import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
 
-function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
-  baseClass: T
-) {
+function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class FrNumbersConsistencyClass extends EtoolsCurrency(baseClass) {
-    @property({ type: Object })
+    @property({type: Object})
     frsConsistencyWarnings = {
-      amountsCannotBeCompared:
-        'FRs Amount and UNICEF Cash Contribution can not be compared.',
+      amountsCannotBeCompared: 'FRs Amount and UNICEF Cash Contribution can not be compared.',
       tooManyFrsCurencies: 'More than 1 FR currency is available.',
-      amountAndDisbursementNotDisplayed:
-        'Totals for FR amount and Actual Disbursement can not be displayed.',
+      amountAndDisbursementNotDisplayed: 'Totals for FR amount and Actual Disbursement can not be displayed.',
       currencyMismatch: 'FR currency does not match PD/SPD currency.',
       cannotCalcDisbursement: 'Disbursement to Date % can not calculate.',
       addedFrsCurrenciesMismatch:
         'The currency of the PD/SPD and the FR are not the same and cannot be ' +
         'compared.\nTo be able to compare the amounts, you can cancel and enter the budget in the same currency ' +
         'as the FR.\n',
-      amount:
-        'Total FR amount is not the same as planned UNICEF Cash Contribution.',
+      amount: 'Total FR amount is not the same as planned UNICEF Cash Contribution.',
       dateTmpl: 'FR <<field_name>> is not the same as PD/SPD <<field_name>>.',
-      warningTmpl:
-        'The <<frs_fields>> <<verb>> not the same as PD/SPD <<pd_fields>>.',
-      FCmultiCurrFlagErrorMsg:
-        'There are multiple transaction currencies in VISION',
+      warningTmpl: 'The <<frs_fields>> <<verb>> not the same as PD/SPD <<pd_fields>>.',
+      FCmultiCurrFlagErrorMsg: 'There are multiple transaction currencies in VISION'
     };
-    @property({ type: Object })
+    @property({type: Object})
     frsValidationFields = {
       start_date: 'Start Date',
       end_date: 'End Date',
       pd_unicef_cash_contribution: 'UNICEF Cash Contribution',
       fr_earliest_date: 'FR Start Date',
       fr_latest_date: 'FR End Date',
-      fr_total_amount: 'Total FR amount',
+      fr_total_amount: 'Total FR amount'
     };
 
     /*
      * frs currencies and planned budget currency check
      */
-    _frsAndPlannedBudgetCurrenciesMatch(
-      frs: Fr[],
-      plannedBudgetCurrency: string
-    ) {
-      const differentFrCurrencies = frs.filter(
-        (fr) => fr.currency !== plannedBudgetCurrency
-      );
+    _frsAndPlannedBudgetCurrenciesMatch(frs: Fr[], plannedBudgetCurrency: string) {
+      const differentFrCurrencies = frs.filter((fr) => fr.currency !== plannedBudgetCurrency);
       return differentFrCurrencies.length === 0;
     }
 
@@ -66,44 +51,25 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
     /**
      * Check FR numbers total amount against planned budget unicef total contribution and start/end dates
      */
-    checkFrsConsistency(
-      frsDetails: FrsDetails,
-      intervention: Intervention,
-      skipEmptyListCheck?: boolean
-    ) {
+    checkFrsConsistency(frsDetails: FrsDetails, intervention: Intervention, skipEmptyListCheck?: boolean) {
       if (intervention.status === 'closed') {
         return false;
       }
 
       const warnFrsFields = []; // FR fields
       const warnIntervFields = []; // PD/SPD fields
-      if (
-        this.checkFrsAndIntervDateConsistency(
-          intervention.start,
-          frsDetails.earliest_start_date
-        )
-      ) {
+      if (this.checkFrsAndIntervDateConsistency(intervention.start, frsDetails.earliest_start_date)) {
         warnFrsFields.push(this.frsValidationFields.fr_earliest_date);
         warnIntervFields.push(this.frsValidationFields.start_date);
       }
-      if (
-        this.checkFrsAndIntervDateConsistency(
-          intervention.end,
-          frsDetails.latest_end_date
-        )
-      ) {
+      if (this.checkFrsAndIntervDateConsistency(intervention.end, frsDetails.latest_end_date)) {
         warnFrsFields.push(this.frsValidationFields.fr_latest_date);
         warnIntervFields.push(this.frsValidationFields.end_date);
       }
 
       let computedWarning = '';
       // check frs currencies and planned budget currency match
-      if (
-        this._frsAndPlannedBudgetCurrenciesMatch(
-          frsDetails.frs,
-          intervention.planned_budget!.currency as string
-        )
-      ) {
+      if (this._frsAndPlannedBudgetCurrenciesMatch(frsDetails.frs, intervention.planned_budget!.currency as string)) {
         // currencies are the same => check amounts consistency
         if (
           this.checkFrsAndUnicefCashAmountsConsistency(
@@ -116,33 +82,22 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
           )
         ) {
           warnFrsFields.push(this.frsValidationFields.fr_total_amount);
-          warnIntervFields.push(
-            this.frsValidationFields.pd_unicef_cash_contribution
-          );
+          warnIntervFields.push(this.frsValidationFields.pd_unicef_cash_contribution);
         }
       } else {
         // currencies of the frs and planned budget do NOT match
-        computedWarning =
-          this.frsConsistencyWarnings.addedFrsCurrenciesMismatch;
+        computedWarning = this.frsConsistencyWarnings.addedFrsCurrenciesMismatch;
       }
 
       if (warnFrsFields.length > 0) {
         computedWarning += this.frsConsistencyWarnings.warningTmpl;
-        computedWarning = this._buildFrsWarningMsg(
-          computedWarning,
-          '<<frs_fields>>',
-          warnFrsFields.join(', ')
-        );
+        computedWarning = this._buildFrsWarningMsg(computedWarning, '<<frs_fields>>', warnFrsFields.join(', '));
         computedWarning = this._buildFrsWarningMsg(
           computedWarning,
           '<<verb>>',
           warnFrsFields.length > 1 ? 'are' : 'is'
         );
-        computedWarning = this._buildFrsWarningMsg(
-          computedWarning,
-          '<<pd_fields>>',
-          warnIntervFields.join(', ')
-        );
+        computedWarning = this._buildFrsWarningMsg(computedWarning, '<<pd_fields>>', warnIntervFields.join(', '));
       }
       return computedWarning !== '' ? computedWarning : false;
     }
@@ -181,11 +136,7 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
     ) {
       if (
         intervention.status === 'closed' ||
-        (!skipEmptyListCheck &&
-          this.emptyFrsList(
-            intervention as any,
-            interventionIsFromWhere as any
-          ))
+        (!skipEmptyListCheck && this.emptyFrsList(intervention as any, interventionIsFromWhere as any))
       ) {
         return true;
       }
@@ -203,20 +154,13 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
     ) {
       if (!this.validateFrsVsInterventionDates(intervDateStr, frsDateStr)) {
         return returnMsg
-          ? this._buildFrsWarningMsg(
-              this.frsConsistencyWarnings.dateTmpl,
-              '<<field_name>>',
-              fieldName as string
-            )
+          ? this._buildFrsWarningMsg(this.frsConsistencyWarnings.dateTmpl, '<<field_name>>', fieldName as string)
           : true;
       }
       return false;
     }
 
-    validateFrsVsInterventionDates(
-      intervDateStr: string,
-      frsDateStr: string | null
-    ) {
+    validateFrsVsInterventionDates(intervDateStr: string, frsDateStr: string | null) {
       if (!frsDateStr || !intervDateStr) {
         // No Fr added or interv dates not set yet
         return true;
@@ -224,11 +168,7 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       return intervDateStr === frsDateStr;
     }
 
-    _buildFrsWarningMsg(
-      msgTemplate: string,
-      searchStr: string,
-      replacementStr: string
-    ) {
+    _buildFrsWarningMsg(msgTemplate: string, searchStr: string, replacementStr: string) {
       return msgTemplate.replace(new RegExp(searchStr, 'g'), replacementStr);
     }
 
@@ -256,29 +196,16 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       return !!active;
     }
 
-    emptyFrsList(
-      intervention: Intervention,
-      interventionIsFromWhere: 'interventionMetadata'
-    ): boolean;
-    emptyFrsList(
-      intervention: InterventionListData,
-      interventionIsFromWhere: 'interventionsList'
-    ): boolean;
+    emptyFrsList(intervention: Intervention, interventionIsFromWhere: 'interventionMetadata'): boolean;
+    emptyFrsList(intervention: InterventionListData, interventionIsFromWhere: 'interventionsList'): boolean;
     emptyFrsList(intervention: any, interventionIsFromWhere: string) {
       // * The intervention object from interventions-list
       // has different properties than the one on intervention-metadata
       switch (interventionIsFromWhere) {
         case 'interventionMetadata':
-          return (
-            !intervention ||
-            !intervention.frs_details ||
-            intervention.frs_details.frs.length === 0
-          );
+          return !intervention || !intervention.frs_details || intervention.frs_details.frs.length === 0;
         case 'interventionsList':
-          return (
-            !intervention.frs_earliest_start_date ||
-            !intervention.frs_latest_end_date
-          );
+          return !intervention.frs_earliest_start_date || !intervention.frs_latest_end_date;
         default:
           return true;
       }
@@ -288,35 +215,16 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       return frsCurrencyMatch ? frs[0].currency : 'N/A';
     }
 
-    getFrsTotal(
-      frsCurrencyMatch: boolean,
-      totalAmt: string,
-      negateCurrencyMatchFlagFirst?: boolean
-    ) {
-      frsCurrencyMatch = negateCurrencyMatchFlagFirst
-        ? !frsCurrencyMatch
-        : frsCurrencyMatch;
-      return frsCurrencyMatch
-        ? this.displayCurrencyAmount(totalAmt, '0.00')
-        : 'N/A';
+    getFrsTotal(frsCurrencyMatch: boolean, totalAmt: string, negateCurrencyMatchFlagFirst?: boolean) {
+      frsCurrencyMatch = negateCurrencyMatchFlagFirst ? !frsCurrencyMatch : frsCurrencyMatch;
+      return frsCurrencyMatch ? this.displayCurrencyAmount(totalAmt, '0.00') : 'N/A';
     }
 
-    allCurrenciesMatch(
-      frsCurrencyMatch: boolean,
-      frs: Fr[],
-      plannedBudgetCurrency: string
-    ) {
-      return (
-        frsCurrencyMatch &&
-        this._frsAndPlannedBudgetCurrenciesMatch(frs, plannedBudgetCurrency)
-      );
+    allCurrenciesMatch(frsCurrencyMatch: boolean, frs: Fr[], plannedBudgetCurrency: string) {
+      return frsCurrencyMatch && this._frsAndPlannedBudgetCurrenciesMatch(frs, plannedBudgetCurrency);
     }
 
-    hideFrCurrencyTooltip(
-      frsCurrencyMatch: boolean,
-      frCurrency: string,
-      plannedBudgetCurrency?: string
-    ) {
+    hideFrCurrencyTooltip(frsCurrencyMatch: boolean, frCurrency: string, plannedBudgetCurrency?: string) {
       return !frsCurrencyMatch ? frCurrency === plannedBudgetCurrency : true;
     }
 
@@ -326,11 +234,7 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       plannedBudgetCurrency: string,
       frsTotalAmountWarning: string
     ) {
-      const allCurrenciesMatch = this.allCurrenciesMatch(
-        frsCurrencyMatch,
-        frs,
-        plannedBudgetCurrency
-      );
+      const allCurrenciesMatch = this.allCurrenciesMatch(frsCurrencyMatch, frs, plannedBudgetCurrency);
       return !allCurrenciesMatch || !frsTotalAmountWarning;
     }
 
@@ -351,17 +255,11 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
         this.frsConsistencyWarnings.tooManyFrsCurencies +
         '\n' +
         this.frsConsistencyWarnings.amountAndDisbursementNotDisplayed;
-      return !frsCurrencyMatch
-        ? tooManyCurrenciesMsg
-        : this.frsConsistencyWarnings.currencyMismatch;
+      return !frsCurrencyMatch ? tooManyCurrenciesMsg : this.frsConsistencyWarnings.currencyMismatch;
     }
 
     getFrCurrencyTooltipMsg() {
-      return (
-        this.frsConsistencyWarnings.currencyMismatch +
-        '\n' +
-        this.frsConsistencyWarnings.cannotCalcDisbursement
-      );
+      return this.frsConsistencyWarnings.currencyMismatch + '\n' + this.frsConsistencyWarnings.cannotCalcDisbursement;
     }
 
     /**
@@ -371,9 +269,7 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
      * @return {boolean}
      */
     _allCurrenciesAreConsistent(allCurrenciesAreConsistent: any) {
-      return typeof allCurrenciesAreConsistent === 'boolean'
-        ? allCurrenciesAreConsistent
-        : true;
+      return typeof allCurrenciesAreConsistent === 'boolean' ? allCurrenciesAreConsistent : true;
     }
 
     hideIntListUnicefCashAmountTooltip(
@@ -382,30 +278,18 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       frsTotalAmt: string,
       intervention: Intervention
     ) {
-      const consistentCurrencies = this._allCurrenciesAreConsistent(
-        allCurrenciesAreConsistent
-      );
+      const consistentCurrencies = this._allCurrenciesAreConsistent(allCurrenciesAreConsistent);
       if (consistentCurrencies) {
-        return this.validateFrsVsUnicefCashAmounts(
-          unicefCash,
-          frsTotalAmt,
-          intervention,
-          'interventionsList'
-        );
+        return this.validateFrsVsUnicefCashAmounts(unicefCash, frsTotalAmt, intervention, 'interventionsList');
       }
       return false;
     }
 
     getCurrencyMismatchClass(allCurrenciesAreConsistent: any) {
-      return this._allCurrenciesAreConsistent(allCurrenciesAreConsistent)
-        ? ''
-        : 'currency-mismatch';
+      return this._allCurrenciesAreConsistent(allCurrenciesAreConsistent) ? '' : 'currency-mismatch';
     }
 
-    getIntListUnicefCashAmountTooltipMsg(
-      allCurrenciesAreConsistent: any,
-      frsCurrenciesAreConsistent: boolean
-    ) {
+    getIntListUnicefCashAmountTooltipMsg(allCurrenciesAreConsistent: any, frsCurrenciesAreConsistent: boolean) {
       if (this._allCurrenciesAreConsistent(allCurrenciesAreConsistent)) {
         return this.getFrsTotalAmountInconsistencyMsg();
       }

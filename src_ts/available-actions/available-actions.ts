@@ -1,3 +1,4 @@
+/* eslint-disable lit-a11y/click-events-have-key-events */
 import {GenericObject} from '@unicef-polymer/etools-types/dist/global.types';
 import {html, LitElement, property} from 'lit-element';
 import {sendRequest} from '@unicef-polymer/etools-ajax';
@@ -46,6 +47,7 @@ export class AvailableActions extends LitElement {
   @property({type: String})
   entityId!: string;
 
+  // eslint-disable-next-line no-invalid-this
   actionsNamesMap = new Proxy(this.namesMap, {
     get(target: GenericObject<string>, property: string): string {
       return target[property] || property.replace('_', ' ');

@@ -1,44 +1,36 @@
-import { LitElement, property } from 'lit-element';
-import { sendRequest } from '@unicef-polymer/etools-ajax/etools-ajax-request';
-import { cloneDeep } from '../utils/utils';
+import {LitElement, property} from 'lit-element';
+import {sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {cloneDeep} from '../utils/utils';
 import '../layout/are-you-sure';
-import { AnyObject, Constructor } from '@unicef-polymer/etools-types';
-import { translate } from 'lit-translate';
-import { openDialog } from '../utils/dialog';
-import { fireEvent } from '../utils/fire-custom-event';
+import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
+import {translate} from 'lit-translate';
+import {openDialog} from '../utils/dialog';
+import {fireEvent} from '../utils/fire-custom-event';
 
-function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
-  baseClass: T
-) {
+function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class RepeatableDataSetsClass extends baseClass {
-    @property({ type: String })
-    deleteConfirmationTitle = translate(
-      'DELETE_CONFIRMATION'
-    ) as unknown as string;
+    @property({type: String})
+    deleteConfirmationTitle = translate('DELETE_CONFIRMATION') as unknown as string;
 
-    @property({ type: String })
-    deleteConfirmationMessage = translate(
-      'ARE_YOU_SURE_DEL'
-    ) as unknown as string;
+    @property({type: String})
+    deleteConfirmationMessage = translate('ARE_YOU_SURE_DEL') as unknown as string;
 
-    @property({ type: String })
-    deleteActionLoadingMsg = translate(
-      'DELETE_FROM_SERVER'
-    ) as unknown as string;
+    @property({type: String})
+    deleteActionLoadingMsg = translate('DELETE_FROM_SERVER') as unknown as string;
 
-    @property({ type: String })
+    @property({type: String})
     deleteLoadingSource = 'delete-data-set';
 
-    @property({ type: String })
+    @property({type: String})
     deleteActionDefaultErrMsg = translate('DELETE_FAILED') as unknown as string;
 
-    @property({ type: Array })
+    @property({type: Array})
     data!: any[];
 
-    @property({ type: Boolean })
+    @property({type: Boolean})
     editMode!: boolean;
 
-    @property({ type: Object })
+    @property({type: Object})
     dataSetModel!: AnyObject | null;
 
     elToDeleteIndex!: number;
@@ -53,9 +45,9 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
         dialog: 'are-you-sure',
         dialogData: {
           content: this.deleteConfirmationMessage,
-          confirmBtnText: translate('GENERAL.YES') as unknown as string,
-        },
-      }).then(({ confirmed }) => {
+          confirmBtnText: translate('GENERAL.YES') as unknown as string
+        }
+      }).then(({confirmed}) => {
         return confirmed;
       });
 
@@ -68,9 +60,7 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
         return;
       }
 
-      const id = this.data[this.elToDeleteIndex]
-        ? this.data[this.elToDeleteIndex].id
-        : null;
+      const id = this.data[this.elToDeleteIndex] ? this.data[this.elToDeleteIndex].id : null;
       if (!id) {
         this._deleteElement();
         this.elToDeleteIndex = -1;
@@ -85,24 +75,21 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
       fireEvent(this, 'global-loading', {
         message: this.deleteActionLoadingMsg,
         active: true,
-        loadingSource: this.deleteLoadingSource,
+        loadingSource: this.deleteLoadingSource
       });
 
-      let endpointParams = { id: id };
+      let endpointParams = {id: id};
       // @ts-ignore
       if (this.extraEndpointParams) {
         // @ts-ignore
-        endpointParams = { ...endpointParams, ...this.extraEndpointParams };
+        endpointParams = {...endpointParams, ...this.extraEndpointParams};
       }
       // @ts-ignore
-      const deleteEndpoint = this.getEndpoint(
-        this._deleteEpName,
-        endpointParams
-      );
+      const deleteEndpoint = this.getEndpoint(this._deleteEpName, endpointParams);
       sendRequest({
         method: 'DELETE',
         endpoint: deleteEndpoint,
-        body: {},
+        body: {}
       })
         .then(() => {
           this._handleDeleteResponse();
@@ -117,14 +104,14 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
       this.elToDeleteIndex = -1;
       fireEvent(this, 'global-loading', {
         active: false,
-        loadingSource: this.deleteLoadingSource,
+        loadingSource: this.deleteLoadingSource
       });
     }
 
     public _handleDeleteError(responseErr: any) {
       fireEvent(this, 'global-loading', {
         active: false,
-        loadingSource: this.deleteLoadingSource,
+        loadingSource: this.deleteLoadingSource
       });
 
       let msg = this.deleteActionDefaultErrMsg;
@@ -133,7 +120,7 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
       } else if (typeof responseErr === 'string') {
         msg = responseErr;
       }
-      fireEvent(this, 'toast', { text: msg, showCloseBtn: true });
+      fireEvent(this, 'toast', {text: msg, showCloseBtn: true});
     }
 
     public _deleteElement() {
@@ -146,7 +133,7 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
         // To mke sure all req. observers are triggered
         this.data = cloneDeep(this.data);
 
-        fireEvent(this, 'delete-confirm', { index: this.elToDeleteIndex });
+        fireEvent(this, 'delete-confirm', {index: this.elToDeleteIndex});
       }
     }
 
@@ -159,10 +146,7 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
       const duplicateItems =
         this.data &&
         this.data.filter((item, index) => {
-          return (
-            parseInt(item[itemValueName]) === parseInt(selValue) &&
-            parseInt(String(index)) !== parseInt(selIndex)
-          );
+          return parseInt(item[itemValueName]) === parseInt(selValue) && parseInt(String(index)) !== parseInt(selIndex);
         });
       return duplicateItems && duplicateItems.length;
     }

@@ -1,6 +1,6 @@
-import { EtoolsRequestEndpoint } from '@unicef-polymer/etools-ajax/etools-ajax-request';
-import { AnyObject, Constructor, User } from '@unicef-polymer/etools-types';
-import { LitElement } from 'lit-element';
+import {EtoolsRequestEndpoint} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
+import {LitElement} from 'lit-element';
 declare function EndpointsLitMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
@@ -10,11 +10,7 @@ declare function EndpointsLitMixin<T extends Constructor<LitElement>>(
     endStateChanged(state: any): void;
     _getPrpCountryId(): any;
     _urlTemplateHasCountryId(template: string): boolean;
-    getEndpoint(
-      endpointsList: AnyObject,
-      endpointName: string,
-      data?: AnyObject | undefined
-    ): any;
+    getEndpoint(endpointsList: AnyObject, endpointName: string, data?: AnyObject | undefined): any;
     _generateUrlFromTemplate(tmpl: string, data: AnyObject | undefined): string;
     _hasUrlTemplate(endpoint: AnyObject): any;
     _getDeferrer(): any;
@@ -29,15 +25,8 @@ declare function EndpointsLitMixin<T extends Constructor<LitElement>>(
     requestToken(endpoint: EtoolsRequestEndpoint): Promise<any>;
     _buildOptionsWithTokenHeader(options: any, token: string): any;
     getTokenEndpointName(tokenKey: string): any;
-    addTokenToRequestOptions(
-      endpointsCollection: AnyObject,
-      endpointName: string,
-      data: AnyObject
-    ): any;
-    _addAdditionalRequestOptions(
-      options: any,
-      requestAdditionalOptions: any
-    ): any;
+    addTokenToRequestOptions(endpointsCollection: AnyObject, endpointName: string, data: AnyObject): any;
+    _addAdditionalRequestOptions(options: any, requestAdditionalOptions: any): any;
     fireRequest(
       endpointsCollection: AnyObject,
       endpoint: any,

@@ -1,6 +1,6 @@
-import { LitElement, PropertyDeclarations } from 'lit-element';
-import { cloneDeep } from '../utils/utils';
-import { GenericObject } from '@unicef-polymer/etools-types';
+import {LitElement, PropertyDeclarations} from 'lit-element';
+import {cloneDeep} from '../utils/utils';
+import {GenericObject} from '@unicef-polymer/etools-types';
 
 type Constructor<B> = new (...args: any[]) => B;
 
@@ -19,13 +19,13 @@ export const DataMixin =
         const superProps: PropertyDeclarations = super.properties;
         return {
           ...superProps,
-          errors: { type: Object },
-          editedData: { type: Object },
+          errors: {type: Object},
+          editedData: {type: Object}
         };
       }
 
       set data(data: B | null) {
-        this.editedData = !data ? {} : { ...this.editedData, ...data };
+        this.editedData = !data ? {} : {...this.editedData, ...data};
         this.originalData = cloneDeep(data);
       }
 
@@ -45,13 +45,8 @@ export const DataMixin =
         if (!this.editedData) {
           return;
         }
-        const preparedValue: any = !Array.isArray(value)
-          ? value
-          : value.map((item: any) => item.id);
-        const equals: boolean = this.checkEquality(
-          this.editedData[fieldName],
-          preparedValue
-        );
+        const preparedValue: any = !Array.isArray(value) ? value : value.map((item: any) => item.id);
+        const equals: boolean = this.checkEquality(this.editedData[fieldName], preparedValue);
         if (equals) {
           return;
         }
@@ -69,12 +64,7 @@ export const DataMixin =
         const valueToMatch: any[] = [valueB].flat();
         return (
           baseValue.length === valueToMatch.length &&
-          baseValue
-            .flat()
-            .every(
-              (value: any, index: number) =>
-                `${value}` === `${valueToMatch[index]}`
-            )
+          baseValue.flat().every((value: any, index: number) => `${value}` === `${valueToMatch[index]}`)
         );
       }
     };

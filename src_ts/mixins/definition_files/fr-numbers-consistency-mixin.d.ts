@@ -1,10 +1,7 @@
-import {
-  Constructor,
-  InterventionListData,
-} from '@unicef-polymer/etools-types';
-import { Fr, FrsDetails, Intervention } from '@unicef-polymer/etools-types';
-import { EtoolsCurrency } from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-mixin';
-import { LitElement } from 'lit-element';
+import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
+import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
+import {EtoolsCurrency} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-mixin';
+import {LitElement} from 'lit-element';
 declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
@@ -29,10 +26,7 @@ declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       fr_latest_date: string;
       fr_total_amount: string;
     };
-    _frsAndPlannedBudgetCurrenciesMatch(
-      frs: Fr[],
-      plannedBudgetCurrency: string
-    ): boolean;
+    _frsAndPlannedBudgetCurrenciesMatch(frs: Fr[], plannedBudgetCurrency: string): boolean;
     /**
      * Check for currency mismatch in frs list
      */
@@ -69,38 +63,17 @@ declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       fieldName?: string | undefined,
       returnMsg?: boolean | undefined
     ): string | boolean;
-    validateFrsVsInterventionDates(
-      intervDateStr: string,
-      frsDateStr: string | null
-    ): boolean;
-    _buildFrsWarningMsg(
-      msgTemplate: string,
-      searchStr: string,
-      replacementStr: string
-    ): string;
+    validateFrsVsInterventionDates(intervDateStr: string, frsDateStr: string | null): boolean;
+    _buildFrsWarningMsg(msgTemplate: string, searchStr: string, replacementStr: string): string;
     getFrsTotalAmountInconsistencyMsg(): string;
     getFrsStartDateValidationMsg(): string;
     getFrsEndDateValidationMsg(): string;
     frsConsistencyWarningIsActive(active: boolean | string): boolean;
-    emptyFrsList(
-      intervention: Intervention,
-      interventionIsFromWhere: 'interventionMetadata'
-    ): boolean;
-    emptyFrsList(
-      intervention: InterventionListData,
-      interventionIsFromWhere: 'interventionsList'
-    ): boolean;
+    emptyFrsList(intervention: Intervention, interventionIsFromWhere: 'interventionMetadata'): boolean;
+    emptyFrsList(intervention: InterventionListData, interventionIsFromWhere: 'interventionsList'): boolean;
     getFrsCurrency(frsCurrencyMatch: boolean, frs: Fr[]): string;
-    getFrsTotal(
-      frsCurrencyMatch: boolean,
-      totalAmt: string,
-      negateCurrencyMatchFlagFirst?: boolean | undefined
-    ): any;
-    allCurrenciesMatch(
-      frsCurrencyMatch: boolean,
-      frs: Fr[],
-      plannedBudgetCurrency: string
-    ): boolean;
+    getFrsTotal(frsCurrencyMatch: boolean, totalAmt: string, negateCurrencyMatchFlagFirst?: boolean | undefined): any;
+    allCurrenciesMatch(frsCurrencyMatch: boolean, frs: Fr[], plannedBudgetCurrency: string): boolean;
     hideFrCurrencyTooltip(
       frsCurrencyMatch: boolean,
       frCurrency: string,
@@ -112,13 +85,8 @@ declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       plannedBudgetCurrency: string,
       frsTotalAmountWarning: string
     ): boolean;
-    getFrsCurrencyTooltipIcon(
-      frsCurrencyMatch: boolean
-    ): 'pmp-custom-icons:1+' | 'pmp-custom-icons:not-equal';
-    getFrsValueNAClass(
-      valIsAvailable: boolean,
-      negateFlagValFirst?: boolean | undefined
-    ): '' | 'fr-val-not-available';
+    getFrsCurrencyTooltipIcon(frsCurrencyMatch: boolean): 'pmp-custom-icons:1+' | 'pmp-custom-icons:not-equal';
+    getFrsValueNAClass(valIsAvailable: boolean, negateFlagValFirst?: boolean | undefined): '' | 'fr-val-not-available';
     getFrsCurrencyTooltipMsg(frsCurrencyMatch: boolean): string;
     getFrCurrencyTooltipMsg(): string;
     /**
@@ -134,13 +102,8 @@ declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       frsTotalAmt: string,
       intervention: Intervention
     ): boolean;
-    getCurrencyMismatchClass(
-      allCurrenciesAreConsistent: any
-    ): '' | 'currency-mismatch';
-    getIntListUnicefCashAmountTooltipMsg(
-      allCurrenciesAreConsistent: any,
-      frsCurrenciesAreConsistent: boolean
-    ): string;
+    getCurrencyMismatchClass(allCurrenciesAreConsistent: any): '' | 'currency-mismatch';
+    getIntListUnicefCashAmountTooltipMsg(allCurrenciesAreConsistent: any, frsCurrenciesAreConsistent: boolean): string;
     getFrsMultiCurrFlagErrTooltipMsg(): string;
   };
 } & T &

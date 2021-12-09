@@ -28,13 +28,13 @@ export class AreYouSure extends LitElement {
   }
 
   @property({type: String})
-  content = (translate('ARE_YOU_SURE_DEL') as unknown) as string;
+  content = translate('ARE_YOU_SURE_DEL') as unknown as string;
 
   @property({type: String})
   confirmBtnText = 'OK';
 
   @property({type: String})
-  cancelBtnText = (translate('CANCEL') as unknown) as string;
+  cancelBtnText = translate('CANCEL') as unknown as string;
 
   set dialogData({content, confirmBtnText, cancelBtnText}: any) {
     this.content = content;
