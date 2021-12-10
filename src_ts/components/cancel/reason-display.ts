@@ -27,11 +27,11 @@ export class ReasonDisplay extends LitElement {
           margin-left: 80px;
         }
 
-        .cancellation-text {
+        .text {
           font-size: 17px;
-          white-space: pre-wrap;
+          white-space: var(--text-wrap, pre-wrap);
           color: var(--primary-text-color);
-          padding: 26px 12px 26px 80px;
+          padding: var(--text-padding, 26px 12px 26px 80px);
         }
 
         div[slot='panel-btns'].bookmark {
@@ -51,6 +51,7 @@ export class ReasonDisplay extends LitElement {
         div[slot='panel-btns'].bookmark iron-icon {
           width: 60px !important;
           height: 60px !important;
+          color: var(--flag-color, gray);
         }
       </style>
       <etools-content-panel class="cancellation-tab" .panelTitle="${this.title}">
@@ -58,7 +59,7 @@ export class ReasonDisplay extends LitElement {
           <iron-icon icon="bookmark"></iron-icon>
         </div>
 
-        <div class="cancellation-text">${this.justification}</div>
+        <div class="text"><slot>${this.justification}</slot></div>
       </etools-content-panel>
     `;
   }
