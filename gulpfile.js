@@ -15,7 +15,7 @@ const LIT_IMPORT = `import {LitElement} from 'lit-element';\n`;
 const INDEXED_PROPERTY_REG = /\n\s+\[x: string]: any;/;
 const DEPENDENCY_REG = /class\s+\S+?\s+extends\s+(\S+?)\s+{/s;
 const DEPS_PARSING_REG = /([^(]+?)\(/g;
-const createDepsImportReg = (depsName) => new RegExp(`import\\s[^;]*?${depsName}\\s+[^;]*?;`, 's');
+const createDepsImportReg = (depsName) => new RegExp(`import\\s[^;]*?${depsName}[^;]*?;`, 's');
 const dependenciesMap = {};
 
 gulp.task('default', () =>
