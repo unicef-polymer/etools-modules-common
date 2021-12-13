@@ -109,11 +109,11 @@ export class InfoIconTooltip extends LitElement {
     this.tooltipHandler = this.hideTooltip.bind(this);
     document.addEventListener('click', this.tooltipHandler, true);
     setTimeout(() => {
-      this.fixTooltipPositioning(tooltip);
+      this.fixTooltipPosition(tooltip);
     }, 10);
   }
 
-  fixTooltipPositioning(tooltip: PaperTooltipElement) {
+  fixTooltipPosition(tooltip: PaperTooltipElement) {
     const offsetParent = (window as any).EtoolsEsmmFitIntoEl;
     if (!offsetParent) {
       return;
