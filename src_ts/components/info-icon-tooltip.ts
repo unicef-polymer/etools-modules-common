@@ -114,6 +114,7 @@ export class InfoIconTooltip extends LitElement {
   }
 
   fixTooltipPosition(tooltip: PaperTooltipElement) {
+    // need window.EtoolsEsmmFitIntoEl to calculate positioning
     const offsetParent = (window as any).EtoolsEsmmFitIntoEl;
     if (!offsetParent) {
       return;
