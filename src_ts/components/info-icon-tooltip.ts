@@ -1,8 +1,8 @@
 import {LitElement, html, property, customElement, css} from 'lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import {elevationStyles} from '@unicef-polymer/etools-modules-common/dist/styles/elevation-styles';
+import {PaperTooltipElement} from '@polymer/paper-tooltip';
 import {callClickOnEnterPushListener} from '@unicef-polymer/etools-modules-common/dist/utils/common-methods';
-import {createPopper, Placement} from "@popperjs/core";
 
 @customElement('info-icon-tooltip')
 export class InfoIconTooltip extends LitElement {
@@ -14,16 +14,9 @@ export class InfoIconTooltip extends LitElement {
           color: var(--primary-color);
         }
 
-        #tooltip {
+        #etools-iit-content {
           padding: 20px;
-          display: none;
-          background-color: #ffffff;
-          width: auto;
-          z-index: 9999;
-        }
-
-        #tooltip[data-show] {
-          display: block;
+          position: relative;
         }
 
         .tooltip-info {
@@ -62,18 +55,34 @@ export class InfoIconTooltip extends LitElement {
     // language=HTML
     return html`
       <style>
+        paper-tooltip {
+          --paper-tooltip-background: #ffffff;
+          --paper-tooltip: {
+            padding: 0;
+          }
+          width: auto;
+        }
         :host {
           display: inline-block;
           cursor: pointer;
         }
       </style>
 
-        <iron-icon tabindex="0" id="info-icon" aria-describedby="tooltip" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
-
-        <div id="tooltip" role="tooltip" class="elevation" elevation="1">
+      <iron-icon tabindex="0" id="info-icon" icon="info-outline" @click="${this.showTooltip}"></iron-icon>
+      <paper-tooltip
+        for="info-icon"
+        id="tooltip"
+        fit-to-visible-bounds
+        manual-mode
+        animation-entry="noanimation"
+        .position="${this.position}"
+        .offset="${this.offset}"
+      >
+        <div id="etools-iit-content" class="elevation" elevation="1">
           <a id="close-link" href="#" @click="${this.close}"> Close</a>
           <div class="tooltip-info gray-border">${unsafeHTML(this.tooltipText)}</div>
         </div>
+      </paper-tooltip>
     `;
   }
 
@@ -87,48 +96,79 @@ export class InfoIconTooltip extends LitElement {
   offset = 14;
 
   private tooltipHandler: any;
-  private popperInstance: any;
-  private tooltipEl: any;
 
   connectedCallback() {
     super.connectedCallback();
-
-    setTimeout(() => {
-      callClickOnEnterPushListener(this.shadowRoot?.querySelector('#info-icon'));
-      this.setTooltip();
-    }, 200);
-  }
-
-  setTooltip() {
-     const iconEl = this.shadowRoot?.querySelector('#info-icon');
-     this.tooltipEl = this.shadowRoot?.querySelector('#tooltip');
-     this.popperInstance = createPopper(iconEl!, this.tooltipEl, {placement: this.position as Placement,
-     modifiers: [
-    {
-      name: 'offset',
-      options: {
-        offset: [0, this.offset],
-      },
-    },
-    ],});
+    setTimeout(() => callClickOnEnterPushListener(this.shadowRoot?.querySelector('#info-icon')), 200);
   }
 
   showTooltip() {
-    this.tooltipEl.setAttribute('data-show', '');
-    this.popperInstance.update();
+    const tooltip = this.shadowRoot?.querySelector<PaperTooltipElement>('#tooltip')!;
+    tooltip.show();
 
     this.tooltipHandler = this.hideTooltip.bind(this);
     document.addEventListener('click', this.tooltipHandler, true);
+    setTimeout(() => {
+      this.fixTooltipPosition(tooltip);
+    }, 10);
   }
 
-  hideTooltip() {
-    this.tooltipEl.removeAttribute('data-show');
-    document.removeEventListener('click', this.tooltipHandler);
+  fixTooltipPosition(tooltip: PaperTooltipElement) {
+    // need window.EtoolsEsmmFitIntoEl to calculate positioning
+    const offsetParent = (window as any).EtoolsEsmmFitIntoEl;
+    if (!offsetParent) {
+      return;
+    }
+
+    if (tooltip.position === 'left') {
+      // horizontal positioning
+      let tooltipRect = tooltip.getBoundingClientRect();
+      const iconRect = tooltip.target.getBoundingClientRect();
+      const rightMargin = offsetParent.getBoundingClientRect().right - iconRect.right + iconRect.width;
+      tooltip.style.inset = `${
+        iconRect.top + offsetParent.scrollTop - offsetParent.offsetTop
+      }px ${rightMargin}px auto auto`;
+      tooltipRect = tooltip.getBoundingClientRect();
+      // vertical positioning
+      const verticalCenterOffset = (tooltipRect.height - iconRect.height) / 2;
+      const availableTopAboveIcon = iconRect.top - offsetParent.offsetTop;
+      const top =
+        iconRect.top +
+        offsetParent.scrollTop -
+        offsetParent.offsetTop -
+        Math.min(verticalCenterOffset, availableTopAboveIcon);
+      tooltip.style.top = `${top}px`;
+    } else if (tooltip.position === 'right') {
+      const overlap = offsetParent.offsetTop - tooltip.getBoundingClientRect().top;
+      if (overlap > 0) {
+        // vertical positioning, make sure tooltip is not cut-off on top
+        const tooltipTop = parseFloat(tooltip.style.top.replace('px', ''));
+        tooltip.style.top = `${tooltipTop + overlap}px`;
+      }
+    }
+  }
+
+  hideTooltip(e: PointerEvent) {
+    // @ts-ignore
+    if (e.path[0].id !== 'close-link' && this._isInPath(e.path, 'id', 'etools-iit-content')) {
+      return;
+    }
+
+    this.shadowRoot?.querySelector<PaperTooltipElement>('#tooltip')?.hide();
   }
 
   close(e: PointerEvent) {
     e.preventDefault();
-    this.hideTooltip();
+    this.hideTooltip(e);
   }
 
+  _isInPath(path: [], propertyName: string, elementName: string) {
+    path = path || [];
+    for (let i = 0; i < path.length; i++) {
+      if (path[i][propertyName] === elementName) {
+        return true;
+      }
+    }
+    return false;
+  }
 }

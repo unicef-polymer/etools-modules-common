@@ -42,6 +42,7 @@ export const InfoElementStyles = html`
       width: 24px;
       padding-top: 7px;
       padding-right: 10px;
+      position: static;
     }
 
     info-icon-tooltip {
