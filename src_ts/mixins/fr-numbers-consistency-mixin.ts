@@ -1,10 +1,10 @@
 import {LitElement, property} from 'lit-element';
-import {EtoolsCurrency} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-mixin';
 import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
+import {displayCurrencyAmount} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-module';
 
 function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass: T) {
-  class FrNumbersConsistencyClass extends EtoolsCurrency(baseClass) {
+  class FrNumbersConsistencyClass extends baseClass {
     @property({type: Object})
     frsConsistencyWarnings = {
       amountsCannotBeCompared: 'FRs Amount and UNICEF Cash Contribution can not be compared.',
@@ -217,7 +217,7 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
 
     getFrsTotal(frsCurrencyMatch: boolean, totalAmt: string, negateCurrencyMatchFlagFirst?: boolean) {
       frsCurrencyMatch = negateCurrencyMatchFlagFirst ? !frsCurrencyMatch : frsCurrencyMatch;
-      return frsCurrencyMatch ? this.displayCurrencyAmount(totalAmt, '0.00') : 'N/A';
+      return frsCurrencyMatch ? displayCurrencyAmount(totalAmt, '0.00') : 'N/A';
     }
 
     allCurrenciesMatch(frsCurrencyMatch: boolean, frs: Fr[], plannedBudgetCurrency: string) {
