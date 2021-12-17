@@ -1,8 +1,8 @@
 import {LitElement, html, property, customElement, css} from 'lit-element';
 import {unsafeHTML} from 'lit-html/directives/unsafe-html';
-import {elevationStyles} from '@unicef-polymer/etools-modules-common/dist/styles/elevation-styles';
+import {elevationStyles} from '../styles/elevation-styles';
 import {PaperTooltipElement} from '@polymer/paper-tooltip';
-import {callClickOnEnterPushListener} from '@unicef-polymer/etools-modules-common/dist/utils/common-methods';
+import {callClickOnEnterPushListener} from '../utils/common-methods';
 
 @customElement('info-icon-tooltip')
 export class InfoIconTooltip extends LitElement {

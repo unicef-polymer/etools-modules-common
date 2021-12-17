@@ -17,7 +17,11 @@ const DEPENDENCY_REG = /class\s+\S+?\s+extends\s+(\S+?)\s+{/s;
 const DEPS_PARSING_REG = /([^(]+?)\(/g;
 const createDepsImportReg = (depsName) => new RegExp(`import\\s[^;]*?${depsName}[^;]*?;`, 's');
 const dependenciesMap = {};
-
+/**
+ * Gulp is used instead of tsc , because tsc can't generate the d.ts files for mixins.
+ * That's because the mixins inherit from LitElement which has protected members and tsc has a problem with that.
+ * The approach is to replace LitElement with 'any' before running tsc then put back LitElement.
+ */
 gulp.task('default', () =>
   gulp
     .src(`${SRC}/**/*.ts`)
@@ -37,14 +41,28 @@ gulp.task('default', () =>
       through2((file, enc, callback) => {
         // check if file exists in global map object
         const filePath = path.relative(`${__dirname}/${DIST}`, file.path);
-        if (dependenciesMap[filePath]) {
-          fixDeclarationFile(file, filePath);
+        const interoperabilFilePath = cleanUpFilePath(filePath);
+        if (isMixinDeclarationFile(interoperabilFilePath) && dependenciesMap[interoperabilFilePath]) {
+          fixDeclarationFile(file, interoperabilFilePath);
         }
         callback(null, file);
       })
     )
     .pipe(gulp.dest(DIST))
 );
+
+function cleanUpFilePath(filePath) {
+  // Make it work on both Windows and Linux
+  while (filePath.indexOf('\\') > -1) {
+    filePath = filePath.replace('\\', '/');
+  }
+
+  return filePath;
+}
+
+function isMixinDeclarationFile(filePath) {
+  return filePath.indexOf('.d.ts') > -1 && filePath.indexOf('mixins') > -1;
+}
 
 function isMixin(file) {
   if (!file.isBuffer() || !file.path.includes('mixins')) {
