@@ -114,15 +114,17 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       (${item.email ? item.email : ''}${item.phone ? ', ' + item.phone : ''})`;
     }
 
-    selectedItemChanged(detail: any, key: string, optionValue = 'id') {
+    selectedItemChanged(detail: any, key: string, optionValue = 'id', parentObj = 'data') {
       if (detail.selectedItem === undefined) {
         return;
       }
       const newValue = detail.selectedItem ? detail.selectedItem[optionValue] : null;
-      if (areEqual(this.data[key], newValue)) {
+      // @ts-ignore
+      if (areEqual(this[parentObj][key], newValue)) {
         return;
       }
-      this.data[key] = newValue;
+      // @ts-ignore
+      this[parentObj][key] = newValue;
       this.requestUpdate();
     }
 
@@ -150,19 +152,21 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       this.requestUpdate();
     }
 
-    dateHasChanged(detail: {date: Date}, key: string) {
+    dateHasChanged(detail: {date: Date}, key: string, parentObj = 'data') {
       if (detail.date === undefined) {
         return;
       }
       const newValue = formatDate(detail.date, 'YYYY-MM-DD');
-      if (areEqual(this.data[key], newValue)) {
+      // @ts-ignore
+      if (areEqual(this[parentObj][key], newValue)) {
         return;
       }
-      this.data[key] = newValue;
+      // @ts-ignore
+      this[parentObj][key] = newValue;
       this.requestUpdate();
     }
 
-    selectedItemsChanged(detail: any, key: string, optionValue = 'id') {
+    selectedItemsChanged(detail: any, key: string, optionValue = 'id', parentObj = 'data') {
       if (detail.selectedItems === undefined) {
         return;
       }
@@ -172,11 +176,12 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
        * it seems that it still re-renders even if the item hasn't really changed
        * Remove this line and render will be called infinitely
        */
-      if (areEqual(this.data[key], newValues)) {
+      // @ts-ignore
+      if (areEqual(this[parentObj][key], newValues)) {
         return;
       }
-
-      this.data[key] = newValues;
+      // @ts-ignore
+      this[parentObj][key] = newValues;
 
       /** Necessary because LitElement remembers the values used for last render
        *  and resetting the form on cancel won't work otherwise
