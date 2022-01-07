@@ -1,5 +1,6 @@
 import {LitElement, property} from 'lit-element';
 import {Constructor} from '@unicef-polymer/etools-types';
+import {debounce} from '../utils/debouncer';
 
 const DEFAULT_LIST_SIZE = 10;
 
@@ -105,7 +106,7 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     paginatorChanged() {
-      throw new Error('paginatorChanged not implemented!');
+      debounce(() => console.warn('pagination-mixin / paginatorChanged not implemented!'), 400);
     }
   }
 
