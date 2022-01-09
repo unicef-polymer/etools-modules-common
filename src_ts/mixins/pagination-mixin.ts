@@ -1,6 +1,5 @@
 import {LitElement, property} from 'lit-element';
 import {Constructor} from '@unicef-polymer/etools-types';
-import {debounce} from '../utils/debouncer';
 
 const DEFAULT_LIST_SIZE = 10;
 
@@ -14,6 +13,7 @@ class Paginator {
 function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class PaginationClass extends baseClass {
     _paginator = new Paginator();
+    _prevLocalName = '';
 
     @property({type: Object})
     get paginator() {
@@ -106,7 +106,10 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     paginatorChanged() {
-      debounce(() => console.warn('pagination-mixin / paginatorChanged not implemented!'), 400);
+      if (this._prevLocalName !== this.localName) {
+        console.warn(this.localName, ' / pagination-mixin / paginatorChanged not implemented!');
+        this._prevLocalName = this.localName;
+      }
     }
   }
 
