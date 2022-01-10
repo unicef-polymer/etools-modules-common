@@ -44,10 +44,5 @@ export const InfoElementStyles = html`
       padding-right: 10px;
       position: static;
     }
-
-    info-icon-tooltip {
-      color: var(--primary-color);
-      cursor: pointer;
-    }
   </style>
 `;

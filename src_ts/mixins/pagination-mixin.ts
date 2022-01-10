@@ -12,8 +12,18 @@ class Paginator {
 
 function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class PaginationClass extends baseClass {
+    _paginator = new Paginator();
+    _prevLocalName = '';
+
     @property({type: Object})
-    paginator = new Paginator();
+    get paginator() {
+      return this._paginator;
+    }
+
+    set paginator(newVal) {
+      this._paginator = newVal;
+      this.paginatorChanged();
+    }
 
     set pageSize(pageSize: number) {
       this.resetPageNumber();
@@ -93,6 +103,13 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
 
     _getLastPageNr(pageSize: number, total: number) {
       return pageSize < total ? Math.ceil(total / pageSize) : 1;
+    }
+
+    paginatorChanged() {
+      if (this._prevLocalName !== this.localName) {
+        console.warn(this.localName, ' / pagination-mixin / paginatorChanged not implemented!');
+        this._prevLocalName = this.localName;
+      }
     }
   }
 
