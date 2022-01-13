@@ -45,6 +45,7 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
       this.paginator = Object.assign({}, this.paginator, {
         visible_range: e.detail.value
       });
+      this.requestUpdate();
     }
 
     getRequestPaginationParams() {
@@ -69,11 +70,13 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
 
     setPageSize(size: number) {
       this.paginator = Object.assign({}, this.paginator, {page_size: size});
+      this.requestUpdate();
     }
 
     setPageNumber(page: number) {
       this.paginator = Object.assign({}, this.paginator, {page: page});
       this._pageInsidePaginationRange(this.paginator.page, this.paginator.count);
+      this.requestUpdate();
     }
 
     resetPageNumber() {
