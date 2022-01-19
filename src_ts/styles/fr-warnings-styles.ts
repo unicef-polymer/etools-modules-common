@@ -2,6 +2,7 @@ import {css, unsafeCSS} from 'lit-element';
 export const frWarningsContent = `
 etools-info-tooltip.fr-nr-warn iron-icon {
   color: var(--error-color);
+  cursor: default;
 }
 
 etools-info-tooltip.currency-mismatch iron-icon {
