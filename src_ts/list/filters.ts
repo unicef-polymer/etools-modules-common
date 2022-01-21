@@ -28,7 +28,7 @@ export const getSelectedFiltersFromUrlParams = (params: AnyObject) => {
 export const updateFiltersSelectedValues = (params: RouteQueryParams, filters: EtoolsFilter[]) => {
   const availableFilters = [...filters];
 
-  if (!Object.keys(params)) {
+  if (!Object.keys(params).length) {
     clearSelectedValuesInFilters(filters);
   }
 
