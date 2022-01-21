@@ -7,7 +7,7 @@ class Paginator {
   page = 1;
   page_size = 10;
   count: number | null = null;
-  visible_range: string[] | number[] = [];
+  visible_range: string[] | number[] = [0, 0];
 }
 
 function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
@@ -21,7 +21,10 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     set paginator(newVal) {
-      this._paginator = newVal;
+      this._paginator = {
+        ...newVal,
+        visible_range: this.getVisibleRange(newVal.page_size, newVal.page, newVal.count)
+      };
       this.paginatorChanged();
     }
 
@@ -30,6 +33,18 @@ function PaginationMixin<T extends Constructor<LitElement>>(baseClass: T) {
       this.paginator = Object.assign({}, this.paginator, {
         page_size: pageSize
       });
+    }
+
+    getVisibleRange(pageSize: number, page: number, count: number | null) {
+      if (!count) {
+        return [0, 0];
+      }
+      const from = (page - 1) * pageSize;
+      const to = from + pageSize;
+      if (from > count) {
+        return [0, 0];
+      }
+      return [from + 1, Math.min(to, count)];
     }
 
     pageSizeChanged(e: CustomEvent) {
