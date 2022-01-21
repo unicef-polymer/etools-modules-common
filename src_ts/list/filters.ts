@@ -1,5 +1,5 @@
 import {AnyObject, RouteQueryParams} from '@unicef-polymer/etools-types';
-import {EtoolsFilter} from '../layout/filters/etools-filters';
+import {EtoolsFilter, EtoolsFilterTypes} from '../layout/filters/etools-filters';
 import {isJsonStrMatch} from '../utils/utils';
 
 let selectedValueTypeByFilterKey: any;
@@ -28,6 +28,10 @@ export const getSelectedFiltersFromUrlParams = (params: AnyObject) => {
 export const updateFiltersSelectedValues = (params: RouteQueryParams, filters: EtoolsFilter[]) => {
   const availableFilters = [...filters];
 
+  if (!Object.keys(params)) {
+    clearSelectedValuesInFilters(filters);
+  }
+
   const selectedFilters = getSelectedFiltersFromUrlParams(params);
   for (const fKey in selectedFilters) {
     if (fKey) {
@@ -45,6 +49,26 @@ export const updateFiltersSelectedValues = (params: RouteQueryParams, filters: E
 
   return availableFilters;
 };
+
+export function clearSelectedValuesInFilters(filters: EtoolsFilter[]) {
+  filters.forEach((f: EtoolsFilter) => {
+    f.selectedValue = getFilterEmptyValue(f.type);
+  });
+}
+
+export function getFilterEmptyValue(filterType: EtoolsFilterTypes) {
+  switch (filterType) {
+    case EtoolsFilterTypes.Search:
+      return '';
+    case EtoolsFilterTypes.Toggle:
+      return false;
+    case EtoolsFilterTypes.Date:
+    case EtoolsFilterTypes.Dropdown:
+      return null;
+    case EtoolsFilterTypes.DropdownMulti:
+      return [];
+  }
+}
 
 export const updateFilterSelectionOptions = (filters: EtoolsFilter[], fKey: string, options: AnyObject[]) => {
   const filter = filters.find((f: EtoolsFilter) => f.filterKey === fKey);
