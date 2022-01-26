@@ -264,11 +264,17 @@ export class EtoolsFilters extends LitElement {
     }
     // Clear selected value in filters
     this.filters.forEach((f: EtoolsFilter) => {
+      if (f.disabled) {
+        return;
+      }
       f.selectedValue = this.getFilterEmptyValue(f.type);
     });
 
     // clear selecter filters
     this.filters.forEach((f: EtoolsFilter) => {
+      if (f.disabled) {
+        return;
+      }
       if (f.filterKey === 'search') {
         // TODO - using FilterKeys.search here breaks the app
         return;
