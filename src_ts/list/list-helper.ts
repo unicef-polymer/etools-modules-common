@@ -1,5 +1,6 @@
 import {EtoolsPaginator} from '@unicef-polymer/etools-table/pagination/etools-pagination';
-import {isEqual, sortBy} from 'lodash-es';
+import isEqual from 'lodash-es/isEqual';
+import sortBy from 'lodash-es/sortBy';
 import {sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
 import {abortRequestByKey} from '@unicef-polymer/etools-ajax/etools-iron-request';
 import {EtoolsEndpoint, GenericObject} from '@unicef-polymer/etools-types';
