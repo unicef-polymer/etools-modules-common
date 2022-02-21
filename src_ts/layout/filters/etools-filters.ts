@@ -178,7 +178,7 @@ export class EtoolsFilters extends LitElement {
 
   selectedFiltersTmpl(filters: EtoolsFilter[]) {
     if (!filters) {
-      return html`<etools-loading loading-text="Loading..." active></etools-loading>`;
+      return html`<etools-loading id="filter-loading" loading-text="Loading..." active></etools-loading>`;
     }
     const tmpl: any[] = [];
     filters.forEach((f: EtoolsFilter) => {
