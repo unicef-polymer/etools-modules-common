@@ -48,7 +48,7 @@ export const sharedStylesContent = `
     margin: 0 12px;
     --paper-input-container-focus-color: var(--module-primary);
     --paper-input-container: {
-      color: var(--gray-50) !important;
+      
       font-size: 13px;
       opacity: 1 !important;
     }
@@ -57,10 +57,6 @@ export const sharedStylesContent = `
     }
     --paper-input-container-underline-focus: {
       display: none;
-    }
-    --paper-input-container-underline-disabled: {
-      display: block !important;
-      border-bottom: 1px dashed var(--gray-20) !important;
     }
   }
 
