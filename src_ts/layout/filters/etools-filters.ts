@@ -44,6 +44,11 @@ export class EtoolsFilters extends LitElement {
   @property({type: Array})
   filters: EtoolsFilter[] = [];
 
+  /** Set this to true if the Loading... overlay should be displayed over the page,
+   *  not just over the etools-filter component */
+  @property({type: Boolean})
+  filterLoadingAbsolute = false;
+
   lastSelectedValues: any = null;
 
   static get styles() {
@@ -178,7 +183,12 @@ export class EtoolsFilters extends LitElement {
 
   selectedFiltersTmpl(filters: EtoolsFilter[]) {
     if (!filters) {
-      return html`<etools-loading loading-text="Loading..." active></etools-loading>`;
+      return html`<etools-loading
+        source="filters-loading"
+        ?absolute=${this.filterLoadingAbsolute}
+        loading-text="Loading..."
+        active
+      ></etools-loading>`;
     }
     const tmpl: any[] = [];
     filters.forEach((f: EtoolsFilter) => {
