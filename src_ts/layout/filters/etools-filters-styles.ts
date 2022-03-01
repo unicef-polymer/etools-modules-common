@@ -51,10 +51,6 @@ export const etoolsFiltersStyles = css`
     min-width: 180px;
   }
 
-  #filters > *:not(:last-child) {
-    margin-right: 16px;
-  }
-
   #filters .filter.toggle {
     display: flex;
     flex-direction: row;
@@ -140,6 +136,12 @@ export const etoolsFiltersStyles = css`
     color: var(--primary-color, rgba(0, 0, 0, 0.87));
     padding-right: 16px;
     border-bottom: 1px solid var(--light-divider-color, rgba(0, 0, 0, 0.12));
+  }
+
+  @media (min-width: 577px) {
+    #filters > *:not(:last-child) {
+      margin-right: 16px;
+    }
   }
 
   @media (max-width: 576px) {
