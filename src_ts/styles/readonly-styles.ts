@@ -5,6 +5,7 @@ export const ReadonlyStyles = html`<style>
   etools-dropdown-multi[readonly],
   datepicker-lite[readonly],
   paper-input[readonly],
+  paper-input-container[readonly],
   paper-textarea[readonly],
   etools-currency-amount-input[readonly] {
     --paper-input-container-underline: {
@@ -22,12 +23,12 @@ export const ReadonlyStyles = html`<style>
     }
     --paper-input-container: {
       pointer-events: none;
-      cusrsor: text;
+      cursor: default;
     }
     --paper-input-container-label: {
       pointer-events: none;
       color: var(--secondary-text-color, #737373);
-      cusrsor: text;
+      cursor: default;
     }
     --esmm-select-cursor: text;
     --esmm-external-wrapper: {
@@ -49,11 +50,11 @@ export const ReadonlyStyles = html`<style>
       display: none;
     }
     --paper-input-container: {
-      cusrsor: text;
+      cursor: default;
     }
     --paper-input-container-label: {
       color: var(--secondary-text-color, #737373);
-      cusrsor: text;
+      cursor: default;
     }
     --esmm-select-cursor: text;
     --esmm-external-wrapper: {

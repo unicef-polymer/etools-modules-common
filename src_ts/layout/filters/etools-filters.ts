@@ -243,6 +243,14 @@ export class EtoolsFilters extends LitElement {
     this.setDefaultLastSelectedValues();
     // language=HTML
     return html`
+      <style>
+        etools-dropdown[disabled] {
+          opacity: 60%;
+        }
+        etools-dropdown-multi[disabled] {
+          opacity: 60%;
+        }
+      </style>
       <div id="filters">${this.selectedFiltersTmpl(this.filters)}</div>
 
       <div id="filters-selector">
