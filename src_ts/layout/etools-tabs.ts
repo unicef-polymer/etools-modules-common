@@ -31,12 +31,6 @@ export class EtoolsTabs extends LitElement {
           pointer-events: auto !important;
         }
 
-        :host {
-          display: flex;
-          flex-direction: row;
-          justify-content: flex-start;
-        }
-
         :host([border-bottom]) {
           border-bottom: 1px solid var(--dark-divider-color);
         }
@@ -49,6 +43,9 @@ export class EtoolsTabs extends LitElement {
         paper-tab {
           --paper-tab-ink: var(--primary-color);
           padding: 0 24px;
+          --paper-tab-content: {
+            transform: none !important;
+          }
         }
 
         paper-tab .tab-content {
@@ -64,9 +61,7 @@ export class EtoolsTabs extends LitElement {
 
         paper-tabs {
           --paper-tabs-container: {
-            overflow: visible;
             max-width: 100% !important;
-            z-index: 99;
           }
         }
 
@@ -93,10 +88,6 @@ export class EtoolsTabs extends LitElement {
           paper-tabs {
             width: 100%;
           }
-          paper-tab[link],
-          paper-tab {
-            padding: 0 !important;
-          }
           paper-tab .tab-content {
             min-width: fit-content !important;
           }
@@ -114,6 +105,7 @@ export class EtoolsTabs extends LitElement {
         selected="${this.activeTab}"
         attr-for-selected="name"
         noink
+        scrollable
         @iron-activate="${this.cancelSelection}"
       >
         ${this.tabs.map((item) => {
