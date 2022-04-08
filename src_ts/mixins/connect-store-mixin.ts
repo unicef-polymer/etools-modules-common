@@ -21,7 +21,9 @@ export function connectStore<T extends Constructor<CustomElement>>(baseClass: T)
         if (this.getLazyReducers()) {
           (store as any).addReducers(this.getLazyReducers());
         }
-        this._subscribeOnStore();
+        if (this.isConnected) {
+          this._subscribeOnStore();
+        }
       });
     }
     connectedCallback(): void {
