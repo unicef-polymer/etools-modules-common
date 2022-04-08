@@ -13,7 +13,7 @@ export function connectStore<T extends Constructor<CustomElement>>(baseClass: T)
   return class ConnectStoreMixin extends baseClass {
     _storeUnsubscribe: Unsubscribe | null = null;
 
-    private _store!: Store<any>;
+    _store!: Store<any>;
     constructor(...args: any[]) {
       super(...args);
       getStoreAsync().then((store: Store<any>) => {
@@ -49,7 +49,7 @@ export function connectStore<T extends Constructor<CustomElement>>(baseClass: T)
       return false;
     }
 
-    private _subscribeOnStore(): void {
+    _subscribeOnStore(): void {
       if (this._storeUnsubscribe) {
         return;
       }
