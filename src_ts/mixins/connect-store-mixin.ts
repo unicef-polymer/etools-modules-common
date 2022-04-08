@@ -11,21 +11,31 @@ interface CustomElement {
 
 export function connectStore<T extends Constructor<CustomElement>>(baseClass: T) {
   return class ConnectStoreMixin extends baseClass {
-    _storeUnsubscribe!: Unsubscribe;
+    _storeUnsubscribe: Unsubscribe | null = null;
 
+    private _store!: Store<any>;
     constructor(...args: any[]) {
       super(...args);
       getStoreAsync().then((store: Store<any>) => {
+        this._store = store;
         if (this.getLazyReducers()) {
           (store as any).addReducers(this.getLazyReducers());
         }
-        this._storeUnsubscribe = store.subscribe(() => this.stateChanged(store.getState()));
-        this.stateChanged(store.getState());
+        this._subscribeOnStore();
       });
+    }
+    connectedCallback(): void {
+      if (super.connectedCallback) {
+        super.connectedCallback();
+      }
+      if (this._store) {
+        this._subscribeOnStore();
+      }
     }
     disconnectedCallback() {
       if (this._storeUnsubscribe) {
         this._storeUnsubscribe();
+        this._storeUnsubscribe = null;
       }
       if (super.disconnectedCallback) {
         super.disconnectedCallback();
@@ -35,6 +45,14 @@ export function connectStore<T extends Constructor<CustomElement>>(baseClass: T)
     stateChanged(_state: any) {}
     getLazyReducers(): any {
       return false;
+    }
+
+    private _subscribeOnStore(): void {
+      if (this._storeUnsubscribe) {
+        return;
+      }
+      this._storeUnsubscribe = this._store.subscribe(() => this.stateChanged(this._store.getState()));
+      this.stateChanged(this._store.getState());
     }
   };
 }
