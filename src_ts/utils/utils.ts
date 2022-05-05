@@ -36,7 +36,10 @@ export const getFileNameFromURL = (url?: string) => {
  * {any: 1} should equal {any: '1'}
  */
 export const areEqual = (obj1: any, obj2: any): boolean => {
-  if (!obj1 && !obj2) {
+  if (obj1 == null && obj2 == null) {
+    return true;
+  }
+  if (obj1 == undefined && obj2 == undefined) {
     return true;
   }
   if ((!obj1 && obj2) || (obj1 && !obj2)) {
