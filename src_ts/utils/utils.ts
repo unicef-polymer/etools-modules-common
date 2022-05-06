@@ -42,7 +42,7 @@ export const areEqual = (obj1: any, obj2: any): boolean => {
   if (obj1 == undefined && obj2 == undefined) {
     return true;
   }
-  if ((!obj1 && obj2) || (obj1 && !obj2)) {
+  if (([null, undefined].includes(obj1) && obj2) || (obj1 && [null, undefined].includes(obj2))) {
     return false;
   }
 
@@ -54,21 +54,15 @@ export const areEqual = (obj1: any, obj2: any): boolean => {
     return formatDate(obj2, 'YYYY-MM-DD') === _formatYYYY_MM_DD(obj1);
   }
 
-  if (typeof obj1 === 'number' || typeof obj2 === 'number') {
-    return String(obj1) === String(obj2);
-  }
-  if (typeof obj1 === 'string') {
-    return obj1 === obj2;
-  }
   if (Array.isArray(obj1)) {
     return obj1.length === obj2.length && obj1.every((o: any, i: number) => areEqual(o, obj2[i]));
   }
-  if (typeof obj1 === 'object') {
+  if (typeof obj1 === 'object' && ![null, undefined].includes(obj1)) {
     const keys1 = Object.keys(obj1);
     const keys2 = Object.keys(obj2);
     return keys1.length === keys2.length && keys1.every((key: string) => areEqual(obj1[key], obj2[key]));
   }
-  if (obj1 !== obj2) {
+  if (obj1 != obj2) {
     return false;
   }
   return true;
