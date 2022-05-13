@@ -62,6 +62,7 @@ export const sharedStylesContent = `
 
   etools-dropdown,
   etools-dropdown-multi {
+    --esmm-dropdown-menu-z-index: 120;
     --esmm-external-wrapper: {
       width: 100%;
       max-width: 650px;
