@@ -3,7 +3,8 @@ const DOMAINS = {
   DEV: 'etools-dev.unicef.org',
   DEMO: 'etools-demo.unicef.org',
   TEST: 'etools-test.unicef.io',
-  LOCAL: 'localhost:8082'
+  LOCAL: 'localhost:8082',
+  PROD: 'etools.unicef.org'
 };
 
 const getBasePath = () => {
@@ -29,11 +30,17 @@ export const _checkEnvironment = () => {
   if (location.indexOf(DOMAINS.DEMO) > -1) {
     return 'DEMO';
   }
+  if (location.indexOf(DOMAINS.TEST) > -1) {
+    return 'TEST';
+  }
   if (location.indexOf(DOMAINS.DEV) > -1) {
     return 'DEVELOPMENT';
   }
   if (location.indexOf(DOMAINS.LOCAL) > -1) {
     return 'LOCAL';
+  }
+  if (location.indexOf(DOMAINS.PROD) > -1) {
+    return 'PROD';
   }
   return null;
 };
@@ -45,11 +52,13 @@ export const tokenEndpointsHost = (host: string) => {
         return 'http://127.0.0.1:8081';
       case 'DEVELOPMENT':
         return 'https://dev.partnerreportingportal.org';
+      case 'TEST':
+        return 'https://dev.partnerreportingportal.org';
       case 'DEMO':
         return 'https://demo.partnerreportingportal.org';
       case 'STAGING':
         return 'https://staging.partnerreportingportal.org';
-      case null:
+      case 'PROD':
         return 'https://www.partnerreportingportal.org';
       default:
         return 'https://dev.partnerreportingportal.org';
