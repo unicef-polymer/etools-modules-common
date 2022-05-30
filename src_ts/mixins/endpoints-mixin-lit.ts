@@ -30,6 +30,10 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       const currentCountry = this.currentUser.countries_available.find((country: AnyObject) => {
         return (country as any).id === this.currentUser.country.id;
       });
+
+      if (!this.prpCountries || !this.prpCountries.length) {
+        throw new Error('PRP countries collection is empty.');
+      }
       const prpCountry = this.prpCountries.find((prpCountry: AnyObject) => {
         return (prpCountry as any).business_area_code === currentCountry!.business_area_code;
       });
