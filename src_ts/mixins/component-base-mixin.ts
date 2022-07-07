@@ -1,16 +1,16 @@
 import {LitElement, property, html} from 'lit-element';
 import cloneDeep from 'lodash-es/cloneDeep';
-import {areEqual, filterByIds} from '../utils/utils';
+import {filterByIds} from '../utils/utils';
 import {fireEvent} from '../utils/fire-custom-event';
 import {validateRequiredFields} from '../utils/validation-helper';
-import {formatDate} from '../utils/date-utils';
 import isEmpty from 'lodash-es/isEmpty';
 import ContentPanelMixin from './content-panel-mixin';
+import ModelChangedMixing from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from 'lit-translate';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
-  class ComponentBaseClass extends ContentPanelMixin(baseClass) {
+  class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixing(baseClass)) {
     @property({type: Boolean})
     editMode = false;
 
@@ -112,90 +112,6 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       // eslint-disable-next-line
       return html`${item.first_name} ${item.last_name}
       (${item.email ? item.email : ''}${item.phone ? ', ' + item.phone : ''})`;
-    }
-
-    selectedItemChanged(detail: any, key: string, optionValue = 'id', parentObj = 'data') {
-      if (detail.selectedItem === undefined) {
-        return;
-      }
-      const newValue = detail.selectedItem ? detail.selectedItem[optionValue] : null;
-      // @ts-ignore
-      if (areEqual(this[parentObj][key], newValue)) {
-        return;
-      }
-      // @ts-ignore
-      this[parentObj][key] = newValue;
-      this.requestUpdate();
-    }
-
-    selectedUserChanged(detail: any, key: string) {
-      if (detail.selectedItem === undefined) {
-        return;
-      }
-      const newValue = detail.selectedItem;
-      if (areEqual(this.data[key], newValue)) {
-        return;
-      }
-      this.data[key] = newValue;
-      this.requestUpdate();
-    }
-
-    selectedUsersChanged(detail: any, key: string) {
-      if (detail.selectedItems === undefined) {
-        return;
-      }
-      const newValue = detail.selectedItems;
-      if (areEqual(this.data[key], newValue)) {
-        return;
-      }
-      this.data[key] = newValue;
-      this.requestUpdate();
-    }
-
-    dateHasChanged(detail: {date: Date}, key: string, parentObj = 'data') {
-      if (detail.date === undefined) {
-        return;
-      }
-      const newValue = formatDate(detail.date, 'YYYY-MM-DD');
-      // @ts-ignore
-      if (areEqual(this[parentObj][key], newValue)) {
-        return;
-      }
-      // @ts-ignore
-      this[parentObj][key] = newValue;
-      this.requestUpdate();
-    }
-
-    selectedItemsChanged(detail: any, key: string, optionValue = 'id', parentObj = 'data') {
-      if (detail.selectedItems === undefined) {
-        return;
-      }
-      const newValues = detail.selectedItems.map((i: any) => i[optionValue]);
-      /**
-       * Event though requestUpdate checks hasChanged method,
-       * it seems that it still re-renders even if the item hasn't really changed
-       * Remove this line and render will be called infinitely
-       */
-      // @ts-ignore
-      if (areEqual(this[parentObj][key], newValues)) {
-        return;
-      }
-      // @ts-ignore
-      this[parentObj][key] = newValues;
-
-      /** Necessary because LitElement remembers the values used for last render
-       *  and resetting the form on cancel won't work otherwise
-       */
-      this.requestUpdate();
-    }
-
-    valueChanged(detail: any, key: string) {
-      if (areEqual(this.data[key], detail.value)) {
-        return;
-      }
-
-      this.data[key] = detail.value;
-      this.requestUpdate();
     }
 
     /**
