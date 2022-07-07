@@ -6,12 +6,12 @@ import {Constructor} from '@unicef-polymer/etools-types';
 function ModelChangedMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class ModelChangedClass extends baseClass {
     getParentObject(parentObject?: string | object): object {
-      if(!parentObject){
+      if (!parentObject) {
         // @ts-ignore
         return this['data'];
       }
 
-      if (typeof parentObject === 'string' || parentObject instanceof String){
+      if (typeof parentObject === 'string' || parentObject instanceof String) {
         // @ts-ignore
         return this[parentObject];
       }
@@ -38,7 +38,7 @@ function ModelChangedMixin<T extends Constructor<LitElement>>(baseClass: T) {
        */
       this.requestUpdate();
     }
-    
+
     selectedItemChanged(detail: {selectedItem: any}, key: string, optionValue = 'id', parentObject?: string | object) {
       if (detail.selectedItem === undefined) {
         return;
@@ -71,7 +71,12 @@ function ModelChangedMixin<T extends Constructor<LitElement>>(baseClass: T) {
       this.triggerUpdateValue(newValue, key, parentObject);
     }
 
-    selectedItemsChanged(detail: {selectedItems: any}, key: string, optionValue = 'id', parentObject?: string | object) {
+    selectedItemsChanged(
+      detail: {selectedItems: any},
+      key: string,
+      optionValue = 'id',
+      parentObject?: string | object
+    ) {
       if (detail.selectedItems === undefined) {
         return;
       }

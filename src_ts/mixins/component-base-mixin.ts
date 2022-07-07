@@ -5,12 +5,12 @@ import {fireEvent} from '../utils/fire-custom-event';
 import {validateRequiredFields} from '../utils/validation-helper';
 import isEmpty from 'lodash-es/isEmpty';
 import ContentPanelMixin from './content-panel-mixin';
-import ModelChangedMixing from './model-changed-mixin';
+import ModelChangedMixin from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from 'lit-translate';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
-  class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixing(baseClass)) {
+  class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixin(baseClass)) {
     @property({type: Boolean})
     editMode = false;
 
