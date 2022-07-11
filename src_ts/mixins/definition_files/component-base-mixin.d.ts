@@ -1,6 +1,7 @@
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {LitElement} from 'lit-element';
 import ContentPanelMixin from './content-panel-mixin';
+import ModelChangedMixin from './model-changed-mixin';
 declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
@@ -26,17 +27,6 @@ declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
       allUsers?: any[] | undefined
     ): import('lit-element').TemplateResult | import('lit-element').TemplateResult[];
     renderNameEmailPhone(item: any): import('lit-element').TemplateResult;
-    selectedItemChanged(detail: any, key: string, optionValue?: string): void;
-    selectedUserChanged(detail: any, key: string): void;
-    selectedUsersChanged(detail: any, key: string): void;
-    dateHasChanged(
-      detail: {
-        date: Date;
-      },
-      key: string
-    ): void;
-    selectedItemsChanged(detail: any, key: string, optionValue?: string): void;
-    valueChanged(detail: any, key: string): void;
     /**
      * check if already saved users exist on loaded data, if not they will be added
      * (they might be missing if changed country)
@@ -47,5 +37,6 @@ declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
     ): boolean;
   };
 } & T &
-  ReturnType<typeof ContentPanelMixin>;
+  ReturnType<typeof ContentPanelMixin> &
+  ReturnType<typeof ModelChangedMixin>;
 export default ComponentBaseMixin;
