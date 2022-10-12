@@ -96,7 +96,7 @@ function ModelChangedMixin<T extends Constructor<LitElement>>(baseClass: T) {
       }
 
       // @ts-ignore
-      parent[key] = parseFloat(detail.value as string);
+      parent[key] = detail.value == null ? null : parseFloat(detail.value as string);
       this.requestUpdate();
     }
   }
