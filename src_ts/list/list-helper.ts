@@ -20,14 +20,18 @@ export class ListHelper<T> {
   constructor(public endpoint: EtoolsEndpoint, public store: any) {}
 
   async getList(params: GenericObject<string>, forceReGet: boolean): Promise<ListHelperResponse<T>> {
-    const {page = 1, page_size: pageSize = this.listData.length, sort, ...filters} = params;
+    const {page = 1, page_size: pageSize = this.listData.length, sort} = params;
     // checks if filters was changed and returns interventions list
-    const filteredList: T[] = await this.getFilteredList(filters, forceReGet);
+    const filteredList: T[] = await this.getFilteredList(params, forceReGet);
     // returns sorted list if sort param exists
-    const sortedList: T[] = this.sortList(filteredList, sort);
+    const sortedList: T[] = this.sortList(filteredList.result, sort);
     // paginates list depending on provided params
     const list: T[] = this.paginate(Number(page), Number(pageSize), sortedList);
-    const paginator: EtoolsPaginator = this.getPaginationData(Number(page), Number(pageSize), filteredList.length);
+    const paginator: EtoolsPaginator = this.getPaginationData(
+      Number(page),
+      Number(pageSize),
+      filteredList.count != undefined ? filteredList.count : filteredList.length
+    );
     return {
       list,
       paginator
