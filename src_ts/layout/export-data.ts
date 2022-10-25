@@ -6,6 +6,7 @@ import '@polymer/paper-listbox/paper-listbox';
 import {AnyObject} from '@unicef-polymer/etools-types';
 import {elevation2} from '../styles/elevation-styles';
 import {fireEvent} from '../utils/fire-custom-event';
+import {translate, get as getTranslation} from 'lit-translate';
 
 /**
  * @customElement
@@ -60,7 +61,7 @@ export class ExportData extends LitElement {
       <paper-menu-button id="pdExportMenuBtn" close-on-activate horizontal-align="right">
         <paper-button slot="dropdown-trigger" class="dropdown-trigger">
           <iron-icon icon="file-download"></iron-icon>
-          Export
+          ${translate('EXPORT')}
         </paper-button>
         <paper-listbox slot="dropdown-content">
           ${this.exportLinks.map(
@@ -72,22 +73,27 @@ export class ExportData extends LitElement {
   }
 
   @property({type: Array})
-  exportLinks: AnyObject[] = [
-    {
-      name: 'Export Excel',
-      type: 'xlsx'
-    },
-    {
-      name: 'Export CSV',
-      type: 'csv'
-    }
-  ];
+  exportLinks: AnyObject[];
 
   @property({type: String})
   params = '';
 
   @property({type: String})
   endpoint = '';
+
+  constructor() {
+    super();
+    this.exportLinks = [
+      {
+        name: getTranslation('EXPORT_XLS'),
+        type: 'xlsx'
+      },
+      {
+        name: getTranslation('EXPORT_CSV'),
+        type: 'csv'
+      }
+    ];
+  }
 
   export(_type: string) {
     // const url = this.endpoint + `export/${_type}/` + (this.params ? `?${this.params}` : '');

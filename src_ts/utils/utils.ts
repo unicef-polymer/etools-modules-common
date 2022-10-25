@@ -2,6 +2,7 @@ import isObject from 'lodash-es/isObject';
 import isEmpty from 'lodash-es/isEmpty';
 import {formatDate} from './date-utils';
 import {AnyObject} from '@unicef-polymer/etools-types';
+import {langChanged, translateConfig, get as getTranslation} from 'lit-translate';
 
 export const isJsonStrMatch = (a: any, b: any) => {
   return JSON.stringify(a) === JSON.stringify(b);
@@ -129,4 +130,20 @@ export function decimalFractionEquals0(val: string) {
 
 export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function getTranslatedValue(value: string, keyPrefix?: string) {
+  if (!value) {
+    return value;
+  }
+
+  const key = [keyPrefix, value.replace(/ /g, '_').toUpperCase()].filter(Boolean);
+  return getTranslation(key.join('.'), undefined, {
+    ...translateConfig,
+    empty: () => value
+  });
+}
+
+export function translateValue(value: string, keyPrefix?: string) {
+  return langChanged(() => getTranslatedValue(value, keyPrefix));
 }
