@@ -1,4 +1,5 @@
 import {logWarn} from '@unicef-polymer/etools-behaviors/etools-logging.js';
+import { langChanged } from 'lit-translate';
 declare const dayjs: any;
 
 export function prettyDate(dateString: string, format?: string, placeholder?: string) {
@@ -141,4 +142,9 @@ export function formatDate(date: Date | string, format?: string) {
     return null;
   }
   return dayjs(date).format(format ? format : 'D MMM YYYY');
+}
+
+
+export function formatDateLocalized(date: Date | string, format?: string) {
+  return langChanged(() => formatDate(date, format));
 }
