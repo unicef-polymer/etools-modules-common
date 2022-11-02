@@ -48,7 +48,7 @@ export const sharedStylesContent = `
     margin: 0 12px;
     --paper-input-container-focus-color: var(--module-primary);
     --paper-input-container: {
-      
+
       font-size: 13px;
       opacity: 1 !important;
     }
@@ -62,7 +62,7 @@ export const sharedStylesContent = `
 
   etools-dropdown,
   etools-dropdown-multi {
-    --esmm-dropdown-menu-z-index: 120;
+    --esmm-dropdown-menu-z-index: 199;
     --esmm-external-wrapper: {
       width: 100%;
       max-width: 650px;
