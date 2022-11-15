@@ -2,6 +2,8 @@ import {LitElement, html, property, customElement} from 'lit-element';
 import '@polymer/iron-icons/iron-icons';
 import {completedStatusIcon} from './status-icons';
 import {listenForLangChanged, translate, translateConfig} from 'lit-translate';
+import {repeat} from 'lit-html/directives/repeat';
+import {classMap} from 'lit-html/directives/class-map';
 
 export type EtoolsStatusItem = [string, string];
 
@@ -76,9 +78,16 @@ export class EtoolsStatus extends LitElement {
           fill: #ffffff;
         }
       </style>
-      ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
+      ${repeat(
+        this.statuses,
+        (_item) => this.activeStatus,
+        (item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex)
+      )}
     `;
   }
+
+  @property({type: String})
+  activeStatusIndex = 0;
 
   @property({type: String})
   activeStatus!: string;
@@ -86,7 +95,7 @@ export class EtoolsStatus extends LitElement {
   @property({type: Array})
   statuses: EtoolsStatusItem[] = [];
 
-  constructor(){
+  constructor() {
     super();
     listenForLangChanged(() => {
       this.statuses = [...this.statuses];
@@ -94,35 +103,22 @@ export class EtoolsStatus extends LitElement {
   }
 
   getStatusHtml(item: EtoolsStatusItem, index: number, activeStatusIndex: number) {
-    const completed = this.isCompleted(index, activeStatusIndex);
-    // if status is terminated..we do not show active, and reverse
-    // @lajos: this should be refactored to something better
-    if (this.activeStatus == 'terminated') {
-      if (this.statuses.length - 1 == index) {
-        // special icon for terminated status
-        return html`
-          <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-            <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>
-            <span class="label"
-              >${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
-                ...translateConfig,
-                empty: () => item[1]
-              } as any)}</span
-            >
-          </div>
-        `;
-      }
-    }
-
-    return html`
-      <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-        <span class="icon"> ${completed ? html`${completedStatusIcon}` : html`${this.getBaseOneIndex(index)}`} </span>
-        <span class="label"> ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
+    const styleClasses = {active: index === activeStatusIndex, completed: this.isCompleted(index, activeStatusIndex)};
+    return html`<div class="status ${classMap(styleClasses)}}">
+      ${this.activeStatus == 'terminated'
+        ? html` <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>`
+        : html`<span class="icon">
+            ${this.isCompleted(index, activeStatusIndex)
+              ? html`${completedStatusIcon}`
+              : html`${this.getBaseOneIndex(index)}`}
+          </span>`}
+      <span class="label">
+        ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
           ...translateConfig,
           empty: () => item[1]
-        } as any)}</span>
-      </div>
-    `;
+        })}</span
+      >
+    </div>`;
   }
 
   /**
@@ -135,16 +131,5 @@ export class EtoolsStatus extends LitElement {
 
   isCompleted(index: number, activeStatusIndex: number): boolean {
     return index < activeStatusIndex || activeStatusIndex === this.statuses.length - 1;
-  }
-
-  getStatusClasses(index: number, activeStatusIndex: number): string {
-    const classes: string[] = [];
-    if (index === activeStatusIndex) {
-      classes.push('active');
-    }
-    if (this.isCompleted(index, activeStatusIndex)) {
-      classes.push('completed');
-    }
-    return classes.join(' ');
   }
 }
