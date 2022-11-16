@@ -16,7 +16,7 @@ export type EtoolsStatusItem = [string, string];
 export class EtoolsStatus extends LitElement {
   public render() {
     const activeStatusIndex: number = this.activeStatus
-      ? this.statuses.findIndex(([status]: EtoolsStatusItem) => status === this.activeStatus)
+      ? this.statuses.findIndex((status) => status.value === this.activeStatus)
       : 0;
 
     // language=HTML
@@ -80,8 +80,8 @@ export class EtoolsStatus extends LitElement {
       </style>
       ${repeat(
         this.statuses,
-        (_item) => this.activeStatus,
-        (item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex)
+        (item) => item.forceRerender,
+        (item, index) => this.getStatusHtml(item, index, activeStatusIndex)
       )}
     `;
   }
@@ -89,11 +89,29 @@ export class EtoolsStatus extends LitElement {
   @property({type: String})
   activeStatusIndex = 0;
 
+  _activeStatus!: string;
   @property({type: String})
-  activeStatus!: string;
+  get activeStatus() {
+    return this._activeStatus;
+  }
 
+  set activeStatus(val: string) {
+    this._activeStatus = val;
+    this.statuses = this.statuses.map((t) => [t.value, t.label]);
+    this.requestUpdate();
+  }
+
+  _statuses!: {value: string; label: string}[];
   @property({type: Array})
-  statuses: EtoolsStatusItem[] = [];
+  get statuses() {
+    return this._statuses;
+  }
+
+  set statuses(val: [string, string][]) {
+    this._statuses = val.map((s) => {
+      return {value: s[0], label: s[1], forceRerender: this._activeStatus};
+    });
+  }
 
   constructor() {
     super();
@@ -102,7 +120,7 @@ export class EtoolsStatus extends LitElement {
     });
   }
 
-  getStatusHtml(item: EtoolsStatusItem, index: number, activeStatusIndex: number) {
+  getStatusHtml(item: {value: string; label: string}, index: number, activeStatusIndex: number) {
     const styleClasses = {active: index === activeStatusIndex, completed: this.isCompleted(index, activeStatusIndex)};
     return html`<div class="status ${classMap(styleClasses)}}">
       ${this.activeStatus == 'terminated'
@@ -113,9 +131,9 @@ export class EtoolsStatus extends LitElement {
               : html`${this.getBaseOneIndex(index)}`}
           </span>`}
       <span class="label">
-        ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
+        ${translate(`PD_STATUS.${item.label.toUpperCase()}`, undefined, {
           ...translateConfig,
-          empty: () => item[1]
+          empty: () => item.label
         })}</span
       >
     </div>`;
