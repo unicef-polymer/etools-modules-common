@@ -15,7 +15,7 @@ export type EtoolsStatusItem = [string, string];
 @customElement('etools-status-lit')
 export class EtoolsStatus extends LitElement {
   public render() {
-    const activeStatusIndex: number = this.activeStatus
+    this.activeStatusIndex = this.activeStatus
       ? this.statuses.findIndex((status) => status.value === this.activeStatus)
       : 0;
 
@@ -81,7 +81,7 @@ export class EtoolsStatus extends LitElement {
       ${repeat(
         this.statuses,
         (item) => item.forceRerender,
-        (item, index) => this.getStatusHtml(item, index, activeStatusIndex)
+        (item, index) => this.getStatusHtml(item, index, this.activeStatusIndex)
       )}
     `;
   }
