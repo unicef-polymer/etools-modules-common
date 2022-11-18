@@ -2,6 +2,8 @@ import {LitElement, html, property, customElement} from 'lit-element';
 import '@polymer/iron-icons/iron-icons';
 import {completedStatusIcon} from './status-icons';
 import {listenForLangChanged, translate, translateConfig} from 'lit-translate';
+import {repeat} from 'lit-html/directives/repeat';
+import {classMap} from 'lit-html/directives/class-map';
 
 export type EtoolsStatusItem = [string, string];
 
@@ -13,8 +15,8 @@ export type EtoolsStatusItem = [string, string];
 @customElement('etools-status-lit')
 export class EtoolsStatus extends LitElement {
   public render() {
-    const activeStatusIndex: number = this.activeStatus
-      ? this.statuses.findIndex(([status]: EtoolsStatusItem) => status === this.activeStatus)
+    this.activeStatusIndex = this.activeStatus
+      ? this.statuses.findIndex((status) => status.value === this.activeStatus)
       : 0;
 
     // language=HTML
@@ -76,53 +78,65 @@ export class EtoolsStatus extends LitElement {
           fill: #ffffff;
         }
       </style>
-      ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
+      ${repeat(
+        this.statuses,
+        (item) => item.forceRerender,
+        (item, index) => this.getStatusHtml(item, index, this.activeStatusIndex)
+      )}
     `;
   }
 
   @property({type: String})
-  activeStatus!: string;
+  activeStatusIndex = 0;
 
+  _activeStatus!: string;
+  @property({type: String})
+  get activeStatus() {
+    return this._activeStatus;
+  }
+
+  set activeStatus(val: string) {
+    this._activeStatus = val;
+    this.statuses = this.statuses.map((t) => [t.value, t.label]);
+    this.requestUpdate();
+  }
+
+  _statuses!: {value: string; label: string}[];
   @property({type: Array})
-  statuses: EtoolsStatusItem[] = [];
+  get statuses() {
+    return this._statuses;
+  }
 
-  constructor(){
+  set statuses(val: [string, string][]) {
+    this._statuses = val.map((s) => {
+      return {value: s[0], label: s[1], forceRerender: this._activeStatus};
+    });
+  }
+
+  constructor() {
     super();
     listenForLangChanged(() => {
       this.statuses = [...this.statuses];
     });
   }
 
-  getStatusHtml(item: EtoolsStatusItem, index: number, activeStatusIndex: number) {
-    const completed = this.isCompleted(index, activeStatusIndex);
-    // if status is terminated..we do not show active, and reverse
-    // @lajos: this should be refactored to something better
-    if (this.activeStatus == 'terminated') {
-      if (this.statuses.length - 1 == index) {
-        // special icon for terminated status
-        return html`
-          <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-            <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>
-            <span class="label"
-              >${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
-                ...translateConfig,
-                empty: () => item[1]
-              } as any)}</span
-            >
-          </div>
-        `;
-      }
-    }
-
-    return html`
-      <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-        <span class="icon"> ${completed ? html`${completedStatusIcon}` : html`${this.getBaseOneIndex(index)}`} </span>
-        <span class="label"> ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
+  getStatusHtml(item: {value: string; label: string}, index: number, activeStatusIndex: number) {
+    const styleClasses = {active: index === activeStatusIndex, completed: this.isCompleted(index, activeStatusIndex)};
+    return html`<div class="status ${classMap(styleClasses)}}">
+      ${this.activeStatus == 'terminated'
+        ? html` <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>`
+        : html`<span class="icon">
+            ${this.isCompleted(index, activeStatusIndex)
+              ? html`${completedStatusIcon}`
+              : html`${this.getBaseOneIndex(index)}`}
+          </span>`}
+      <span class="label">
+        ${translate(`PD_STATUS.${item.label.toUpperCase()}`, undefined, {
           ...translateConfig,
-          empty: () => item[1]
-        } as any)}</span>
-      </div>
-    `;
+          empty: () => item.label
+        })}</span
+      >
+    </div>`;
   }
 
   /**
@@ -135,16 +149,5 @@ export class EtoolsStatus extends LitElement {
 
   isCompleted(index: number, activeStatusIndex: number): boolean {
     return index < activeStatusIndex || activeStatusIndex === this.statuses.length - 1;
-  }
-
-  getStatusClasses(index: number, activeStatusIndex: number): string {
-    const classes: string[] = [];
-    if (index === activeStatusIndex) {
-      classes.push('active');
-    }
-    if (this.isCompleted(index, activeStatusIndex)) {
-      classes.push('completed');
-    }
-    return classes.join(' ');
   }
 }
