@@ -105,13 +105,16 @@ export class ListHelper<T> {
     return {
       page,
       page_size: pageSize,
-      total_pages: count ? Math.ceil(count / pageSize) : 0,
+      total_pages: count ? Math.ceil(count / pageSize) : page,
       count: count,
       visible_range: this.getVisibleRange(pageSize, page, count)
     };
   }
 
   getVisibleRange(pageSize: number, page: number, count: number): [number, number] {
+    if (!count) {
+      return [0, 0];
+    }
     const from: number = (page - 1) * pageSize;
     const to: number = from + pageSize;
     if (from > count) {
