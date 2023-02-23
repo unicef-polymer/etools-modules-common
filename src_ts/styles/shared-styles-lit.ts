@@ -266,6 +266,19 @@ export const sharedStylesContent = `
     background-color: rgba(170, 165, 165, 0.2);
   }
 
+  *:focus-visible:not(a):not(paper-icon-button):not(paper-radio-button):not(paper-checkbox) {
+    outline: 2px solid rgb(170 165 165 / 50%);
+  }
+
+  datepicker-lite::part(dp-iron-icon):focus-visible,
+  info-icon-tooltip::part(etools-iit-icon):focus-visible {
+    outline: 0;
+    background-color: rgba(170, 165, 165, 0.5);
+    box-shadow: 0 0 0 10px rgb(170 165 165 / 30%) !important;
+    border-radius: 50%;
+  }
+
+
   *[disabled] {
     outline: 0;
   }
