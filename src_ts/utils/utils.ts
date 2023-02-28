@@ -132,16 +132,31 @@ export function capitalizeFirstLetter(str: string) {
   return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
+/**
+ * Translate by value not key
+ * @param value
+ * @param keyPrefix For nested keys, ex DOCUMENT_TYPES.PD
+ * @returns
+ */
 export function getTranslatedValue(value: string, keyPrefix?: string) {
   if (!value) {
     return value;
   }
 
-  const key = [keyPrefix, value.replace(/ /g, '_').toUpperCase()].filter(Boolean);
-  return getTranslation(key.join('.'), undefined, {
+  // construct key from value
+  const key = [keyPrefix, value.replace(/ /g, '_').toUpperCase()].filter(Boolean).join('.');
+
+  const translation = getTranslation(key, undefined, {
     ...translateConfig,
     empty: () => value
   });
+
+  if (translation === key) {
+    // key not found in the translations json file
+    return value;
+  } else {
+    return translation;
+  }
 }
 
 export function translateValue(value: string, keyPrefix?: string) {
