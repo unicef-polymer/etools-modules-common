@@ -9,7 +9,7 @@ export class AreYouSure extends LitElement {
     return html` <style>
         .content {
           margin-top: 16px;
-          padding-left: 24px;
+          padding-inline-start: 24px;
         }
       </style>
       <etools-dialog

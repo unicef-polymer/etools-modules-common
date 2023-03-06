@@ -36,7 +36,8 @@ export const ActionsStyles: CSSResult = css`
   }
 
   .main-button.with-additional {
-    padding: 0 0 0 18px;
+    padding: 0;
+    padding-inline-start: 18px;
   }
 
   .main-button span {

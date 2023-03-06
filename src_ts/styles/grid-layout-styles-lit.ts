@@ -138,7 +138,7 @@ export const gridLayoutStylesContent = `
 }
 
 .col:not(:first-of-type) {
-  padding-left: 24px;
+  padding-inline-start: 24px;
 }
 
 .col-1 {

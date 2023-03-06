@@ -29,7 +29,10 @@ export class CancelJustification extends LitElement {
           font-size: 17px;
           white-space: pre-wrap;
           color: var(--primary-text-color);
-          padding: 26px 12px 26px 80px;
+          padding-top: 26px;
+          padding-bottom: 26px;
+          padding-inline-end: 12px;
+          padding-inline-start: 80px;
         }
 
         div[slot='panel-btns'].bookmark {

@@ -15,7 +15,7 @@ export const buttonsStylesContent = `
   paper-button.info.left-icon,
   paper-button.success.left-icon,
   paper-button.error.left-icon {
-    padding-right: 12px;
+    padding-inline-end: 12px;
   }
 
   paper-button.default.right-icon,
@@ -23,7 +23,7 @@ export const buttonsStylesContent = `
   paper-button.info.right-icon,
   paper-button.success.right-icon,
   paper-button.error.right-icon {
-    padding-left: 12px;
+    padding-inline-start: 12px;
   }
 
   paper-button.default.left-icon iron-icon,
@@ -80,7 +80,8 @@ export const buttonsStylesContent = `
     width: auto;
     margin: 0;
     color: var(--primary-color);
-    padding: 0 5px 0 0;
+    padding: 0;
+    padding-inline-end: 5px;
     font-size: 14px;
     font-weight: bold;
   }

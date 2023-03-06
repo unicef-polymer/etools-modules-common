@@ -35,7 +35,8 @@ export const repeatableDataSetsStyles = html` ${actionIconBtnsStyles}
     }
 
     .item-container .item-content > * {
-      padding: 0 0 16px 24px;
+      padding: 0 0 16px 0;
+      padding-inline-start: 24px;
     }
 
     #bottom-actions {
@@ -56,7 +57,7 @@ export const repeatableDataSetsStylesV2 = html` <style>
 
   .item-actions-container {
     position: relative;
-    padding-right: 10px;
+    padding-inline-end: 10px;
     border-right: 2px solid var(--primary-color);
     margin-top: 25px;
   }

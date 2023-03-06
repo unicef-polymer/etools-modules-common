@@ -20,8 +20,8 @@ export const InterventionsListStyles: CSSResult = css`
     }
 
     #addBtn {
-      padding-right: 16px;
-      margin-right: 32px;
+      padding-inline-end: 16px;
+      margin-inline-end: 32px;
     }
 
     .shortAddText {
