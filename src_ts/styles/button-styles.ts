@@ -30,11 +30,11 @@ export const buttonsStylesContent = `
   paper-button.primary.left-icon iron-icon,
   paper-button.success.left-icon iron-icon,
   paper-button.error.left-icon iron-icon {
-    margin-right: 10px;
+    margin-inline-end: 10px;
   }
 
   paper-button.info.left-icon iron-icon {
-    margin-right: 4px;
+    margin-inline-end: 4px;
   }
 
   paper-button.default.right-icon iron-icon,
@@ -42,7 +42,7 @@ export const buttonsStylesContent = `
   paper-button.info.right-icon iron-icon,
   paper-button.success.right-icon iron-icon,
   paper-button.error.right-icon iron-icon {
-    margin-left: 10px;
+    margin-inline-start: 10px;
   }
 
   paper-button.default {

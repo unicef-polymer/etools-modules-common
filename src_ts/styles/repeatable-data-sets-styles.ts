@@ -30,7 +30,7 @@ export const repeatableDataSetsStyles = html` ${actionIconBtnsStyles}
       display: flex;
       flex-direction: column;
       flex: 1;
-      margin-left: 10px;
+      margin-inline-start: 10px;
       border-left: 1px solid var(--darker-divider-color);
     }
 
@@ -91,7 +91,7 @@ export const repeatableDataSetsStylesV2 = html` <style>
   .item-container .item-content {
     display: inline-block;
     width: 100%;
-    margin-left: 0;
+    margin-inline-start: 0;
     border-left: none;
   }
 </style>`;

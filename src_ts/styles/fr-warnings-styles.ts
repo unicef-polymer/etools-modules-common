@@ -12,7 +12,7 @@ etools-info-tooltip.currency-mismatch iron-icon {
 etools-info-tooltip.frs-inline-list iron-icon {
   --iron-icon-fill-color: var(--error-color);
   color: var(--error-color);
-  margin-left: 24px !important;
+  margin-inline-start: 24px !important;
 }
 
 .fr-val-not-available {
@@ -20,7 +20,7 @@ etools-info-tooltip.frs-inline-list iron-icon {
 }
 
 .amount-currency {
-  margin-right: 4px;
+  margin-inline-end: 4px;
 }
 
 `;

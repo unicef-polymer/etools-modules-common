@@ -23,13 +23,13 @@ export class ExportData extends LitElement {
         paper-button {
           height: 40px;
           padding: 0px 5px;
-          margin-left: 10px;
+          margin-inline-start: 10px;
           font-weight: bold;
           color: var(--secondary-text-color);
         }
 
         paper-button iron-icon {
-          margin-right: 10px;
+          margin-inline-end: 10px;
           color: var(--secondary-text-color);
         }
 

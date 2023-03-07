@@ -24,7 +24,7 @@ export const ActionsStyles: CSSResult = css`
   }
 
   .back-button span {
-    margin-left: 10px;
+    margin-inline-start: 10px;
   }
 
   .cancel-background {
@@ -41,7 +41,7 @@ export const ActionsStyles: CSSResult = css`
   }
 
   .main-button span {
-    margin-right: 7px;
+    margin-inline-end: 7px;
   }
 
   .other-options {
@@ -62,7 +62,7 @@ export const ActionsStyles: CSSResult = css`
     z-index: 10;
   }
   .option-button {
-    margin-left: 14px;
+    margin-inline-start: 14px;
     height: 36px;
     border-left: 2px solid rgba(255, 255, 255, 0.12);
   }

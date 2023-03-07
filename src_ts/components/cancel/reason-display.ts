@@ -24,7 +24,7 @@ export class ReasonDisplay extends LitElement {
           font-weight: 500;
           text-align: left;
           font-size: 18px;
-          margin-left: 80px;
+          margin-inline-start: 80px;
         }
 
         .text {

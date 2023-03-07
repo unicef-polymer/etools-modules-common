@@ -40,7 +40,7 @@ export const InterventionsTableStyles: CSSResult = css`
     display: flex;
   }
   .details > div {
-    margin-right: 40px;
+    margin-inline-end: 40px;
   }
   .title {
     margin-bottom: 5px;
