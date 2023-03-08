@@ -198,7 +198,7 @@ export const sharedStylesContent = `
     cursor: pointer;
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     bottom: 0;
     line-height: 48px;
     background-color: #eeeeee;

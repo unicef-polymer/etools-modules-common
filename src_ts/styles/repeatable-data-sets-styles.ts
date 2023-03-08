@@ -10,8 +10,8 @@ export const repeatableDataSetsStyles = html` ${actionIconBtnsStyles}
     }
 
     .item-container.no-h-margin {
-      padding-right: 0;
-      padding-left: 0;
+      padding-inline-end: 0;
+      padding-inline-start: 0;
     }
 
     .item-actions-container {
@@ -68,7 +68,7 @@ export const repeatableDataSetsStylesV2 = html` <style>
     justify-content: center;
     position: absolute;
     top: -32px;
-    right: -12px;
+    inset-inline-end: -12px;
     background-color: var(--primary-color);
     color: var(--light-primary-text-color);
     content: attr(data-item-nr);
