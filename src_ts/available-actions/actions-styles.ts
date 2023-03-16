@@ -64,6 +64,6 @@ export const ActionsStyles: CSSResult = css`
   .option-button {
     margin-inline-start: 14px;
     height: 36px;
-    border-left: 2px solid rgba(255, 255, 255, 0.12);
+    border-inline-start: 2px solid rgba(255, 255, 255, 0.12);
   }
 `;
