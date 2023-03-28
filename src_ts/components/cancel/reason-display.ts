@@ -24,7 +24,7 @@ export class ReasonDisplay extends LitElement {
           font-weight: 500;
           text-align: left;
           font-size: 18px;
-          margin-left: 80px;
+          margin-inline-start: 80px;
         }
 
         .text {
@@ -37,8 +37,8 @@ export class ReasonDisplay extends LitElement {
         div[slot='panel-btns'].bookmark {
           position: absolute;
           top: 4px;
-          right: auto;
-          left: 20px;
+          inset-inline-end: auto;
+          inset-inline-start: 20px;
           color: grey;
           -webkit-transform: scale(0.9, 1.5);
           -moz-transform: scale(0.9, 1.5);

@@ -20,8 +20,8 @@ export const InterventionsListStyles: CSSResult = css`
     }
 
     #addBtn {
-      padding-right: 16px;
-      margin-right: 32px;
+      padding-inline-end: 16px;
+      margin-inline-end: 32px;
     }
 
     .shortAddText {
@@ -40,7 +40,7 @@ export const InterventionsTableStyles: CSSResult = css`
     display: flex;
   }
   .details > div {
-    margin-right: 40px;
+    margin-inline-end: 40px;
   }
   .title {
     margin-bottom: 5px;

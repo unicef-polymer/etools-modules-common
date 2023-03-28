@@ -28,7 +28,7 @@ export class IconsActions extends LitElement {
           align-items: center;
           background-color: var(--list-second-bg-color);
           position: absolute;
-          right: 0;
+          inset-inline-end: 0;
           top: 0;
           bottom: 0;
         }

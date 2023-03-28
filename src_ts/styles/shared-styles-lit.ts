@@ -157,7 +157,7 @@ export const sharedStylesContent = `
 
   etools-data-table-column, *[slot="row-data"] .col-data {
     box-sizing: border-box;
-    padding-right: 16px;
+    padding-inline-end: 16px;
   }
 
   *[slot="row-data"] {
@@ -180,7 +180,8 @@ export const sharedStylesContent = `
   }
 
   etools-content-panel::part(ecp-header-title) {
-      padding: 0 24px 0 0;
+      padding: 0;
+      padding-inline-end: 24px;
       text-align: start;
       font-size: 18px;
       font-weight: 500;
@@ -197,7 +198,7 @@ export const sharedStylesContent = `
     cursor: pointer;
     position: absolute;
     top: 0;
-    right: 0;
+    inset-inline-end: 0;
     bottom: 0;
     line-height: 48px;
     background-color: #eeeeee;
@@ -206,7 +207,7 @@ export const sharedStylesContent = `
 
   .editable-row .hover-block paper-icon-button {
     color: rgba(0, 0, 0, 0.54);
-    padding-left: 5px;
+    padding-inline-start: 5px;
   }
 
   .editable-row:hover > .hover-block {
