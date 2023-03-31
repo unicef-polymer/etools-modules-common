@@ -1,6 +1,6 @@
 import {LitElement, property} from 'lit-element';
 import {Constructor} from '@unicef-polymer/etools-types';
-import {getStore} from '..//utils/redux-store-access';
+import {getStore} from '@unicef-polymer/etools-utils/dist/store.util';
 
 const INCREASE_UPLOADS_IN_PROGRESS = 'INCREASE_UPLOADS_IN_PROGRESS';
 const DECREASE_UPLOADS_IN_PROGRESS = 'DECREASE_UPLOADS_IN_PROGRESS';

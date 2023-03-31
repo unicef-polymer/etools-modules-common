@@ -5,7 +5,7 @@ import '@polymer/iron-icon/iron-icon';
 import '@polymer/paper-listbox/paper-listbox';
 import {AnyObject} from '@unicef-polymer/etools-types';
 import {elevation2} from '../styles/elevation-styles';
-import {fireEvent} from '../utils/fire-custom-event';
+import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 import {translate, get as getTranslation} from 'lit-translate';
 
 /**

@@ -4,7 +4,7 @@ import sortBy from 'lodash-es/sortBy';
 import {sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
 import {abortRequestByKey} from '@unicef-polymer/etools-ajax/etools-iron-request';
 import {EtoolsEndpoint, GenericObject} from '@unicef-polymer/etools-types';
-import {getEndpoint} from '../utils/endpoint-helper';
+import {getEndpoint} from '@unicef-polymer/etools-utils/dist/endpoint.util';
 
 export type ListHelperResponse<T> = {
   list: T[];
