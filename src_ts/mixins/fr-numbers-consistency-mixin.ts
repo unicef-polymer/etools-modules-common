@@ -2,33 +2,28 @@ import {LitElement, property} from 'lit-element';
 import {displayCurrencyAmount} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-module';
 import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
+import {get as getTranslation} from 'lit-translate';
 
 function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class FrNumbersConsistencyClass extends baseClass {
     @property({type: Object})
-    frsConsistencyWarnings = {
-      amountsCannotBeCompared: 'FRs Amount and UNICEF Cash Contribution can not be compared.',
-      tooManyFrsCurencies: 'More than 1 FR currency is available.',
-      amountAndDisbursementNotDisplayed: 'Totals for FR amount and Actual Disbursement can not be displayed.',
-      currencyMismatch: 'FR currency does not match PD/SPD currency.',
-      cannotCalcDisbursement: 'Disbursement to Date % can not calculate.',
-      addedFrsCurrenciesMismatch:
-        'The currency of the PD/SPD and the FR are not the same and cannot be ' +
-        'compared.\nTo be able to compare the amounts, you can cancel and enter the budget in the same currency ' +
-        'as the FR.\n',
-      amount: 'Total FR amount is not the same as planned UNICEF Cash Contribution.',
-      dateTmpl: 'FR <<field_name>> is not the same as PD/SPD <<field_name>>.',
-      warningTmpl: 'The <<frs_fields>> <<verb>> not the same as PD/SPD <<pd_fields>>.',
-      FCmultiCurrFlagErrorMsg: 'There are multiple transaction currencies in VISION'
-    };
-    @property({type: Object})
-    frsValidationFields = {
-      start_date: 'Start Date',
-      end_date: 'End Date',
-      pd_unicef_cash_contribution: 'UNICEF Cash Contribution',
-      fr_earliest_date: 'FR Start Date',
-      fr_latest_date: 'FR End Date',
-      fr_total_amount: 'Total FR amount'
+    frNumbersMessageKeys = {
+      amountsCannotBeCompared: 'FRNUMBERSCONSISTENCY.AMOUNTSCANNOTBECOMPARED',
+      tooManyFrsCurencies: 'FRNUMBERSCONSISTENCY.TOOMANYFRSCURENCIES',
+      amountAndDisbursementNotDisplayed: 'FRNUMBERSCONSISTENCY.AMOUNTANDDISBURSEMENTNOTDISPLAYED',
+      currencyMismatch: 'FRNUMBERSCONSISTENCY.CURRENCYMISMATCH',
+      cannotCalcDisbursement: 'FRNUMBERSCONSISTENCY.CANNOTCALCDISBURSEMENT',
+      addedFrsCurrenciesMismatch: 'FRNUMBERSCONSISTENCY.ADDEDFRSCURRENCIESMISMATCH',
+      amount: 'FRNUMBERSCONSISTENCY.AMOUNT',
+      dateTmpl: 'FRNUMBERSCONSISTENCY.DATETMPL',
+      warningTmpl: 'FRNUMBERSCONSISTENCY.WARNINGTMPL',
+      FCmultiCurrFlagErrorMsg: 'FRNUMBERSCONSISTENCY.FCMULTICURRFLAGERRORMSG',
+      start_date: 'FRNUMBERSCONSISTENCY.START_DATE',
+      end_date: 'FRNUMBERSCONSISTENCY.END_DATE',
+      pd_unicef_cash_contribution: 'FRNUMBERSCONSISTENCY.PD_UNICEF_CASH_CONTRIBUTION',
+      fr_earliest_date: 'FRNUMBERSCONSISTENCY.FR_EARLIEST_DATE',
+      fr_latest_date: 'FRNUMBERSCONSISTENCY.FR_LATEST_DATE',
+      fr_total_amount: 'FRNUMBERSCONSISTENCY.FR_TOTAL_AMOUNT'
     };
 
     /*
@@ -59,12 +54,12 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
       const warnFrsFields = []; // FR fields
       const warnIntervFields = []; // PD/SPD fields
       if (this.checkFrsAndIntervDateConsistency(intervention.start, frsDetails.earliest_start_date)) {
-        warnFrsFields.push(this.frsValidationFields.fr_earliest_date);
-        warnIntervFields.push(this.frsValidationFields.start_date);
+        warnFrsFields.push(getTranslation(this.frNumbersMessageKeys.fr_earliest_date));
+        warnIntervFields.push(getTranslation(this.frNumbersMessageKeys.start_date));
       }
       if (this.checkFrsAndIntervDateConsistency(intervention.end, frsDetails.latest_end_date)) {
-        warnFrsFields.push(this.frsValidationFields.fr_latest_date);
-        warnIntervFields.push(this.frsValidationFields.end_date);
+        warnFrsFields.push(getTranslation(this.frNumbersMessageKeys.fr_latest_date));
+        warnIntervFields.push(getTranslation(this.frNumbersMessageKeys.end_date));
       }
 
       let computedWarning = '';
@@ -81,22 +76,17 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
             skipEmptyListCheck
           )
         ) {
-          warnFrsFields.push(this.frsValidationFields.fr_total_amount);
-          warnIntervFields.push(this.frsValidationFields.pd_unicef_cash_contribution);
+          warnFrsFields.push(getTranslation(this.frNumbersMessageKeys.fr_total_amount));
+          warnIntervFields.push(getTranslation(this.frNumbersMessageKeys.pd_unicef_cash_contribution));
         }
       } else {
         // currencies of the frs and planned budget do NOT match
-        computedWarning = this.frsConsistencyWarnings.addedFrsCurrenciesMismatch;
+        computedWarning = getTranslation(this.frNumbersMessageKeys.addedFrsCurrenciesMismatch);
       }
 
       if (warnFrsFields.length > 0) {
-        computedWarning += this.frsConsistencyWarnings.warningTmpl;
+        computedWarning += getTranslation(this.frNumbersMessageKeys.warningTmpl);
         computedWarning = this._buildFrsWarningMsg(computedWarning, '<<frs_fields>>', warnFrsFields.join(', '));
-        computedWarning = this._buildFrsWarningMsg(
-          computedWarning,
-          '<<verb>>',
-          warnFrsFields.length > 1 ? 'are' : 'is'
-        );
         computedWarning = this._buildFrsWarningMsg(computedWarning, '<<pd_fields>>', warnIntervFields.join(', '));
       }
       return computedWarning !== '' ? computedWarning : false;
@@ -154,7 +144,11 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
     ) {
       if (!this.validateFrsVsInterventionDates(intervDateStr, frsDateStr)) {
         return returnMsg
-          ? this._buildFrsWarningMsg(this.frsConsistencyWarnings.dateTmpl, '<<field_name>>', fieldName as string)
+          ? this._buildFrsWarningMsg(
+              getTranslation(this.frNumbersMessageKeys.dateTmpl),
+              '<<field_name>>',
+              fieldName as string
+            )
           : true;
       }
       return false;
@@ -173,22 +167,22 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
     }
 
     getFrsTotalAmountInconsistencyMsg() {
-      return this.frsConsistencyWarnings.amount;
+      return getTranslation(this.frNumbersMessageKeys.amount);
     }
 
     getFrsStartDateValidationMsg() {
       return this._buildFrsWarningMsg(
-        this.frsConsistencyWarnings.dateTmpl,
+        getTranslation(this.frNumbersMessageKeys.dateTmpl),
         '<<field_name>>',
-        this.frsValidationFields.start_date
+        getTranslation(this.frNumbersMessageKeys.start_date)
       );
     }
 
     getFrsEndDateValidationMsg() {
       return this._buildFrsWarningMsg(
-        this.frsConsistencyWarnings.dateTmpl,
+        getTranslation(this.frNumbersMessageKeys.dateTmpl),
         '<<field_name>>',
-        this.frsValidationFields.end_date
+        getTranslation(this.frNumbersMessageKeys.end_date)
       );
     }
 
@@ -252,14 +246,18 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
 
     getFrsCurrencyTooltipMsg(frsCurrencyMatch: boolean) {
       const tooManyCurrenciesMsg =
-        this.frsConsistencyWarnings.tooManyFrsCurencies +
+        getTranslation(this.frNumbersMessageKeys.tooManyFrsCurencies) +
         '\n' +
-        this.frsConsistencyWarnings.amountAndDisbursementNotDisplayed;
-      return !frsCurrencyMatch ? tooManyCurrenciesMsg : this.frsConsistencyWarnings.currencyMismatch;
+        getTranslation(this.frNumbersMessageKeys.amountAndDisbursementNotDisplayed);
+      return !frsCurrencyMatch ? tooManyCurrenciesMsg : getTranslation(this.frNumbersMessageKeys.currencyMismatch);
     }
 
     getFrCurrencyTooltipMsg() {
-      return this.frsConsistencyWarnings.currencyMismatch + '\n' + this.frsConsistencyWarnings.cannotCalcDisbursement;
+      return (
+        getTranslation(this.frNumbersMessageKeys.currencyMismatch) +
+        '\n' +
+        getTranslation(this.frNumbersMessageKeys.cannotCalcDisbursement)
+      );
     }
 
     /**
@@ -294,13 +292,13 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
         return this.getFrsTotalAmountInconsistencyMsg();
       }
       const msg = !frsCurrenciesAreConsistent
-        ? this.frsConsistencyWarnings.tooManyFrsCurencies
-        : this.frsConsistencyWarnings.currencyMismatch;
-      return msg + '\n' + this.frsConsistencyWarnings.amountsCannotBeCompared;
+        ? getTranslation(this.frNumbersMessageKeys.tooManyFrsCurencies)
+        : getTranslation(this.frNumbersMessageKeys.currencyMismatch);
+      return msg + '\n' + getTranslation(this.frNumbersMessageKeys.amountsCannotBeCompared);
     }
 
     getFrsMultiCurrFlagErrTooltipMsg() {
-      return this.frsConsistencyWarnings.FCmultiCurrFlagErrorMsg;
+      return getTranslation(this.frNumbersMessageKeys.FCmultiCurrFlagErrorMsg);
     }
   }
 

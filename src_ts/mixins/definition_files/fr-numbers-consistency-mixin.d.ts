@@ -6,7 +6,7 @@ declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
   new (...args: any[]): {
-    frsConsistencyWarnings: {
+    frNumbersMessageKeys: {
       amountsCannotBeCompared: string;
       tooManyFrsCurencies: string;
       amountAndDisbursementNotDisplayed: string;
@@ -17,8 +17,6 @@ declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
       dateTmpl: string;
       warningTmpl: string;
       FCmultiCurrFlagErrorMsg: string;
-    };
-    frsValidationFields: {
       start_date: string;
       end_date: string;
       pd_unicef_cash_contribution: string;
