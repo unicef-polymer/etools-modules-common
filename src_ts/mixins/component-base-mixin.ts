@@ -1,7 +1,7 @@
 import {LitElement, property, html} from 'lit-element';
 import cloneDeep from 'lodash-es/cloneDeep';
-import {filterByIds} from '../utils/utils';
-import {fireEvent} from '../utils/fire-custom-event';
+import {filterByIds} from '@unicef-polymer/etools-utils/dist/general.util';
+import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 import {validateRequiredFields} from '../utils/validation-helper';
 import isEmpty from 'lodash-es/isEmpty';
 import ContentPanelMixin from './content-panel-mixin';

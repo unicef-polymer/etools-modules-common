@@ -1,5 +1,5 @@
 import {customElement, html, LitElement, property, TemplateResult} from 'lit-element';
-import {fireEvent} from '../../utils/fire-custom-event';
+import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 import '@polymer/paper-input/paper-textarea';
 import '@unicef-polymer/etools-dialog/etools-dialog.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';

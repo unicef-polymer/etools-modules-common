@@ -1,4 +1,4 @@
-import {prettyDate} from '../utils/date-utils';
+import {prettyDate} from '@unicef-polymer/etools-utils/dist/date.util';
 import {LitElement} from 'lit-element';
 import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
 import {get} from 'lit-translate';
