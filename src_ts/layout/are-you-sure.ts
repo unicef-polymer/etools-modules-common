@@ -1,7 +1,7 @@
 import {html, LitElement, customElement, property} from 'lit-element';
 import '@unicef-polymer/etools-dialog/etools-dialog.js';
 import {translate} from 'lit-translate';
-import {fireEvent} from '../utils/fire-custom-event';
+import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 
 @customElement('are-you-sure')
 export class AreYouSure extends LitElement {

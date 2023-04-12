@@ -11,8 +11,8 @@ import '../are-you-sure';
 
 import {ActionsStyles} from './actions-styles';
 import {arrowLeftIcon} from '../styles/app-icons';
-import {openDialog} from '../utils/dialog';
-import {fireEvent} from '../utils/fire-custom-event';
+import {openDialog} from '@unicef-polymer/etools-utils/dist/dialog.util';
+import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 
 export class AvailableActions extends LitElement {
   EXPORT_ACTIONS: string[] = [];
