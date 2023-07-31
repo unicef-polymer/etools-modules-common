@@ -1,7 +1,7 @@
 import {customElement, html, LitElement, property, TemplateResult} from 'lit-element';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 import '@polymer/paper-input/paper-textarea';
-import '@unicef-polymer/etools-dialog/etools-dialog.js';
+import '@unicef-polymer/etools-unicef/src/etools-dialog/etools-dialog.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';
 
 @customElement('reason-popup')
