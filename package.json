@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "4.0.0-rc.3",
+  "version": "4.0.0-rc.4",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -47,7 +47,7 @@
     "redux": "^4.2.0"
   },
   "peerDependencies": {
-    "@unicef-polymer/etools-dialog": ">=7.0.0",
+    "@unicef-polymer/etools-unicef": ">=0.0.6",
     "@unicef-polymer/etools-utils": ">=1.0.0"
   },
   "devDependencies": {
