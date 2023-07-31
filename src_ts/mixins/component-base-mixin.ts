@@ -57,7 +57,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     validate() {
-      return validateRequiredFields(this);
+      return validateRequiredFields(this as any);
     }
 
     // To be implemented in child component

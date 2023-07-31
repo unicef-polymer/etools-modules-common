@@ -15,7 +15,7 @@ function setMaxHeight(paperTextarea: PaperTextareaElement): void {
 
   const paperInputContainer: HTMLElement | null = paperTextarea.shadowRoot!.querySelector('paper-input-container');
   const textareaAutoGrow: IronAutogrowTextareaElement | null =
-    paperInputContainer && paperInputContainer.querySelector('.paper-input-input');
+    paperInputContainer && (paperInputContainer.querySelector('.paper-input-input') as any);
 
   if (!textareaAutoGrow) {
     return;
