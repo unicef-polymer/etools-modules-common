@@ -1,4 +1,5 @@
-import {LitElement, html, property, customElement} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
 import '@polymer/iron-icons/iron-icons';
 import {completedStatusIcon} from './status-icons';
 import {listenForLangChanged, translate, translateConfig} from 'lit-translate';
@@ -86,7 +87,7 @@ export class EtoolsStatus extends LitElement {
   @property({type: Array})
   statuses: EtoolsStatusItem[] = [];
 
-  constructor(){
+  constructor() {
     super();
     listenForLangChanged(() => {
       this.statuses = [...this.statuses];
@@ -117,10 +118,12 @@ export class EtoolsStatus extends LitElement {
     return html`
       <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
         <span class="icon"> ${completed ? html`${completedStatusIcon}` : html`${this.getBaseOneIndex(index)}`} </span>
-        <span class="label"> ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
-          ...translateConfig,
-          empty: () => item[1]
-        } as any)}</span>
+        <span class="label">
+          ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
+            ...translateConfig,
+            empty: () => item[1]
+          } as any)}</span
+        >
       </div>
     `;
   }

@@ -1,7 +1,7 @@
 import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
 import {EtoolsCurrency} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-mixin';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 declare function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {

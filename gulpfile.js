@@ -10,7 +10,7 @@ const DIST = 'dist/';
 
 const LIT_CONSTRUCTOR = 'Constructor<LitElement>';
 const ANY_CONSTRUCTOR = 'Constructor<any>';
-const LIT_IMPORT = `import {LitElement} from 'lit-element';\n`;
+const LIT_IMPORT = `import {LitElement} from 'lit';\n`;
 
 const INDEXED_PROPERTY_REG = /\n\s+\[x: string]: any;/;
 const DEPENDENCY_REG = /class\s+\S+?\s+extends\s+(\S+?)\s+{/s;

@@ -1,4 +1,4 @@
-import {css, unsafeCSS} from 'lit-element';
+import {css, unsafeCSS} from 'lit';
 export const buttonsStylesContent = `
   paper-button.default,
   paper-button.primary,

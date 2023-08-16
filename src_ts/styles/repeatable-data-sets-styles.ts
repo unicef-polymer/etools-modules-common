@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 
 import {actionIconBtnsStyles} from './action-icon-btns-styles';
 

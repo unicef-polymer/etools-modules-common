@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 /* eslint-disable max-len */
 export const completedStatusIcon = html`<svg
   viewBox="0 0 24 24"

@@ -1,4 +1,5 @@
-import {LitElement, property, html, customElement} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
 import '@polymer/iron-icons/iron-icons';
 import '@polymer/paper-icon-button/paper-icon-button';
 import {AnyObject} from '@unicef-polymer/etools-types';

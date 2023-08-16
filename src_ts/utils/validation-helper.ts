@@ -1,4 +1,4 @@
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 import {PolymerElement} from '@polymer/polymer';
 import {AnyObject} from '@unicef-polymer/etools-types';
 

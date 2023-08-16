@@ -1,4 +1,5 @@
-import {LitElement, html, property} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {property} from 'lit/decorators.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';
 import '@unicef-polymer/etools-content-panel/etools-content-panel';
 

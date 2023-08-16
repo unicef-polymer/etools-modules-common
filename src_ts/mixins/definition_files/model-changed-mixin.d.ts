@@ -1,12 +1,17 @@
 import {Constructor} from '@unicef-polymer/etools-types';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 declare function ModelChangedMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {
   new (...args: any[]): {
     getParentObject(parentObject?: string | object): object;
     triggerUpdateValue(value: any, key: string, parentObject?: string | object): void;
-    selectedItemChanged(detail: {selectedItem: any}, key: string, optionValue?: string, parentObject?: string | object): void;
+    selectedItemChanged(
+      detail: {selectedItem: any},
+      key: string,
+      optionValue?: string,
+      parentObject?: string | object
+    ): void;
     selectedUserChanged(detail: {selectedItem: any}, key: string, parentObject?: string | object): void;
     selectedUsersChanged(detail: {selectedItems: any}, key: string, parentObject?: string | object): void;
     dateHasChanged(
@@ -16,7 +21,12 @@ declare function ModelChangedMixin<T extends Constructor<LitElement>>(
       key: string,
       parentObject?: string
     ): void;
-    selectedItemsChanged(detail: {selectedItems: any}, key: string, optionValue?: string, parentObject?: string | object): void;
+    selectedItemsChanged(
+      detail: {selectedItems: any},
+      key: string,
+      optionValue?: string,
+      parentObject?: string | object
+    ): void;
     valueChanged(detail: {value: any}, key: string, parentObject?: string | object): void;
     numberChanged(detail: {value: any}, key: string, parentObject?: string | object): void;
   };

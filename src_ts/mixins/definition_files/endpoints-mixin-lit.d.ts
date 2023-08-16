@@ -1,6 +1,6 @@
 import {EtoolsRequestEndpoint} from '@unicef-polymer/etools-ajax/etools-ajax-request';
 import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 declare function EndpointsLitMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {

@@ -1,4 +1,4 @@
-import {LitElement, PropertyDeclarations} from 'lit-element';
+import {LitElement, PropertyDeclarations} from 'lit';
 import {GenericObject} from '@unicef-polymer/etools-types';
 declare type Constructor<B> = new (...args: any[]) => B;
 export declare const DataMixin: <T extends Constructor<LitElement>>() => <B>(superclass: T) => {

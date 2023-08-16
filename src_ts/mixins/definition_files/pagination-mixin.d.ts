@@ -1,5 +1,5 @@
 import {Constructor} from '@unicef-polymer/etools-types';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 declare class Paginator {
   page: number;
   page_size: number;

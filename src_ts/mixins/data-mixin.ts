@@ -1,4 +1,4 @@
-import {LitElement, PropertyDeclarations} from 'lit-element';
+import {LitElement, PropertyDeclarations} from 'lit';
 import {cloneDeep} from '@unicef-polymer/etools-utils/dist/general.util';
 import {GenericObject} from '@unicef-polymer/etools-types';
 

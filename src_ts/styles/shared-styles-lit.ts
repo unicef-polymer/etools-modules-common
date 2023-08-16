@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 import {ReadonlyStyles} from './readonly-styles';
 import {RequiredFieldsStyles} from './required-fields-styles';
 // language=css

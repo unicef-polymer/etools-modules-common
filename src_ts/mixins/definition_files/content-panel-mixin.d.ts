@@ -1,6 +1,6 @@
 import {EtoolsContentPanel} from '@unicef-polymer/etools-content-panel/etools-content-panel';
 import {Constructor} from '@unicef-polymer/etools-types';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 declare function ContentPanelMixin<T extends Constructor<LitElement>>(
   baseClass: T
 ): {

@@ -1,4 +1,5 @@
-import {LitElement, property} from 'lit-element';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
 import {Constructor} from '@unicef-polymer/etools-types';
 import {getStore} from '@unicef-polymer/etools-utils/dist/store.util';
 

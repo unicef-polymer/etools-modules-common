@@ -1,5 +1,5 @@
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 import ContentPanelMixin from './content-panel-mixin';
 import ModelChangedMixin from './model-changed-mixin';
 declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
@@ -20,13 +20,13 @@ declare function ComponentBaseMixin<T extends Constructor<LitElement>>(
     validate(): boolean;
     saveData(): Promise<any>;
     save(): void;
-    renderActions(editMode: boolean, canEditAnyFields: boolean): import('lit-element').TemplateResult;
-    renderEditBtn(editMode: boolean, canEditAnyFields: boolean): import('lit-element').TemplateResult;
+    renderActions(editMode: boolean, canEditAnyFields: boolean): import('lit').TemplateResult;
+    renderEditBtn(editMode: boolean, canEditAnyFields: boolean): import('lit').TemplateResult;
     renderReadonlyUserDetails(
       selectedUsers: any[],
       allUsers?: any[] | undefined
-    ): import('lit-element').TemplateResult | import('lit-element').TemplateResult[];
-    renderNameEmailPhone(item: any): import('lit-element').TemplateResult;
+    ): import('lit').TemplateResult | import('lit').TemplateResult[];
+    renderNameEmailPhone(item: any): import('lit').TemplateResult;
     /**
      * check if already saved users exist on loaded data, if not they will be added
      * (they might be missing if changed country)

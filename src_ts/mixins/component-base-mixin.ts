@@ -1,4 +1,5 @@
-import {LitElement, property, html} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {property} from 'lit/decorators.js';
 import cloneDeep from 'lodash-es/cloneDeep';
 import {filterByIds} from '@unicef-polymer/etools-utils/dist/general.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';

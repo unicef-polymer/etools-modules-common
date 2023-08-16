@@ -1,5 +1,5 @@
 import {logWarn} from '@unicef-polymer/etools-behaviors/etools-logging.js';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 import {Constructor} from '@unicef-polymer/etools-types';
 
 function UtilsMixin<T extends Constructor<LitElement>>(baseClass: T) {

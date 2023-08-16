@@ -1,4 +1,5 @@
-import {LitElement, query} from 'lit-element';
+import {LitElement} from 'lit';
+import {query} from 'lit/decorators.js';
 import {EtoolsContentPanel} from '@unicef-polymer/etools-content-panel/etools-content-panel';
 import {Constructor} from '@unicef-polymer/etools-types';
 
