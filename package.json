@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "4.0.0-rc.4",
+  "version": "4.0.0-rc.5",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -39,7 +39,6 @@
     "@unicef-polymer/etools-behaviors": "^3.1.1",
     "@unicef-polymer/etools-content-panel": "^5.1.0",
     "@unicef-polymer/etools-currency-amount-input": "^4.0.3",
-    "@unicef-polymer/etools-table": "^2.0.0",
     "@unicef-polymer/etools-types": "^1.11.16",
     "lit-element": "^2.5.1",
     "lit-translate": "^1.2.1",
