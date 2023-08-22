@@ -1,6 +1,7 @@
 /* eslint-disable lit-a11y/click-events-have-key-events */
 import {GenericObject} from '@unicef-polymer/etools-types/dist/global.types';
-import {html, LitElement, property} from 'lit';
+import {html, LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
 import {sendRequest} from '@unicef-polymer/etools-ajax';
 import {get as getTranslation} from 'lit-translate';
 import {PaperMenuButton} from '@polymer/paper-menu-button';
