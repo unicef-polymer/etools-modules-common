@@ -1,4 +1,3 @@
-import {EtoolsPaginator} from '@unicef-polymer/etools-table/pagination/etools-pagination';
 import isEqual from 'lodash-es/isEqual';
 import sortBy from 'lodash-es/sortBy';
 import {sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
@@ -6,9 +5,19 @@ import {abortRequestByKey} from '@unicef-polymer/etools-ajax/etools-iron-request
 import {EtoolsEndpoint, GenericObject} from '@unicef-polymer/etools-types';
 import {getEndpoint} from '@unicef-polymer/etools-utils/dist/endpoint.util';
 
+export const defaultPaginator = {
+  page: 1,
+  page_size: 20,
+  total_pages: 0,
+  count: 0,
+  visible_range: [] as any[]
+};
+
+export type ListHelperPaginator = typeof defaultPaginator;
+
 export type ListHelperResponse<T> = {
   list: T[];
-  paginator: EtoolsPaginator;
+  paginator: ListHelperPaginator;
 };
 
 export class ListHelper<T> {
@@ -27,7 +36,7 @@ export class ListHelper<T> {
     const sortedList: T[] = this.sortList(filteredList, sort);
     // paginates list depending on provided params
     const list: T[] = this.paginate(Number(page), Number(pageSize), sortedList);
-    const paginator: EtoolsPaginator = this.getPaginationData(Number(page), Number(pageSize), filteredList.length);
+    const paginator: ListHelperPaginator = this.getPaginationData(Number(page), Number(pageSize), filteredList.length);
     return {
       list,
       paginator
@@ -101,7 +110,7 @@ export class ListHelper<T> {
     return data.slice(fromIndex, toIndex);
   }
 
-  getPaginationData(page: number, pageSize: number, count: number): EtoolsPaginator {
+  getPaginationData(page: number, pageSize: number, count: number): ListHelperPaginator {
     return {
       page,
       page_size: pageSize,

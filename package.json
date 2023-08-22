@@ -39,7 +39,6 @@
     "@unicef-polymer/etools-behaviors": "^3.1.1",
     "@unicef-polymer/etools-content-panel": "^5.1.0",
     "@unicef-polymer/etools-currency-amount-input": "^4.0.3",
-    "@unicef-polymer/etools-table": "^2.0.0",
     "@unicef-polymer/etools-types": "^1.11.16",
     "lit": "^2.8.0",
     "lit-translate": "^2.0.1",

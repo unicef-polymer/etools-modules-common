@@ -2,42 +2,56 @@
  * Utility functions used in etools data lists
  */
 
-import {EtoolsTableColumn, EtoolsTableColumnSort} from '@unicef-polymer/etools-table/etools-table';
 import {AnyObject} from '@unicef-polymer/etools-types';
-export interface EtoolsTableSortItem {
-  name: string;
-  sort: EtoolsTableColumnSort;
+
+export type EtoolsTableUtilityColumn = {
+  label?: string;
+  name?: string;
+  type?: string;
+  sort?: string;
+  link_tmpl?: string;
+  isExternalLink?: string;
+  capitalize?: boolean;
+  placeholder?: string;
+  customMethod?: any;
+  sortMethod?: string;
+  cssClass?: string;
+};
+
+export interface EtoolsTableUtilitySortItem {
+  name?: string;
+  sort?: string;
 }
 
-export const getUrlQueryStringSort = (sortFields: EtoolsTableSortItem[]): string => {
+export const getUrlQueryStringSort = (sortFields: EtoolsTableUtilityColumn[]): string => {
   let sort = '';
   if (sortFields.length > 0) {
     sort = sortFields
-      .filter(({sort}: EtoolsTableSortItem) => Boolean(sort))
-      .map((sortItem: EtoolsTableSortItem) => `${sortItem.name}.${sortItem.sort}`)
+      .filter(({sort}: EtoolsTableUtilitySortItem) => Boolean(sort))
+      .map((sortItem: EtoolsTableUtilitySortItem) => `${sortItem.name}.${sortItem.sort}`)
       .join('|');
   }
   return sort;
 };
 
-export const getSortFields = (columns: EtoolsTableColumn[]): EtoolsTableSortItem[] => {
-  let sortItems: EtoolsTableSortItem[] = [];
-  const sortedColumns: any[] = columns.filter((c: EtoolsTableColumn) => c.sort !== undefined);
+export const getSortFields = (columns: EtoolsTableUtilityColumn[]): EtoolsTableUtilitySortItem[] => {
+  let sortItems: EtoolsTableUtilitySortItem[] = [];
+  const sortedColumns: any[] = columns.filter((c: EtoolsTableUtilityColumn) => c.sort !== undefined);
   if (sortedColumns.length > 0) {
-    sortItems = sortedColumns.map((c: EtoolsTableColumn) =>
+    sortItems = sortedColumns.map((c: EtoolsTableUtilityColumn) =>
       Object.assign({}, {name: c.name, sort: c.sort})
-    ) as EtoolsTableSortItem[];
+    ) as EtoolsTableUtilitySortItem[];
   }
   return sortItems;
 };
 
-export const getSortFieldsFromUrlSortParams = (param: string): EtoolsTableSortItem[] => {
-  const sortFields: EtoolsTableSortItem[] = param.split('|').map((sort: string) => {
+export const getSortFieldsFromUrlSortParams = (param: string): EtoolsTableUtilitySortItem[] => {
+  const sortFields: EtoolsTableUtilitySortItem[] = param.split('|').map((sort: string) => {
     const s = sort.split('.');
     const sortItem = {
       name: s[0],
       sort: s[1]
-    } as EtoolsTableSortItem;
+    } as EtoolsTableUtilitySortItem;
     return sortItem;
   });
   return sortFields;
