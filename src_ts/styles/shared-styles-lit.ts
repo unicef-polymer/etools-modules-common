@@ -255,6 +255,14 @@ export const sharedStylesContent = `
     --iron-icon-height: 14px;
   }
 
+  .text-btn-style {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    outline: inherit;
+    text-transform: uppercase;
+  }
+
   .secondary-btn:focus {
     outline: 0;
     box-shadow:  0 0 10px 10px rgba(170, 165, 165, 0.2) !important;
