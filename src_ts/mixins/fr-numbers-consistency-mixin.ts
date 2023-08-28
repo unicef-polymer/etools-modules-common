@@ -1,12 +1,11 @@
 import {LitElement} from 'lit';
 import {property} from 'lit/decorators.js';
 import {displayCurrencyAmount} from '@unicef-polymer/etools-unicef/src/utils/currency';
-import {InterventionListData} from '@unicef-polymer/etools-types';
+import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
 import {get as getTranslation} from 'lit-translate';
-import {MixinTarget} from '../utils/types';
 
-function FrNumbersConsistencyMixin<T extends MixinTarget<LitElement>>(baseClass: T) {
+function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class FrNumbersConsistencyClass extends baseClass {
     @property({type: Object})
     frNumbersMessageKeys = {
