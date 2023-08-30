@@ -85,6 +85,40 @@ export const buttonsStylesContent = `
     font-size: 14px;
     font-weight: bold;
   }
+  .primary-btn {
+    --sl-color-primary-600: var(--primary-color);
+    color: var(--light-primary-text-color, #fff);
+  }
+  sl-button {
+    --sl-button-font-size-medium: 16px;
+    --sl-input-height-medium: 36px;
+  }
+
+  sl-button.no-pad {
+    --sl-spacing-medium: 0;
+  }
+
+  sl-button.export {
+    margin-inline-end: 15px;
+  }
+  sl-button.export::part(base) {
+    --sl-color-primary-600: var(--dark-secondary-text-color);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  sl-button.export::part(label) {
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+  }
+  sl-button[variant='text'].primary-btn {
+    --sl-color-primary-600: var(--primary-color);
+  }
+  sl-button[variant='text'].primary-btn::part(label) {
+    text-transform: uppercase;
+  }
+  sl-button.default {
+    --sl-color-primary-600: var(--default-btn-bg-color,  #9D9D9D);
+  }
 `;
 // language=HTML
 export const buttonsStyles = css`
