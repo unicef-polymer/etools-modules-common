@@ -89,18 +89,28 @@ export const buttonsStylesContent = `
     --sl-color-primary-600: var(--primary-color);
     color: var(--light-primary-text-color, #fff);
   }
+  
+  .save-cancel-btns sl-button {
+    min-width: 82px;
+  }
+
+  sl-button::part(label) {
+    text-transform: uppercase;
+  }
   sl-button {
     --sl-button-font-size-medium: 16px;
     --sl-input-height-medium: 36px;
+    margin-inline-start: 15px;
   }
 
   sl-button.no-pad {
     --sl-spacing-medium: 0;
   }
-
-  sl-button.export {
-    margin-inline-end: 15px;
+  sl-button.no-marg {
+    margin:0;
   }
+
+
   sl-button.export::part(base) {
     --sl-color-primary-600: var(--dark-secondary-text-color);
     text-transform: uppercase;
@@ -113,11 +123,10 @@ export const buttonsStylesContent = `
   sl-button[variant='text'].primary-btn {
     --sl-color-primary-600: var(--primary-color);
   }
-  sl-button[variant='text'].primary-btn::part(label) {
-    text-transform: uppercase;
-  }
+
   sl-button.default {
     --sl-color-primary-600: var(--default-btn-bg-color,  #9D9D9D);
+    --sl-color-primary-500: var(--default-btn-bg-color,  #9D9D9D);
   }
 `;
 // language=HTML
