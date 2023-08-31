@@ -89,6 +89,12 @@ export const buttonsStylesContent = `
     --sl-color-primary-600: var(--primary-color);
     color: var(--light-primary-text-color, #fff);
   }
+
+  .error {
+    --sl-color-primary-600: var(--error-color);
+    --sl-color-primary-500: var(--error-color);
+    color: var(--light-primary-text-color, #fff);
+  }
   
   .save-cancel-btns sl-button {
     min-width: 82px;
@@ -120,14 +126,17 @@ export const buttonsStylesContent = `
     padding-inline-start: 5px;
     padding-inline-end: 5px;
   }
-  sl-button[variant='text'].primary-btn {
-    --sl-color-primary-600: var(--primary-color);
+
+  sl-button[variant='text'].cancel {
+    --sl-color-primary-600: var(--primary-text-color, rgba(0,0,0,0.87));
   }
 
   sl-button.default {
     --sl-color-primary-600: var(--default-btn-bg-color,  #9D9D9D);
     --sl-color-primary-500: var(--default-btn-bg-color,  #9D9D9D);
   }
+
+
 `;
 // language=HTML
 export const buttonsStyles = css`
