@@ -85,6 +85,58 @@ export const buttonsStylesContent = `
     font-size: 14px;
     font-weight: bold;
   }
+  .primary-btn {
+    --sl-color-primary-600: var(--primary-color);
+    color: var(--light-primary-text-color, #fff);
+  }
+
+  .error {
+    --sl-color-primary-600: var(--error-color);
+    --sl-color-primary-500: var(--error-color);
+    color: var(--light-primary-text-color, #fff);
+  }
+  
+  .save-cancel-btns sl-button {
+    min-width: 82px;
+  }
+
+  sl-button::part(label) {
+    text-transform: uppercase;
+  }
+  sl-button {
+    --sl-button-font-size-medium: 16px;
+    --sl-input-height-medium: 36px;
+    margin-inline-start: 15px;
+  }
+
+  sl-button.no-pad {
+    --sl-spacing-medium: 0;
+  }
+  sl-button.no-marg {
+    margin:0;
+  }
+
+
+  sl-button.export::part(base) {
+    --sl-color-primary-600: var(--dark-secondary-text-color);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  sl-button.export::part(label) {
+    padding-inline-start: 5px;
+    padding-inline-end: 5px;
+  }
+
+  sl-button[variant='text'].cancel {
+    --sl-color-primary-600: var(--primary-text-color, rgba(0,0,0,0.87));
+  }
+
+  sl-button.default {
+    --sl-color-primary-600: var(--default-btn-bg-color,  #9D9D9D);
+    --sl-color-primary-500: var(--default-btn-bg-color,  #9D9D9D);
+  }
+
+
 `;
 // language=HTML
 export const buttonsStyles = css`
