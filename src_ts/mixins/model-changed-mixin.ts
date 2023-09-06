@@ -1,4 +1,4 @@
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 import {areEqual} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
 import {formatDate} from '@unicef-polymer/etools-utils/dist/date.util';
 import {Constructor} from '@unicef-polymer/etools-types';

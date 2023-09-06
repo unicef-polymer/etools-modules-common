@@ -1,4 +1,4 @@
-import {css, unsafeCSS} from 'lit-element';
+import {css, unsafeCSS} from 'lit';
 export const frWarningsContent = `
 etools-info-tooltip.fr-nr-warn iron-icon {
   color: var(--error-color);

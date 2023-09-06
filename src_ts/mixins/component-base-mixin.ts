@@ -1,4 +1,5 @@
-import {LitElement, property, html} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {property} from 'lit/decorators.js';
 import cloneDeep from 'lodash-es/cloneDeep';
 import {filterByIds} from '@unicef-polymer/etools-utils/dist/general.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
@@ -8,6 +9,7 @@ import ContentPanelMixin from './content-panel-mixin';
 import ModelChangedMixin from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from 'lit-translate';
+import '@shoelace-style/shoelace/dist/components/button/button.js';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixin(baseClass)) {
@@ -82,9 +84,13 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return this.hideActionButtons(editMode, canEditAnyFields)
         ? html``
         : html`
-            <div class="layout-horizontal right-align row-padding-v">
-              <paper-button class="default" @click="${this.cancel}">${translate('GENERAL.CANCEL')}</paper-button>
-              <paper-button class="primary" @click="${this.save}"> ${translate('GENERAL.SAVE')} </paper-button>
+            <div class="layout-horizontal right-align row-padding-v save-cancel-btns">
+              <sl-button variant="primary" class="default" @click="${this.cancel}"
+                >${translate('GENERAL.CANCEL')}</sl-button
+              >
+              <sl-button variant="primary" class="primary-btn" @click="${this.save}">
+                ${translate('GENERAL.SAVE')}
+              </sl-button>
             </div>
           `;
     }

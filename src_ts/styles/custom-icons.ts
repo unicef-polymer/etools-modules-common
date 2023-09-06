@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import {html} from 'lit-element';
+import {html} from 'lit';
 export const customIcons = html`
   <iron-iconset-svg name="pmp-custom-icons" size="24">
     <svg>

@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 
 export const ReadonlyStyles = html`<style>
   etools-dropdown[readonly],

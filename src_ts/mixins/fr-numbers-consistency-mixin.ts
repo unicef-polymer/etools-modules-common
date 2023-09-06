@@ -1,5 +1,6 @@
-import {LitElement, property} from 'lit-element';
-import {displayCurrencyAmount} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-module';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
+import {displayCurrencyAmount} from '@unicef-polymer/etools-unicef/src/utils/currency';
 import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
 import {get as getTranslation} from 'lit-translate';
