@@ -109,6 +109,14 @@ export const buttonsStylesContent = `
     margin-inline-start: 15px;
   }
 
+  sl-button[variant='text'] {
+    --sl-button-font-size-medium: 14px;
+  }
+
+  sl-button[variant='text']::part(label) {
+    font-weight: 700;
+  }
+
   sl-button.no-pad {
     --sl-spacing-medium: 0;
   }
