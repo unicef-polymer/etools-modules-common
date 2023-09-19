@@ -98,7 +98,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     renderEditBtn(editMode: boolean, canEditAnyFields: boolean) {
       return this.hideEditIcon(editMode, canEditAnyFields)
         ? html``
-        : html` <paper-icon-button @click="${this.allowEdit}" icon="create"> </paper-icon-button> `;
+        : html` <sl-icon-button @click="${this.allowEdit}" name="pencil-fill"> </sl-icon-button> `;
     }
 
     renderReadonlyUserDetails(selectedUsers: any[], allUsers?: any[]) {

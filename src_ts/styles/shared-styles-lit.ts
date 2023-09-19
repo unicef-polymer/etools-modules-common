@@ -310,6 +310,14 @@ export const sharedStylesContent = `
     display: flex;
     align-item: center;
   }
+  sl-icon-button {
+    stroke: white;
+    color: var(--primary-text-color);
+    font-size: 20px;
+  }
+  sl-icon-button[name='three-dots-vertical'] {
+    stroke: inherit;   
+  }
 `;
 // export const sharedStyles = html`${unsafeCSS(sharedStylesContent)}`;
 export const sharedStyles = html`
