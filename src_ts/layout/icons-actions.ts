@@ -1,7 +1,6 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import '@polymer/iron-icons/iron-icons';
-import '@polymer/paper-icon-button/paper-icon-button';
+import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
 import {AnyObject} from '@unicef-polymer/etools-types';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 
@@ -34,18 +33,18 @@ export class IconsActions extends LitElement {
           bottom: 0;
         }
 
-        paper-icon-button {
+        etools-icon-button {
           color: var(--dark-icon-color, #6f6f70);
         }
       </style>
 
-      <paper-icon-button ?hidden="${!this.showEdit}" icon="create" @click="${this._onEdit}"></paper-icon-button>
-      <paper-icon-button ?hidden="${!this.showDelete}" icon="delete" @click="${this._onDelete}"></paper-icon-button>
-      <paper-icon-button
+      <etools-icon-button ?hidden="${!this.showEdit}" name="create" @click="${this._onEdit}"></etools-icon-button>
+      <etools-icon-button ?hidden="${!this.showDelete}" name="delete" @click="${this._onDelete}"></etools-icon-button>
+      <etools-icon-button
         ?hidden="${!this.showDeactivate}"
-        icon="block"
+        name="block"
         @click="${this._onDeactivate}"
-      ></paper-icon-button>
+      ></etools-icon-button>
     `;
   }
 

@@ -4,8 +4,7 @@ import '@polymer/paper-tabs/paper-tabs';
 import '@polymer/paper-tabs/paper-tab';
 import {AnyObject} from '@unicef-polymer/etools-types';
 import '@polymer/paper-menu-button/paper-menu-button.js';
-import '@polymer/iron-icons/iron-icons';
-import '@polymer/iron-icon/iron-icon';
+import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
 
 /**
  * @LitElement
@@ -158,7 +157,7 @@ export class EtoolsTabs extends LitElement {
         <paper-menu-button id="subtabmenu" horizontal-align="right" vertical-offset="45">
           <paper-button class="button" slot="dropdown-trigger">
             ${item.tabLabel}
-            <iron-icon icon="arrow-drop-down"></iron-icon>
+            <etools-icon name="arrow-drop-down"></etools-icon>
           </paper-button>
           <paper-listbox slot="dropdown-content" attr-for-selected="subtab" selected="${this.activeSubTab}">
             ${item.subtabs.map(
@@ -168,8 +167,8 @@ export class EtoolsTabs extends LitElement {
                   subtab="${subitem.value}"
                   selected="${this.isSelectedSubtab(subitem.value)}"
                 >
-                  <iron-icon icon="check" slot="item-icon" ?hidden="${!this.isSelectedSubtab(subitem.value)}">
-                  </iron-icon>
+                  <etools-icon name="check" slot="item-icon" ?hidden="${!this.isSelectedSubtab(subitem.value)}">
+                  </etools-icon>
                   <paper-item-body>${subitem.label}</paper-item-body>
                 </paper-icon-item>
               `

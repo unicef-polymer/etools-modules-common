@@ -26,22 +26,22 @@ export const buttonsStylesContent = `
     padding-inline-start: 12px;
   }
 
-  paper-button.default.left-icon iron-icon,
-  paper-button.primary.left-icon iron-icon,
-  paper-button.success.left-icon iron-icon,
-  paper-button.error.left-icon iron-icon {
+  paper-button.default.left-icon etools-icon,
+  paper-button.primary.left-icon etools-icon,
+  paper-button.success.left-icon etools-icon,
+  paper-button.error.left-icon etools-icon {
     margin-inline-end: 10px;
   }
 
-  paper-button.info.left-icon iron-icon {
+  paper-button.info.left-icon etools-icon {
     margin-inline-end: 4px;
   }
 
-  paper-button.default.right-icon iron-icon,
-  paper-button.primary.right-icon iron-icon,
-  paper-button.info.right-icon iron-icon,
-  paper-button.success.right-icon iron-icon,
-  paper-button.error.right-icon iron-icon {
+  paper-button.default.right-icon etools-icon,
+  paper-button.primary.right-icon etools-icon,
+  paper-button.info.right-icon etools-icon,
+  paper-button.success.right-icon etools-icon,
+  paper-button.error.right-icon etools-icon {
     margin-inline-start: 10px;
   }
 
