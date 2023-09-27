@@ -2,6 +2,7 @@ import {LitElement, html} from 'lit';
 import {property} from 'lit/decorators.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';
 import '@unicef-polymer/etools-unicef/src/etools-content-panel/etools-content-panel';
+import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
 import {get as getTranslation} from 'lit-translate';
 
 /**
@@ -49,15 +50,14 @@ export class ReasonDisplay extends LitElement {
           opacity: 1;
         }
 
-        div[slot='panel-btns'].bookmark iron-icon {
-          width: 60px !important;
-          height: 60px !important;
+        div[slot='panel-btns'].bookmark etools-icon {
+          --etools-icon-font-size: 60px;
           color: var(--flag-color, gray);
         }
       </style>
       <etools-content-panel class="cancellation-tab" .panelTitle="${this.title}">
         <div slot="panel-btns" class="bookmark">
-          <iron-icon icon="bookmark"></iron-icon>
+          <etools-icon name="bookmark"></etools-icon>
         </div>
 
         <div class="text"><slot>${this.justification}</slot></div>

@@ -2,6 +2,7 @@ import {LitElement, html} from 'lit';
 import {property} from 'lit/decorators.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';
 import '@unicef-polymer/etools-unicef/src/etools-content-panel/etools-content-panel';
+import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
 
 /**
  * @customElement
@@ -50,14 +51,13 @@ export class CancelJustification extends LitElement {
           opacity: 1;
         }
 
-        div[slot='panel-btns'].bookmark iron-icon {
-          width: 60px !important;
-          height: 60px !important;
+        div[slot='panel-btns'].bookmark etools-icon {
+          --etools-icon-font-size: 60px;
         }
       </style>
       <etools-content-panel class="cancellation-tab" panel-title="Cancellation Note">
         <div slot="panel-btns" class="bookmark">
-          <iron-icon icon="bookmark"></iron-icon>
+          <etools-icon name="bookmark"></etools-icon>
         </div>
 
         <div class="cancellation-text">${this.justification}</div>

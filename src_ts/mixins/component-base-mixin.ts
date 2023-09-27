@@ -9,7 +9,7 @@ import ContentPanelMixin from './content-panel-mixin';
 import ModelChangedMixin from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from 'lit-translate';
-import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixin(baseClass)) {
@@ -98,7 +98,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     renderEditBtn(editMode: boolean, canEditAnyFields: boolean) {
       return this.hideEditIcon(editMode, canEditAnyFields)
         ? html``
-        : html` <sl-icon-button @click="${this.allowEdit}" name="pencil-fill"> </sl-icon-button> `;
+        : html` <etools-icon-button @click="${this.allowEdit}" name="pencil-fill"> </etools-icon-button> `;
     }
 
     renderReadonlyUserDetails(selectedUsers: any[], allUsers?: any[]) {

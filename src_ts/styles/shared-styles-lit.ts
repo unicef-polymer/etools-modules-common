@@ -205,7 +205,7 @@ export const sharedStylesContent = `
     z-index: 100;
   }
 
-  .editable-row .hover-block paper-icon-button {
+  .editable-row .hover-block etools-icon-button {
     color: rgba(0, 0, 0, 0.54);
     padding-inline-start: 5px;
   }
@@ -251,8 +251,7 @@ export const sharedStylesContent = `
 
   .lifted-up-icon {
     bottom: 0.4rem;
-    --iron-icon-width: 14px;
-    --iron-icon-height: 14px;
+    --etools-icon-font-size: 14px;
   }
 
   .text-btn-style {
@@ -275,11 +274,11 @@ export const sharedStylesContent = `
     background-color: rgba(170, 165, 165, 0.2);
   }
 
-  *:focus-visible:not(a):not(paper-icon-button):not(paper-radio-button):not(paper-checkbox) {
+  *:focus-visible:not(a):not(etools-icon-button):not(paper-radio-button):not(paper-checkbox) {
     outline: 2px solid rgb(170 165 165 / 50%);
   }
 
-  datepicker-lite::part(dp-iron-icon):focus-visible,
+  datepicker-lite::part(dp-etools-icon):focus-visible,
   info-icon-tooltip::part(etools-iit-icon):focus-visible {
     outline: 0;
     background-color: rgba(170, 165, 165, 0.5);
@@ -310,13 +309,11 @@ export const sharedStylesContent = `
     display: flex;
     align-item: center;
   }
-  sl-icon-button {
-    stroke: white;
+  etools-icon-button {
     color: var(--primary-text-color);
-    font-size: 20px;
   }
-  sl-icon-button[name='three-dots-vertical'] {
-    stroke: inherit;   
+  etools-icon-button[name='three-dots-vertical'] {
+    color: inherit;   
   }
 `;
 // export const sharedStyles = html`${unsafeCSS(sharedStylesContent)}`;
