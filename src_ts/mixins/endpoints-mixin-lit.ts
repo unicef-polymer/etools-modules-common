@@ -2,7 +2,7 @@ import {LitElement} from 'lit';
 import {property} from 'lit/decorators.js';
 import {EtoolsRequestEndpoint, sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
 import {isJsonStrMatch} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
-import {logError} from '@unicef-polymer/etools-behaviors/etools-logging';
+import {EtoolsLogger} from '@unicef-polymer/etools-utils/dist/singleton/logger';
 import {tokenEndpointsHost, tokenStorageKeys, getTokenEndpoints} from '../config/config';
 import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
 import get from 'lodash-es/get';
@@ -214,7 +214,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       activeReqKey?: string
     ) {
       if (!endpoint) {
-        logError('Endpoint name is missing.', 'Endpoints:fireRequest');
+        EtoolsLogger.error('Endpoint name is missing.', 'Endpoints:fireRequest');
         return;
       }
       const defer = this._getDeferrer();

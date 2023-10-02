@@ -1,76 +1,76 @@
 import {css, unsafeCSS} from 'lit';
 export const buttonsStylesContent = `
-  paper-button.default,
-  paper-button.primary,
-  paper-button.info,
-  paper-button.success,
-  paper-button.error {
+  sl-button.default,
+  sl-button.primary,
+  sl-button.info,
+  sl-button.success,
+  sl-button.error {
     padding: 6px 8px;
     font-weight: 500;
     letter-spacing: 0.5px;
   }
 
-  paper-button.default.left-icon,
-  paper-button.primary.left-icon,
-  paper-button.info.left-icon,
-  paper-button.success.left-icon,
-  paper-button.error.left-icon {
+  sl-button.default.left-icon,
+  sl-button.primary.left-icon,
+  sl-button.info.left-icon,
+  sl-button.success.left-icon,
+  sl-button.error.left-icon {
     padding-inline-end: 12px;
   }
 
-  paper-button.default.right-icon,
-  paper-button.primary.right-icon,
-  paper-button.info.right-icon,
-  paper-button.success.right-icon,
-  paper-button.error.right-icon {
+  sl-button.default.right-icon,
+  sl-button.primary.right-icon,
+  sl-button.info.right-icon,
+  sl-button.success.right-icon,
+  sl-button.error.right-icon {
     padding-inline-start: 12px;
   }
 
-  paper-button.default.left-icon etools-icon,
-  paper-button.primary.left-icon etools-icon,
-  paper-button.success.left-icon etools-icon,
-  paper-button.error.left-icon etools-icon {
+  sl-button.default.left-icon etools-icon,
+  sl-button.primary.left-icon etools-icon,
+  sl-button.success.left-icon etools-icon,
+  sl-button.error.left-icon etools-icon {
     margin-inline-end: 10px;
   }
 
-  paper-button.info.left-icon etools-icon {
+  sl-button.info.left-icon etools-icon {
     margin-inline-end: 4px;
   }
 
-  paper-button.default.right-icon etools-icon,
-  paper-button.primary.right-icon etools-icon,
-  paper-button.info.right-icon etools-icon,
-  paper-button.success.right-icon etools-icon,
-  paper-button.error.right-icon etools-icon {
+  sl-button.default.right-icon etools-icon,
+  sl-button.primary.right-icon etools-icon,
+  sl-button.info.right-icon etools-icon,
+  sl-button.success.right-icon etools-icon,
+  sl-button.error.right-icon etools-icon {
     margin-inline-start: 10px;
   }
 
-  paper-button.default {
+  sl-button.default {
     color: var(--default-btn-color, #ffffff);
     background-color: var(--default-btn-bg-color, rgba(0, 0, 0, 0.45));
   }
 
-  paper-button.primary {
+  sl-button.primary {
     color: var(--primary-btn-color, #ffffff);
     background-color: var(--primary-btn-bg-color, var(--primary-color));
   }
 
-  paper-button.info {
+  sl-button.info {
     color: var(--primary-color, #0099ff);
     align-self: center;
   }
 
-  paper-button.success {
+  sl-button.success {
     color: var(--success-btn-color, #ffffff);
     background-color: var(--success-btn-bg-color, var(--success-color));
   }
 
-  paper-button.error {
+  sl-button.error {
     color: var(--error-btn-color, #ffffff);
     background-color: var(--error-btn-bg-color, var(--error-color));
   }
 
-  paper-button .btn-label {
+  sl-button .btn-label {
     display: flex;
     flex-direction: row;
     justify-content: center;

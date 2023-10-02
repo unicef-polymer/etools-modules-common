@@ -1,9 +1,13 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
-import '@polymer/paper-tabs/paper-tabs';
-import '@polymer/paper-tabs/paper-tab';
 import {AnyObject} from '@unicef-polymer/etools-types';
-import '@polymer/paper-menu-button/paper-menu-button.js';
+
+import '@shoelace-style/shoelace/dist/components/tab-group/tab-group.js';
+import '@shoelace-style/shoelace/dist/components/tab/tab.js';
+import '@shoelace-style/shoelace/dist/components/dropdown/dropdown.js';
+import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
+import '@shoelace-style/shoelace/dist/components/menu/menu.js';
+import '@shoelace-style/shoelace/dist/components/button/button.js';
 import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
 
 /**
@@ -22,7 +26,7 @@ export class EtoolsTabs extends LitElement {
           display: none !important;
         }
 
-        paper-tab[disabled] {
+        sl-tab[disabled] {
           opacity: 0.3;
         }
 
@@ -41,46 +45,31 @@ export class EtoolsTabs extends LitElement {
           border-bottom: 1px solid var(--dark-divider-color);
         }
 
-        paper-tabs {
-          --paper-tabs-selection-bar-color: var(--primary-color);
-        }
-
-        paper-tab[link],
-        paper-tab {
-          --paper-tab-ink: var(--primary-color);
+        sl-tab[link],
+        sl-tab {
+          color: var(--primary-color);
           padding: 0 24px;
         }
 
-        paper-tab .tab-content {
+        sl-tab {
           color: var(--secondary-text-color);
           text-transform: uppercase;
           min-width: 120px;
           text-align: center;
         }
 
-        paper-tab.iron-selected .tab-content {
+        sl-tab[active] {
           color: var(--primary-color);
         }
 
-        paper-tabs {
-          --paper-tabs-container: {
-            overflow: visible;
-            max-width: 100% !important;
-            z-index: 99;
-          }
-        }
-
-        paper-tab[is-subtabs-parent] {
+        sl-tab[is-subtabs-parent] {
           opacity: 1 !important;
           cursor: pointer !important;
-          --paper-tab-content-unselected: {
-            opacity: 1;
-          }
         }
-        paper-tab[is-subtabs-parent] > paper-menu-button > paper-button {
+        sl-tab[is-subtabs-parent] > sl-dropdown > sl-button {
           color: var(--secondary-text-color);
         }
-        paper-tab.iron-selected[is-subtabs-parent] > paper-menu-button > paper-button {
+        sl-tab[active][is-subtabs-parent] > sl-dropdown > sl-button {
           color: var(--primary-color) !important;
         }
 
@@ -90,32 +79,13 @@ export class EtoolsTabs extends LitElement {
           }
         }
         @media (max-width: 1024px) {
-          paper-tabs {
+          sl-tab-group {
             width: 100%;
-          }
-          paper-tab[link],
-          paper-tab {
-            padding: 0 !important;
-          }
-          paper-tab .tab-content {
-            min-width: fit-content !important;
-          }
-          paper-tab[is-subtabs-parent] > paper-menu-button {
-            padding: 0 !important;
-            --paper-button_-_padding: 0.7em 0 !important;
-            --paper-button_-_min-width: 0 !important;
           }
         }
       </style>
 
-      <paper-tabs
-        style="overflow: visible; max-width: 100%"
-        id="tabs"
-        selected="${this.activeTab}"
-        attr-for-selected="name"
-        noink
-        @iron-activate="${this.cancelSelection}"
-      >
+      <sl-tab-group id="tabs" @sl-tab-show="${this.handleTabChange}">
         ${this.tabs.map((item) => {
           if (item.subtabs) {
             return this.getSubtabs(item);
@@ -123,7 +93,7 @@ export class EtoolsTabs extends LitElement {
             return this.getTabHtml(item);
           }
         })}
-      </paper-tabs>
+      </sl-tab-group>
     `;
   }
 
@@ -136,57 +106,73 @@ export class EtoolsTabs extends LitElement {
   @property({type: Array})
   tabs!: AnyObject[];
 
+  handleTabChange(e: CustomEvent) {
+    const newTabName: string = e.detail.panel;
+
+    if (newTabName === this.activeTab) {
+      return;
+    }
+
+    this.activeTab = newTabName;
+    this.activeSubTab = '';
+  }
+
   getTabHtml(item: any) {
     return html`
-      <paper-tab name="${item.tab}" link ?hidden="${item.hidden}" ?disabled="${item.disabled}">
-        <span class="tab-content"> ${item.tabLabel} ${item.showTabCounter ? html`(${item.counter})` : ''} </span>
-      </paper-tab>
+      <sl-tab
+        slot="nav"
+        panel="${item.tab}"
+        ?active="${this.activeTab === item.tab}"
+        ?hidden="${item.hidden}"
+        ?disabled="${item.disabled}"
+      >
+        ${item.tabLabel} ${item.showTabCounter ? html`(${item.counter})` : ''}
+      </sl-tab>
     `;
   }
 
   getSubtabs(item: any) {
     return html`
-      <paper-tab
+      <sl-tab
         style="overflow: visible !important;"
-        name="${item.tab}"
+        slot="nav"
+        panel="${item.tab}"
         is-subtabs-parent="true"
         link
+        ?active="${this.activeTab === item.tab}"
         ?hidden="${item.hidden}"
         @keyup=${this.callClickOnEnterSpaceDownKeys}
       >
-        <paper-menu-button id="subtabmenu" horizontal-align="right" vertical-offset="45">
-          <paper-button class="button" slot="dropdown-trigger">
-            ${item.tabLabel}
-            <etools-icon name="arrow-drop-down"></etools-icon>
-          </paper-button>
-          <paper-listbox slot="dropdown-content" attr-for-selected="subtab" selected="${this.activeSubTab}">
+        <sl-dropdown id="subtabmenu" horizontal-align="right" vertical-offset="45">
+          <sl-button class="button" slot="trigger" caret> ${item.tabLabel} </sl-button>
+          <sl-menu>
             ${item.subtabs.map(
               (subitem: any) => html`
-                <paper-icon-item
+                <sl-menu-item
                   name="${item.tab}"
                   subtab="${subitem.value}"
-                  selected="${this.isSelectedSubtab(subitem.value)}"
+                  @click=${(e: Event) => {
+                    this.activeSubTab = subitem.value;
+                    if ((e.target as any).checked) {
+                      e.preventDefault();
+                      e.stopImmediatePropagation();
+                    }
+                  }}
+                  type="checkbox"
+                  ?checked="${this.isSelectedSubtab(subitem.value)}"
                 >
-                  <etools-icon name="check" slot="item-icon" ?hidden="${!this.isSelectedSubtab(subitem.value)}">
-                  </etools-icon>
-                  <paper-item-body>${subitem.label}</paper-item-body>
-                </paper-icon-item>
+                  ${subitem.label}
+                </sl-menu-item>
               `
             )}
-          </paper-listbox>
-        </paper-menu-button>
-      </paper-tab>
+          </sl-menu>
+        </sl-dropdown>
+      </sl-tab>
     `;
   }
 
   isSelectedSubtab(dropdownItemValue: string) {
     return dropdownItemValue == this.activeSubTab;
-  }
-
-  cancelSelection(e: CustomEvent) {
-    if (e.detail.item.getAttribute('is-subtabs-parent')) {
-      e.preventDefault();
-    }
   }
 
   callClickOnEnterSpaceDownKeys(event: KeyboardEvent) {
@@ -195,14 +181,10 @@ export class EtoolsTabs extends LitElement {
       event.preventDefault();
 
       // @ts-ignore
-      if (event.target!.localName !== 'paper-tab') {
+      if (event.target!.localName !== 'sl-tab') {
         return;
       }
-      ((event.target as any).querySelector('paper-button') as any).click();
+      ((event.target as any).querySelector('sl-button') as any).click();
     }
-  }
-
-  public notifyResize() {
-    this.shadowRoot?.querySelector('paper-tabs')?.notifyResize();
   }
 }
