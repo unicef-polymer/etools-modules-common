@@ -1,28 +1,18 @@
 import {css, unsafeCSS} from 'lit';
 export const buttonsStylesContent = `
-  sl-button.default,
-  sl-button.primary,
-  sl-button.info,
-  sl-button.success,
-  sl-button.error {
-    padding: 6px 8px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-
-  sl-button.default.left-icon,
-  sl-button.primary.left-icon,
-  sl-button.info.left-icon,
-  sl-button.success.left-icon,
-  sl-button.error.left-icon {
+  sl-button.default.left-icon::part(base),
+  sl-button.primary.left-icon::part(base),
+  sl-button.info.left-icon::part(base),
+  sl-button.success.left-icon::part(base),
+  sl-button.error.left-icon::part(base) {
     padding-inline-end: 12px;
   }
 
-  sl-button.default.right-icon,
-  sl-button.primary.right-icon,
-  sl-button.info.right-icon,
-  sl-button.success.right-icon,
-  sl-button.error.right-icon {
+  sl-button.default.right-icon::part(base),
+  sl-button.primary.right-icon::part(base),
+  sl-button.info.right-icon::part(base),
+  sl-button.success.right-icon::part(base),
+  sl-button.error.right-icon::part(base) {
     padding-inline-start: 12px;
   }
 
@@ -45,27 +35,27 @@ export const buttonsStylesContent = `
     margin-inline-start: 10px;
   }
 
-  sl-button.default {
+  sl-button.default::part(base) {
     color: var(--default-btn-color, #ffffff);
     background-color: var(--default-btn-bg-color, rgba(0, 0, 0, 0.45));
   }
 
-  sl-button.primary {
+  sl-button.primary::part(base) {
     color: var(--primary-btn-color, #ffffff);
     background-color: var(--primary-btn-bg-color, var(--primary-color));
   }
 
-  sl-button.info {
+  sl-button.info::part(base) {
     color: var(--primary-color, #0099ff);
     align-self: center;
   }
 
-  sl-button.success {
+  sl-button.success::part(base) {
     color: var(--success-btn-color, #ffffff);
     background-color: var(--success-btn-bg-color, var(--success-color));
   }
 
-  sl-button.error {
+  sl-button.error::part(base) {
     color: var(--error-btn-color, #ffffff);
     background-color: var(--error-btn-bg-color, var(--error-color));
   }
@@ -76,7 +66,7 @@ export const buttonsStylesContent = `
     justify-content: center;
   }
 
-  .secondary-btn {
+  .secondary-btn::part(base) {
     width: auto;
     margin: 0;
     color: var(--primary-color);
@@ -85,18 +75,18 @@ export const buttonsStylesContent = `
     font-size: 14px;
     font-weight: bold;
   }
-  .primary-btn {
+  .primary-btn::part(base) {
     --sl-color-primary-600: var(--primary-color);
     color: var(--light-primary-text-color, #fff);
   }
 
-  .error {
+  .error::part(base) {
     --sl-color-primary-600: var(--error-color);
     --sl-color-primary-500: var(--error-color);
     color: var(--light-primary-text-color, #fff);
   }
   
-  .save-cancel-btns sl-button {
+  .save-cancel-btns sl-button::part(base) {
     min-width: 82px;
   }
 
@@ -139,7 +129,7 @@ export const buttonsStylesContent = `
     --sl-color-primary-600: var(--primary-text-color, rgba(0,0,0,0.87));
   }
 
-  sl-button.default {
+  sl-button.default::part(base) {
     --sl-color-primary-600: var(--default-btn-bg-color,  #9D9D9D);
     --sl-color-primary-500: var(--default-btn-bg-color,  #9D9D9D);
   }
