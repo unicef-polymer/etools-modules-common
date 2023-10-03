@@ -312,7 +312,7 @@ export const sharedStylesContent = `
   etools-icon-button {
     color: var(--primary-text-color);
   }
-  etools-icon-button[name='three-dots-vertical'] {
+  etools-icon-button[name='more-vert'] {
     color: inherit;   
   }
 `;
