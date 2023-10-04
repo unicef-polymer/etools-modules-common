@@ -235,9 +235,9 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
 
     getFrsCurrencyTooltipIcon(frsCurrencyMatch: boolean) {
       if (!frsCurrencyMatch) {
-        return 'pmp-custom-icons:1+';
+        return '1+';
       }
-      return 'pmp-custom-icons:not-equal';
+      return 'not-equal';
     }
 
     getFrsValueNAClass(valIsAvailable: boolean, negateFlagValFirst?: boolean) {

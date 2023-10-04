@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "5.0.0-rc.8",
+  "version": "5.0.0-rc.13",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -28,9 +28,9 @@
     "prepublishOnly": "npm run tsToJs"
   },
   "dependencies": {
-    "@unicef-polymer/etools-ajax": "^4.4.2",
+    "@unicef-polymer/etools-ajax": "^4.5.3",
     "@unicef-polymer/etools-types": "^1.11.16",
-    "@unicef-polymer/etools-unicef": "^1.0.0-rc.3",
+    "@unicef-polymer/etools-unicef": "^1.0.0-rc.20",
     "@unicef-polymer/etools-utils": "^2.0.0-rc.2",
     "lit": "^2.8.0",
     "lit-translate": "^2.0.1",
@@ -39,7 +39,7 @@
   },
   "peerDependencies": {
     "@unicef-polymer/etools-unicef": ">=1.0.0",
-    "@unicef-polymer/etools-utils": ">=1.0.0"
+    "@unicef-polymer/etools-utils": ">=2.0.0"
   },
   "devDependencies": {
     "@types/lodash-es": "^4.17.5",
