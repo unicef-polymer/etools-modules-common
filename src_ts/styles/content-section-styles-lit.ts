@@ -13,9 +13,6 @@ export const contentSectionStyles = `
   @media print {
     .content-section {
       border: 1px solid var(--list-divider-color);
-      --paper-material-elevation-1: {
-        box-shadow: none;
-      }
     }
   }
 `;
