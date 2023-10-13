@@ -4,7 +4,6 @@ import {GenericObject} from '@unicef-polymer/etools-types';
 
 type Constructor<B> = new (...args: any[]) => B;
 
-/* @polymerMixin */
 export const DataMixin =
   <T extends Constructor<LitElement>>() =>
   <B>(superclass: T) =>

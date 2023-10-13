@@ -9,7 +9,7 @@ const INCREASE_UNSAVED_UPLOADS = 'INCREASE_UNSAVED_UPLOADS';
 const DECREASE_UNSAVED_UPLOADS = 'DECREASE_UNSAVED_UPLOADS';
 
 /**
- * @polymer
+ * @LitElement
  * @mixinFunction
  */
 function UploadsMixin<T extends Constructor<LitElement>>(baseClass: T) {
