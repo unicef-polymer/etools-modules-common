@@ -44,44 +44,12 @@ export const sharedStylesContent = `
     align-self: center;
   }
 
-  paper-input-container {
-    margin: 0 12px;
-    --paper-input-container-focus-color: var(--module-primary);
-    --paper-input-container: {
-
-      font-size: 13px;
-      opacity: 1 !important;
-    }
-    --paper-input-container-underline: {
-      display: none !important;
-    }
-    --paper-input-container-underline-focus: {
-      display: none;
-    }
-  }
-
   etools-dropdown,
   etools-dropdown-multi {
     --esmm-dropdown-menu-z-index: 199;
     --esmm-external-wrapper: {
       width: 100%;
       max-width: 650px;
-    }
-  }
-
-  paper-input,
-  paper-textarea,
-  paper-input-container,
-  datepicker-lite,
-  etools-dropdown,
-  etools-dropdown-multi,
-  etools-upload,
-  etools-currency-amount-input {
-    --paper-input-container-label: {
-      color: var(--secondary-text-color, #737373);
-    }
-    --paper-input-container-label-floating: {
-      color: var(--secondary-text-color, #737373);
     }
   }
 
@@ -95,29 +63,10 @@ export const sharedStylesContent = `
     color: var(--primary-text-color);
   }
 
-  paper-textarea {
-    --paper-input-container-input: {
-      display: block;
-    }
-    --iron-autogrow-textarea: {
-      overflow: hidden;
-      padding: 0;
-    }
+  etools-dialog etools-textarea {
+     max-height: 96px;
   }
 
-  etools-dialog paper-textarea {
-    --iron-autogrow-textarea: {
-      overflow: auto;
-      padding: 0;
-      max-height: 96px;
-    }
-  }
-
-  paper-textarea[readonly] {
-    --paper-input-container-underline: {
-      display: none;
-    }
-  }
   .w100 {
     width: 100%;
   }
@@ -140,19 +89,8 @@ export const sharedStylesContent = `
     width: 100%;
   }
 
-  paper-radio-group:focus,
-  paper-textarea[focused],
-  .nav-menu-item {
-    outline: none;
-  }
-
   .readonly {
     pointer-events: none;
-  }
-
-  .readonly {
-    --paper-radio-button-checked-ink-color: transparent !important;
-    --paper-radio-button-unchecked-ink-color: transparent !important;
   }
 
   etools-data-table-column, *[slot="row-data"] .col-data {
@@ -222,7 +160,7 @@ export const sharedStylesContent = `
     --list-second-bg-color: rgba(204, 204, 204, 0.3);
   }
 
-  .paper-label {
+  .label {
     font-size: 12px;
     color: var(--secondary-text-color);
     padding-top: 6px;
@@ -272,10 +210,6 @@ export const sharedStylesContent = `
     outline: 0;
     box-shadow:  0 0 10px 10px rgba(170, 165, 165, 0.2) !important;
     background-color: rgba(170, 165, 165, 0.2);
-  }
-
-  *:focus-visible:not(a):not(etools-icon-button):not(paper-radio-button):not(paper-checkbox) {
-    outline: 2px solid rgb(170 165 165 / 50%);
   }
 
   datepicker-lite::part(dp-etools-icon):focus-visible,
