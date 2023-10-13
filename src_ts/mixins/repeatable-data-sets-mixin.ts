@@ -1,6 +1,6 @@
 import {LitElement} from 'lit';
 import {property} from 'lit/decorators.js';
-import {sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
 import {cloneDeep} from '@unicef-polymer/etools-utils/dist/general.util';
 import '../layout/are-you-sure';
 import {AnyObject, Constructor} from '@unicef-polymer/etools-types';

@@ -1,6 +1,6 @@
 import {LitElement} from 'lit';
 import {property} from 'lit/decorators.js';
-import {EtoolsRequestEndpoint, sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
 import {isJsonStrMatch} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
 import {EtoolsLogger} from '@unicef-polymer/etools-utils/dist/singleton/logger';
 import {tokenEndpointsHost, tokenStorageKeys, getTokenEndpoints} from '../config/config';
@@ -133,7 +133,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return {Authorization: 'JWT ' + token};
     }
 
-    requestToken(endpoint: EtoolsRequestEndpoint) {
+    requestToken(endpoint: RequestEndpoint) {
       return sendRequest({
         endpoint: endpoint
       });
