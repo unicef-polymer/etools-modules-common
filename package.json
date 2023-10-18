@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "5.0.0-rc.18",
+  "version": "5.0.0-rc.19",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
@@ -21,7 +21,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "tsToJs": "gulp",
+    "tsToJs": "rm -rf dist && gulp",
     "lint": "eslint . --ext js,html --ignore-path .gitignore",
     "format": "eslint --ext .ts . --fix --ignore-path .gitignore",
     "publishPackage": "npm run tsToJs && npm publish",
@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@unicef-polymer/etools-types": "^1.11.16",
-    "@unicef-polymer/etools-unicef": "^1.0.0-rc.25",
+    "@unicef-polymer/etools-unicef": "^1.0.0-rc.26",
     "@unicef-polymer/etools-utils": "^2.0.0-rc.3",
     "lit": "^2.8.0",
     "lit-translate": "^2.0.1",
