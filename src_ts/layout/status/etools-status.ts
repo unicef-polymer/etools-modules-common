@@ -75,6 +75,11 @@ export class EtoolsStatus extends LitElement {
           background-color: var(--success-color);
           fill: #ffffff;
         }
+        etools-icon {
+          --etools-icon-font-size: 20px;
+          vertical-align: baseline;
+          padding: 2px;
+        }
       </style>
       ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
     `;
@@ -118,7 +123,7 @@ export class EtoolsStatus extends LitElement {
       <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
         <span class="icon">
           ${completed
-            ? html`<etools-icon name="completed-status"></etools-icon>`
+            ? html`<etools-icon name="done"></etools-icon>`
             : html`${this.getBaseOneIndex(index)}`}
         </span>
         <span class="label">
