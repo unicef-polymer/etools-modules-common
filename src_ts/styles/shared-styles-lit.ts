@@ -212,6 +212,10 @@ export const sharedStylesContent = `
     background-color: rgba(170, 165, 165, 0.2);
   }
 
+  datepicker-lite::part(dp-etools-icon) {
+    color: var(--secondary-text-color, rgba(0, 0, 0, 0.54));
+  }
+
   datepicker-lite::part(dp-etools-icon):focus-visible,
   info-icon-tooltip::part(etools-iit-icon):focus-visible {
     outline: 0;
