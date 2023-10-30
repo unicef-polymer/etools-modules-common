@@ -19,6 +19,7 @@ export class AreYouSure extends LitElement {
         no-padding
         opened
         theme="confirmation"
+        confirmBtnVariant="danger"
         .okBtnText="${this.confirmBtnText}"
         cancel-btn-text=${this.cancelBtnText}
         @close="${(e: CustomEvent) => this.handleDialogClosed(e)}"
