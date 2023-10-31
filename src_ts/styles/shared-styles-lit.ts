@@ -251,7 +251,20 @@ export const sharedStylesContent = `
     color: var(--primary-text-color);
   }
   etools-icon-button[name='more-vert'] {
-    color: inherit;   
+    color: inherit;
+  }
+  sl-radio,
+  sl-checkbox {
+    --sl-input-border-width: 2px;
+    --sl-input-border-color: var(--secondary-text-color, rgba(0, 0, 0, 0.54));
+  }
+  sl-radio[disabled]::part(base),
+  sl-checkbox[disabled]::part(base) {
+    opacity: 0.65;
+  }
+  sl-radio[disabled]::part(control--checked),
+  sl-checkbox[disabled]::part(control--checked) {
+    opacity: 0.65;
   }
 `;
 // export const sharedStyles = html`${unsafeCSS(sharedStylesContent)}`;
@@ -269,3 +282,4 @@ export const sharedStylesPolymer = () => {
    </style>`;
   return template;
 };
+
