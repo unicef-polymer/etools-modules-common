@@ -45,6 +45,10 @@ export class EtoolsTabs extends LitElement {
           border-bottom: 1px solid var(--dark-divider-color);
         }
 
+        sl-tab-group::part(tabs) {
+          border-bottom-color: transparent;
+        }
+
         sl-tab[link],
         sl-tab {
           color: var(--primary-color);
@@ -108,13 +112,17 @@ export class EtoolsTabs extends LitElement {
 
   handleTabChange(e: CustomEvent) {
     const newTabName: string = e.detail.panel;
+    this.setActiveTab(newTabName);
+  }
 
-    if (newTabName === this.activeTab) {
+  setActiveTab(activeTabName: string) {
+    if (activeTabName === this.activeTab) {
       return;
     }
 
-    this.activeTab = newTabName;
+    this.activeTab = activeTabName;
     this.activeSubTab = '';
+    setTimeout(() => this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator(), 150);
   }
 
   getTabHtml(item: any) {
