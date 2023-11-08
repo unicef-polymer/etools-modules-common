@@ -45,28 +45,35 @@ export class EtoolsTabs extends LitElement {
           border-bottom: 1px solid var(--dark-divider-color);
         }
 
+        sl-tab-group {
+          width: 100%;
+        }
+
         sl-tab-group::part(tabs) {
           border-bottom-color: transparent;
         }
 
-        sl-tab[link],
         sl-tab {
-          color: var(--primary-color);
           padding: 0 24px;
         }
 
-        sl-tab {
+        sl-tab::part(base) {
           color: var(--secondary-text-color);
           text-transform: uppercase;
+          opacity: 0.8;
           min-width: 120px;
           text-align: center;
         }
 
-        sl-tab[active] {
+        sl-tab[link]::part(base) {
           color: var(--primary-color);
         }
 
-        sl-tab[is-subtabs-parent] {
+        sl-tab[active]::part(base) {
+          color: var(--primary-color);
+        }
+
+        sl-tab[is-subtabs-parent]::part(base) {
           opacity: 1 !important;
           cursor: pointer !important;
         }
@@ -77,14 +84,15 @@ export class EtoolsTabs extends LitElement {
           color: var(--primary-color) !important;
         }
 
+        sl-tab::part(base):focus-visible {
+          outline: 0;
+          opacity: 1;
+          font-weight: 700;
+        }
+
         @media print {
           :host {
             display: none;
-          }
-        }
-        @media (max-width: 1024px) {
-          sl-tab-group {
-            width: 100%;
           }
         }
       </style>
