@@ -7,7 +7,7 @@ import '@shoelace-style/shoelace/dist/components/tab/tab.js';
 import '@shoelace-style/shoelace/dist/components/dropdown/dropdown.js';
 import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
 import '@shoelace-style/shoelace/dist/components/menu/menu.js';
-import '@shoelace-style/shoelace/dist/components/button/button.js';
+import '@unicef-polymer/etools-unicef/src/etools-button/etools-button';
 import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
 
 /**
@@ -77,10 +77,10 @@ export class EtoolsTabs extends LitElement {
           opacity: 1 !important;
           cursor: pointer !important;
         }
-        sl-tab[is-subtabs-parent] > sl-dropdown > sl-button {
+        sl-tab[is-subtabs-parent] > sl-dropdown > etools-button {
           color: var(--secondary-text-color);
         }
-        sl-tab[active][is-subtabs-parent] > sl-dropdown > sl-button {
+        sl-tab[active][is-subtabs-parent] > sl-dropdown > etools-button {
           color: var(--primary-color) !important;
         }
 
@@ -160,7 +160,7 @@ export class EtoolsTabs extends LitElement {
         @keyup=${this.callClickOnEnterSpaceDownKeys}
       >
         <sl-dropdown id="subtabmenu" horizontal-align="right" vertical-offset="45">
-          <sl-button class="button" slot="trigger" caret> ${item.tabLabel} </sl-button>
+          <etools-button class="button" slot="trigger" caret> ${item.tabLabel} </etools-button>
           <sl-menu>
             ${item.subtabs.map(
               (subitem: any) => html`
@@ -200,7 +200,7 @@ export class EtoolsTabs extends LitElement {
       if (event.target!.localName !== 'sl-tab') {
         return;
       }
-      ((event.target as any).querySelector('sl-button') as any).click();
+      ((event.target as any).querySelector('etools-button') as any).click();
     }
   }
 }
