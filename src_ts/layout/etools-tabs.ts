@@ -1,6 +1,7 @@
 import {LitElement, html} from 'lit';
-import {customElement, property} from 'lit/decorators.js';
+import {customElement, property, state} from 'lit/decorators.js';
 import {AnyObject} from '@unicef-polymer/etools-types';
+import {repeat} from 'lit/directives/repeat.js';
 
 import '@shoelace-style/shoelace/dist/components/tab-group/tab-group.js';
 import '@shoelace-style/shoelace/dist/components/tab/tab.js';
@@ -38,6 +39,7 @@ export class EtoolsTabs extends LitElement {
         :host {
           display: flex;
           flex-direction: row;
+          min-width: 100%;
           justify-content: flex-start;
         }
 
@@ -98,19 +100,44 @@ export class EtoolsTabs extends LitElement {
       </style>
 
       <sl-tab-group id="tabs" @sl-tab-show="${this.handleTabChange}">
-        ${this.tabs.map((item) => {
-          if (item.subtabs) {
-            return this.getSubtabs(item);
-          } else {
-            return this.getTabHtml(item);
+        ${repeat(
+          this.tabs,
+          (item) => item.id,
+          (item) => {
+            if (item.subtabs) {
+              return this.getSubtabs(item);
+            } else {
+              return this.getTabHtml(item);
+            }
           }
-        })}
+        )}
       </sl-tab-group>
     `;
   }
 
+  @state()
+  _activeTab = '';
   @property({type: String})
-  activeTab = '';
+  set activeTab(value: string) {
+    if (value === undefined || this._activeTab === value) {
+      return;
+    }
+
+    this._activeTab = value;
+    this.activeSubTab = '';
+
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+
+    this.timeout = setTimeout(() => this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator(), 150);
+    this.requestUpdate();
+  }
+
+  get activeTab() {
+    return this._activeTab;
+  }
 
   @property({type: String})
   activeSubTab = '';
@@ -118,8 +145,10 @@ export class EtoolsTabs extends LitElement {
   @property({type: Array})
   tabs!: AnyObject[];
 
+  timeout: any = null;
+
   handleTabChange(e: CustomEvent) {
-    const newTabName: string = e.detail.panel;
+    const newTabName: string = e.detail.name;
     this.setActiveTab(newTabName);
   }
 
@@ -129,8 +158,6 @@ export class EtoolsTabs extends LitElement {
     }
 
     this.activeTab = activeTabName;
-    this.activeSubTab = '';
-    setTimeout(() => this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator(), 150);
   }
 
   getTabHtml(item: any) {
@@ -138,7 +165,7 @@ export class EtoolsTabs extends LitElement {
       <sl-tab
         slot="nav"
         panel="${item.tab}"
-        ?active="${this.activeTab === item.tab}"
+        ?active="${this.activeTab && this.activeTab === item.tab}"
         ?hidden="${item.hidden}"
         ?disabled="${item.disabled}"
       >
@@ -155,7 +182,7 @@ export class EtoolsTabs extends LitElement {
         panel="${item.tab}"
         is-subtabs-parent="true"
         link
-        ?active="${this.activeTab === item.tab}"
+        ?active="${this.activeTab && this.activeTab === item.tab}"
         ?hidden="${item.hidden}"
         @keyup=${this.callClickOnEnterSpaceDownKeys}
       >
@@ -188,7 +215,7 @@ export class EtoolsTabs extends LitElement {
   }
 
   isSelectedSubtab(dropdownItemValue: string) {
-    return dropdownItemValue == this.activeSubTab;
+    return this.activeSubTab && dropdownItemValue == this.activeSubTab;
   }
 
   callClickOnEnterSpaceDownKeys(event: KeyboardEvent) {
