@@ -101,7 +101,7 @@ export class EtoolsTabs extends LitElement {
 
       <sl-tab-group id="tabs" @sl-tab-show="${this.handleTabChange}">
         ${repeat(
-          this.tabs,
+          this._tabs,
           (item) => item.id,
           (item) => {
             if (item.subtabs) {
@@ -126,13 +126,8 @@ export class EtoolsTabs extends LitElement {
     this._activeTab = value;
     this.activeSubTab = '';
 
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-      this.timeout = null;
-    }
-
-    this.timeout = setTimeout(() => this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator(), 150);
     this.requestUpdate();
+    this.updateIndicator();
   }
 
   get activeTab() {
@@ -142,10 +137,33 @@ export class EtoolsTabs extends LitElement {
   @property({type: String})
   activeSubTab = '';
 
+  @state()
+  _tabs!: any[];
   @property({type: Array})
-  tabs!: AnyObject[];
+  set tabs(value: any) {
+    this._tabs = value;
+    this.updateIndicator();
+  }
+
+  get tabs() {
+    return this._tabs;
+  }
 
   timeout: any = null;
+
+  async connectedCallback() {
+    super.connectedCallback();
+    document.addEventListener('language-changed', this.handleLanguageChange.bind(this));
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback();
+    document.removeEventListener('language-changed', this.handleLanguageChange.bind(this));
+  }
+
+  handleLanguageChange() {
+    this.updateIndicator();
+  }
 
   handleTabChange(e: CustomEvent) {
     const newTabName: string = e.detail.name;
@@ -158,6 +176,15 @@ export class EtoolsTabs extends LitElement {
     }
 
     this.activeTab = activeTabName;
+  }
+
+  updateIndicator() {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+      this.timeout = null;
+    }
+
+    this.timeout = setTimeout(() => this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator(), 150);
   }
 
   getTabHtml(item: any) {
