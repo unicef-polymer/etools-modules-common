@@ -126,6 +126,7 @@ export class EtoolsTabs extends LitElement {
     this._activeTab = value;
     this.activeSubTab = '';
 
+    this.shadowRoot?.querySelector('sl-tab-group')?.show(this.activeTab);
     this.requestUpdate();
     this.updateIndicator();
   }
@@ -184,7 +185,10 @@ export class EtoolsTabs extends LitElement {
       this.timeout = null;
     }
 
-    this.timeout = setTimeout(() => this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator(), 150);
+    this.timeout = setTimeout(() => {
+      this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator();
+      this.shadowRoot?.querySelector('sl-tab-group')?.updateScrollControls();
+    }, 150);
   }
 
   getTabHtml(item: any) {
