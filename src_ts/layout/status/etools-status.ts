@@ -1,6 +1,6 @@
-import {LitElement, html, property, customElement} from 'lit-element';
-import '@polymer/iron-icons/iron-icons';
-import {completedStatusIcon} from './status-icons';
+import {LitElement, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
 import {listenForLangChanged, translate, translateConfig} from 'lit-translate';
 
 export type EtoolsStatusItem = [string, string];
@@ -75,6 +75,11 @@ export class EtoolsStatus extends LitElement {
           background-color: var(--success-color);
           fill: #ffffff;
         }
+        etools-icon {
+          --etools-icon-font-size: 20px;
+          vertical-align: baseline;
+          padding: 2px;
+        }
       </style>
       ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
     `;
@@ -86,7 +91,7 @@ export class EtoolsStatus extends LitElement {
   @property({type: Array})
   statuses: EtoolsStatusItem[] = [];
 
-  constructor(){
+  constructor() {
     super();
     listenForLangChanged(() => {
       this.statuses = [...this.statuses];
@@ -102,7 +107,7 @@ export class EtoolsStatus extends LitElement {
         // special icon for terminated status
         return html`
           <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-            <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>
+            <etools-icon class="custom-icon" style="color: #ea4022" name="report-problem"> </etools-icon>
             <span class="label"
               >${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
                 ...translateConfig,
@@ -116,11 +121,17 @@ export class EtoolsStatus extends LitElement {
 
     return html`
       <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-        <span class="icon"> ${completed ? html`${completedStatusIcon}` : html`${this.getBaseOneIndex(index)}`} </span>
-        <span class="label"> ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
-          ...translateConfig,
-          empty: () => item[1]
-        } as any)}</span>
+        <span class="icon">
+          ${completed
+            ? html`<etools-icon name="done"></etools-icon>`
+            : html`${this.getBaseOneIndex(index)}`}
+        </span>
+        <span class="label">
+          ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
+            ...translateConfig,
+            empty: () => item[1]
+          } as any)}</span
+        >
       </div>
     `;
   }

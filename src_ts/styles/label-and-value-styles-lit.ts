@@ -1,8 +1,8 @@
-import {css} from 'lit-element';
+import {css} from 'lit';
 
 // language=CSS
 export const labelAndvalueStylesLit = css`
-  .paper-label {
+  .label {
     font-size: 12px;
     color: var(--secondary-text-color);
     padding-top: 6px;

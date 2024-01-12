@@ -1,5 +1,6 @@
-import {html, LitElement, customElement, property} from 'lit-element';
-import '@unicef-polymer/etools-dialog/etools-dialog.js';
+import {html, LitElement} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import '@unicef-polymer/etools-unicef/src/etools-dialog/etools-dialog.js';
 import {translate} from 'lit-translate';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 
@@ -18,6 +19,7 @@ export class AreYouSure extends LitElement {
         no-padding
         opened
         theme="confirmation"
+        confirmBtnVariant="danger"
         .okBtnText="${this.confirmBtnText}"
         cancel-btn-text=${this.cancelBtnText}
         @close="${(e: CustomEvent) => this.handleDialogClosed(e)}"
