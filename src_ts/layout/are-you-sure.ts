@@ -1,4 +1,5 @@
 import {html, LitElement, customElement, property} from 'lit-element';
+import {unsafeHTML} from 'lit-html/directives/unsafe-html';
 import '@unicef-polymer/etools-dialog/etools-dialog.js';
 import {translate} from 'lit-translate';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
@@ -23,7 +24,7 @@ export class AreYouSure extends LitElement {
         @close="${(e: CustomEvent) => this.handleDialogClosed(e)}"
         @confirm-btn-clicked="${(e: CustomEvent) => this.handleDialogClosed(e)}"
       >
-        <div class="content">${this.content}</div>
+        <div class="content">${unsafeHTML(this.content)}</div>
       </etools-dialog>`;
   }
 
