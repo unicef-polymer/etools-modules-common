@@ -184,11 +184,22 @@ export class EtoolsTabs extends LitElement {
       clearTimeout(this.timeout);
       this.timeout = null;
     }
+    // Get time needed for any css transition to finish
+    const transitionValue = parseFloat(
+      getComputedStyle(document.documentElement).getPropertyValue('--sl-transition-fast')
+    );
 
+    // Wait to finish rendering the text in the final form(after translations/applying styles/etc)
+    // so we get the final accurate width of each tab
     this.timeout = setTimeout(() => {
+      // Update the tab blue indicator
       this.shadowRoot?.querySelector('sl-tab-group')?.syncIndicator();
-      this.shadowRoot?.querySelector('sl-tab-group')?.updateScrollControls();
-    }, 150);
+      // Once the indicator has finished transitioning to the new width and position
+      // we can check to see if we need to hide or show the arrow control buttons
+      setTimeout(() => {
+        this.shadowRoot?.querySelector('sl-tab-group')?.updateScrollControls();
+      }, transitionValue);
+    }, transitionValue);
   }
 
   getTabHtml(item: any) {
