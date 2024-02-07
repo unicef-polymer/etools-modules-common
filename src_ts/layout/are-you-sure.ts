@@ -26,7 +26,7 @@ export class AreYouSure extends LitElement {
         @close="${(e: CustomEvent) => this.handleDialogClosed(e)}"
         @confirm-btn-clicked="${(e: CustomEvent) => this.handleDialogClosed(e)}"
       >
-        <div class="content">${unsafeHTML(this.content)}</div>
+        <div class="content">${this.content}</div>
       </etools-dialog>`;
   }
 
@@ -40,7 +40,7 @@ export class AreYouSure extends LitElement {
   cancelBtnText = translate('CANCEL') as unknown as string;
 
   set dialogData({content, confirmBtnText, cancelBtnText}: any) {
-    this.content = content;
+    this.content = typeof content === 'string' ? unsafeHTML(content) : content;
     if (confirmBtnText) {
       this.confirmBtnText = confirmBtnText;
     }
