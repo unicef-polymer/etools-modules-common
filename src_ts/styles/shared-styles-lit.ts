@@ -6,7 +6,7 @@ export const sharedStylesContent = `
   :host {
     display: block;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: var(--etools-font-size-16, 16px);
   }
 
   *[hidden] {
@@ -22,11 +22,11 @@ export const sharedStylesContent = `
 
   h1 {
     text-transform: capitalize;
-    font-size: 24px;
+    font-size: var(--etools-font-size-24, 24px);
   }
 
   h2 {
-    font-size: 20px;
+    font-size: var(--etools-font-size-20, 20px);
   }
 
   a {
@@ -40,7 +40,7 @@ export const sharedStylesContent = `
 
   .error {
     color: var(--error-color);
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     align-self: center;
   }
 
@@ -59,7 +59,7 @@ export const sharedStylesContent = `
 
   .font-bold-12 {
     font-weight: bold;
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     color: var(--primary-text-color);
   }
 
@@ -71,7 +71,7 @@ export const sharedStylesContent = `
     width: 100%;
   }
   .header-text {
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     color: var(--list-secondary-text-color, #757575);
     font-weight: bold;
     -webkit-user-select: none;
@@ -121,7 +121,7 @@ export const sharedStylesContent = `
       padding: 0;
       padding-inline-end: 24px;
       text-align: start;
-      font-size: 18px;
+      font-size: var(--etools-font-size-18, 18px);
       font-weight: 500;
   }
 
@@ -161,7 +161,7 @@ export const sharedStylesContent = `
   }
 
   .label {
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     color: var(--secondary-text-color);
     padding-top: 6px;
   }
@@ -171,7 +171,7 @@ export const sharedStylesContent = `
     padding-top: 4px;
     padding-bottom: 6px;
     min-width: 0;
-    font-size: 16px;
+    font-size: var(--etools-font-size-16, 16px);
   }
 
   .input-label[empty]::after {
@@ -189,7 +189,7 @@ export const sharedStylesContent = `
 
   .lifted-up-icon {
     bottom: 0.4rem;
-    --etools-icon-font-size: 14px;
+    --etools-icon-font-size: var(--etools-font-size-14, 14px);
   }
 
   .text-btn-style {
