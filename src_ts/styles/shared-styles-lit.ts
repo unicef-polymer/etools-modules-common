@@ -119,7 +119,7 @@ export const sharedStylesContent = `
 
   etools-content-panel::part(ecp-header-title) {
       padding: 0;
-      padding-inline-end: 6px;
+      padding-inline-end: 24px;
       text-align: start;
       font-size: 18px;
       font-weight: 500;
