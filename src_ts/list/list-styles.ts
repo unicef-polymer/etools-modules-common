@@ -45,12 +45,12 @@ export const InterventionsTableStyles: CSSResult = css`
   .title {
     margin-bottom: 5px;
     font-weight: 500;
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     line-height: 20px;
     color: rgba(0, 0, 0, 0.54);
   }
   .detail {
-    font-size: 13px;
+    font-size: var(--etools-font-size-13, 13px);
     line-height: 15px;
     color: rgba(0, 0, 0, 0.87);
   }

@@ -23,12 +23,12 @@ export class CancelJustification extends LitElement {
         etools-content-panel::part(ecp-header-title) {
           font-weight: 500;
           text-align: left;
-          font-size: 18px;
+          font-size: var(--etools-font-size-18, 18px);
           margin-inline-start: 80px;
         }
 
         .cancellation-text {
-          font-size: 17px;
+          font-size: var(--etools-font-size-17, 17px);
           white-space: pre-wrap;
           color: var(--primary-text-color);
           padding-top: 26px;
@@ -52,7 +52,7 @@ export class CancelJustification extends LitElement {
         }
 
         div[slot='panel-btns'].bookmark etools-icon {
-          --etools-icon-font-size: 60px;
+          --etools-icon-font-size: var(--etools-font-size-60, 60px);
         }
       </style>
       <etools-content-panel class="cancellation-tab" panel-title="Cancellation Note">

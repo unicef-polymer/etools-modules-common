@@ -38,7 +38,7 @@ export class EtoolsStatus extends LitElement {
           flex-direction: row;
           align-items: center;
           color: var(--secondary-text-color);
-          font-size: 16px;
+          font-size: var(--etools-font-size-16, 16px);
           margin-bottom: 22px;
         }
 
@@ -63,7 +63,7 @@ export class EtoolsStatus extends LitElement {
           background-color: var(--secondary-text-color);
           margin-inline-end: 8px;
           margin-inline-start: 8px;
-          font-size: 14px;
+          font-size: var(--etools-font-size-14, 14px);
           line-height: 24px;
         }
 
@@ -76,7 +76,7 @@ export class EtoolsStatus extends LitElement {
           fill: #ffffff;
         }
         etools-icon {
-          --etools-icon-font-size: 20px;
+          --etools-icon-font-size: var(--etools-font-size-20, 20px);
           vertical-align: baseline;
           padding: 2px;
         }
