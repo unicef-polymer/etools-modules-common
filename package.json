@@ -29,7 +29,7 @@
   },
   "dependencies": {
     "@unicef-polymer/etools-types": "^1.11.16",
-    "@unicef-polymer/etools-unicef": "^1.0.0-rc.61",
+    "@unicef-polymer/etools-unicef": "^1.0.0-rc.62",
     "@unicef-polymer/etools-utils": "^2.0.0-rc.6",
     "lit": "^2.8.0",
     "lit-translate": "^2.0.1",
