@@ -63,10 +63,6 @@ export const sharedStylesContent = `
     color: var(--primary-text-color);
   }
 
-  etools-dialog etools-textarea {
-     max-height: 96px;
-  }
-
   .w100 {
     width: 100%;
   }
