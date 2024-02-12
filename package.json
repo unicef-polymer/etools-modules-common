@@ -40,7 +40,7 @@
   },
   "devDependencies": {
     "@unicef-polymer/etools-types": "^1.11.16",
-    "@unicef-polymer/etools-unicef": "^1.0.0-rc.63",
+    "@unicef-polymer/etools-unicef": "^1.0.0-rc.65",
     "@unicef-polymer/etools-utils": "^2.0.0-rc.6",
     "@types/lodash-es": "^4.17.5",
     "@typescript-eslint/eslint-plugin": "^5.7.0",
