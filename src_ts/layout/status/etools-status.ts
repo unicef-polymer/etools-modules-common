@@ -80,6 +80,13 @@ export class EtoolsStatus extends LitElement {
           vertical-align: baseline;
           padding: 2px;
         }
+        @media (max-width: 576px) {
+          .status:not(:last-of-type)::after {
+            width: 25px;
+            margin-inline-end: 8px;
+            margin-inline-start: 12px;
+          }
+        }
       </style>
       ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
     `;

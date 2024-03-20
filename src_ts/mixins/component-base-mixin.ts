@@ -84,7 +84,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return this.hideActionButtons(editMode, canEditAnyFields)
         ? html``
         : html`
-            <div class="layout-horizontal right-align row-padding-v save-cancel-btns">
+            <div class="right-align padding-v">
               <etools-button variant="neutral" @click="${this.cancel}">${translate('GENERAL.CANCEL')}</etools-button>
               <etools-button variant="primary" @click="${this.save}"> ${translate('GENERAL.SAVE')} </etools-button>
             </div>
