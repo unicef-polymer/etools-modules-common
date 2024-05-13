@@ -91,7 +91,6 @@ export const sharedStylesContent = `
 
   etools-data-table-column, *[slot="row-data"] .col-data {
     box-sizing: border-box;
-    padding-inline-end: 16px;
   }
 
   *[slot="row-data"] {
