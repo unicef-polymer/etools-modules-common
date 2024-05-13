@@ -10,6 +10,7 @@ import '@shoelace-style/shoelace/dist/components/menu-item/menu-item.js';
 import '@shoelace-style/shoelace/dist/components/menu/menu.js';
 import '@unicef-polymer/etools-unicef/src/etools-button/etools-button';
 import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
+import {SlTab} from '@shoelace-style/shoelace';
 
 /**
  * @LitElement
@@ -199,6 +200,15 @@ export class EtoolsTabs extends LitElement {
       setTimeout(() => {
         this.shadowRoot?.querySelector('sl-tab-group')?.updateScrollControls();
       }, transitionValue);
+
+      if (this.activeTab) {
+        // reset active tab, if have dynamic tabs control will wrongly store active tab
+        const tab: SlTab | null | undefined = this.shadowRoot?.querySelector('sl-tab[active]');
+        if (tab) {
+          tab.click();
+        }
+      }
+
     }, transitionValue);
   }
 
