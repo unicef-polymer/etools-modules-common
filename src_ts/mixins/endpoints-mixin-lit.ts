@@ -3,7 +3,8 @@ import {property} from 'lit/decorators.js';
 import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
 import {isJsonStrMatch} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
 import {EtoolsLogger} from '@unicef-polymer/etools-utils/dist/singleton/logger';
-import {tokenEndpointsHost, tokenStorageKeys, getTokenEndpoints} from '../config/config';
+import {Environment} from '@unicef-polymer/etools-utils/dist/singleton/environment';
+import {tokenStorageKeys, getTokenEndpoints} from '../config/config';
 import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
 import get from 'lodash-es/get';
 
@@ -58,7 +59,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
     getEndpoint(endpointsList: AnyObject, endpointName: string, data?: AnyObject) {
       const endpoint = JSON.parse(JSON.stringify((endpointsList as any)[endpointName]));
       const authorizationTokenMustBeAdded = this.authorizationTokenMustBeAdded(endpoint);
-      const baseSite = authorizationTokenMustBeAdded ? tokenEndpointsHost(endpoint.token) : window.location.origin;
+      const baseSite = authorizationTokenMustBeAdded ? Environment.getHost(endpoint.token) : window.location.origin;
 
       if (this._hasUrlTemplate(endpoint)) {
         if (data && authorizationTokenMustBeAdded && this._urlTemplateHasCountryId(endpoint.template!)) {
