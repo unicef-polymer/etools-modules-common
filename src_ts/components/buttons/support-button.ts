@@ -2,7 +2,6 @@
 import {css, CSSResult, html, LitElement, TemplateResult} from 'lit';
 import {customElement} from 'lit/decorators.js';
 import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
-import {translate} from 'lit-translate';
 import MatomoMixin from '@unicef-polymer/etools-piwik-analytics/matomo-mixin';
 import {translateIfAvailable} from '../../utils/language';
 /* eslint-disable max-len */
