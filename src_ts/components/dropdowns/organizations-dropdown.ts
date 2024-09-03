@@ -23,6 +23,18 @@ export class organizationsDropdown extends LitElement {
   @property({type: Number})
   currentOrganizationId!: number | null;
 
+  @property({type: String, attribute: 'organizations-profile-key'})
+  organizationsProfileKey = 'organizations_available';
+
+  @property({type: String, attribute: 'organization-profile-key'})
+  organizationProfileKey = 'organization';
+
+  @property({type: String, attribute: 'option-label'})
+  optionLabel = 'name';
+
+  @property({type: String, attribute: 'option-value'})
+  optionValue = 'id';
+
   @property({type: Array})
   organizations: any[] = [];
 
@@ -42,8 +54,8 @@ export class organizationsDropdown extends LitElement {
         allow-outside-scroll
         no-label-float
         .options="${this.organizations}"
-        option-label="name"
-        option-value="id"
+        .optionLabel="${this.optionLabel}"
+        .optionValue="${this.optionValue}"
         trigger-value-change-event
         @etools-selected-item-changed="${this.onOrganizationChange}"
         hide-search
@@ -63,13 +75,13 @@ export class organizationsDropdown extends LitElement {
 
   updated(changedProps: any) {
     if (changedProps.has('profile')) {
-      this.organizations = this.profile.organizations_available;
-      this.currentOrganizationId = this.profile.organization?.id || null;
+      this.organizations = (this.profile as any)[this.organizationsProfileKey];
+      this.currentOrganizationId = (this.profile as any)[this.organizationProfileKey]?.id || null;
     }
   }
 
   checkMustSelectOrganization() {
-    if (this.profile && !this.profile.organization) {
+    if (this.profile && !(this.profile as any)[this.organizationProfileKey]) {
       setTimeout(() => {
         fireEvent(this, 'toast', {text: getTranslationIfAvailable('SELECT_ORGANIZATION', 'Select organization')});
       }, 2000);
@@ -98,17 +110,21 @@ export class organizationsDropdown extends LitElement {
       loadingSource: 'organization-change'
     });
 
-    sendRequest({
-      endpoint: this.changeOrganizationEndpoint,
-      method: 'POST',
-      body: {organization: selectedOrganizationId}
-    })
-      .then(() => {
-        fireEvent(this, 'organization-changed', {organization: selectedOrganizationId});
+    if (this.changeOrganizationEndpoint) {
+      sendRequest({
+        endpoint: this.changeOrganizationEndpoint,
+        method: 'POST',
+        body: {[this.organizationProfileKey]: selectedOrganizationId}
       })
-      .catch((error: any) => {
-        this._handleError(error);
-      });
+        .then(() => {
+          fireEvent(this, 'organization-changed', {[this.organizationProfileKey]: selectedOrganizationId});
+        })
+        .catch((error: any) => {
+          this._handleError(error);
+        });
+    } else {
+      fireEvent(this, 'organization-changed', {[this.organizationProfileKey]: selectedOrganizationId});
+    }
   }
 
   protected _handleError(error: any) {

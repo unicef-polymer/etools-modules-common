@@ -34,6 +34,12 @@ export class LanguagesDropdown extends LitElement {
   @property({type: Object})
   changeLanguageEndpoint!: RequestEndpoint;
 
+  @property({type: String, attribute: 'option-label'})
+  optionLabel = 'display_name';
+
+  @property({type: String, attribute: 'option-value'})
+  optionValue = 'value';
+
   @state()
   selectedLanguage!: string;
 
@@ -57,8 +63,8 @@ export class LanguagesDropdown extends LitElement {
         transparent
         .selected="${this.selectedLanguage}"
         .options="${this.availableLanguages}"
-        option-label="display_name"
-        option-value="value"
+        .optionLabel="${this.optionLabel}"
+        .optionValue="${this.optionValue}"
         @etools-selected-item-changed="${this.languageChanged}"
         trigger-value-change-event
         hide-search
@@ -124,10 +130,14 @@ export class LanguagesDropdown extends LitElement {
   }
 
   private updateUserPreference(language: string) {
-    sendRequest({endpoint: this.changeLanguageEndpoint, method: 'PATCH', body: {preferences: {language: language}}})
-      .then((response) => {
-        fireEvent(this, 'user-language-changed', {language, user: response});
-      })
-      .catch((err: any) => parseRequestErrorsAndShowAsToastMsgs(err, this));
+    if (this.changeLanguageEndpoint) {
+      sendRequest({endpoint: this.changeLanguageEndpoint, method: 'PATCH', body: {preferences: {language: language}}})
+        .then((response) => {
+          fireEvent(this, 'user-language-changed', {language, user: response});
+        })
+        .catch((err: any) => parseRequestErrorsAndShowAsToastMsgs(err, this));
+    } else {
+      fireEvent(this, 'user-language-changed', {language});
+    }
   }
 }

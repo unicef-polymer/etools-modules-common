@@ -20,6 +20,18 @@ class CountriesDropdown extends LitElement {
   @property({type: Object})
   profile!: EtoolsUser;
 
+  @property({type: String, attribute: 'countries-profile-key'})
+  countriesProfileKey = 'countries_available';
+
+  @property({type: String, attribute: 'country-profile-key'})
+  countryProfileKey = 'country';
+
+  @property({type: String, attribute: 'option-label'})
+  optionLabel = 'name';
+
+  @property({type: String, attribute: 'option-value'})
+  optionValue = 'id';
+
   @property({type: Object})
   changeCountryEndpoint!: RequestEndpoint;
 
@@ -27,7 +39,15 @@ class CountriesDropdown extends LitElement {
   selectionValidator: (newCountryId: number, previousCountryId: number) => Boolean = () => true;
 
   get countries() {
-    return this.profile?.countries_available?.sort((a, b) => a.name.localeCompare(b.name)) || [];
+    return (
+      (this.profile as any)?.[this.countriesProfileKey]?.sort((a: any, b: any) =>
+        a[this.optionLabel].localeCompare(b[this.optionLabel])
+      ) || []
+    );
+  }
+
+  get country() {
+    return (this.profile as any)?.[this.countryProfileKey];
   }
 
   render() {
@@ -63,13 +83,13 @@ class CountriesDropdown extends LitElement {
         transparent
         id="countrySelector"
         class="w100"
-        .selected="${this.profile?.country?.id}"
+        .selected="${this.country?.id}"
         placeholder="${translateIfAvailable('COUNTRY', 'Country')}"
         allow-outside-scroll
         no-label-float
         .options="${this.countries}"
-        option-label="name"
-        option-value="id"
+        .optionLabel="${this.optionLabel}"
+        .optionValue="${this.optionValue}"
         trigger-value-change-event
         @etools-selected-item-changed="${this._countrySelected}"
         .shownOptionsLimit="${280}"
@@ -92,20 +112,20 @@ class CountriesDropdown extends LitElement {
 
     const selectedCountryId = parseInt(e.detail.selectedItem.id, 10);
 
-    if (selectedCountryId !== this.profile?.country?.id) {
-      const prevCountryId = this.profile?.country?.id;
+    if (selectedCountryId !== this.country?.id) {
+      const prevCountryId = this.country?.id;
       this.profile = {
         ...this.profile,
-        country: {
-          ...this.profile.country,
+        [this.countryProfileKey]: {
+          ...this.country,
           id: selectedCountryId
         }
       };
-      if (!(await this.selectionValidator(selectedCountryId, this.profile?.country?.id))) {
+      if (!(await this.selectionValidator(selectedCountryId, this.country?.id))) {
         this.profile = {
           ...this.profile,
-          country: {
-            ...this.profile.country,
+          [this.countryProfileKey]: {
+            ...this.country,
             id: prevCountryId
           }
         };
@@ -123,22 +143,26 @@ class CountriesDropdown extends LitElement {
       loadingSource: 'country-change'
     });
 
-    sendRequest({
-      endpoint: this.changeCountryEndpoint,
-      method: 'POST',
-      body: {country: countryId}
-    })
-      .then(() => {
-        fireEvent(this, 'country-changed', {country: countryId});
+    if (this.changeCountryEndpoint) {
+      sendRequest({
+        endpoint: this.changeCountryEndpoint,
+        method: 'POST',
+        body: {[this.countryProfileKey]: countryId}
       })
-      .catch((error: any) => {
-        this._handleError(error);
-      });
+        .then(() => {
+          fireEvent(this, 'country-changed', {[this.countryProfileKey]: countryId});
+        })
+        .catch((error: any) => {
+          this._handleError(error);
+        });
+    } else {
+      fireEvent(this, 'country-changed', {[this.countryProfileKey]: countryId});
+    }
   }
 
   protected _handleError(error: any) {
     EtoolsLogger.error('Country change failed!', 'countries-dropdown', error);
-    (this.shadowRoot?.querySelector('#countrySelector') as EtoolsDropdownEl).selected = this.profile?.country?.id;
+    (this.shadowRoot?.querySelector('#countrySelector') as EtoolsDropdownEl).selected = this.country?.id;
     fireEvent(this, 'toast', {
       text: getTranslationIfAvailable(
         'ERROR_CHANGE_WORKSPACE',
