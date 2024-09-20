@@ -136,11 +136,12 @@ export const sharedStylesContent = `
     line-height: 48px;
     background-color: #eeeeee;
     z-index: 100;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
   .editable-row .hover-block etools-icon-button {
     color: rgba(0, 0, 0, 0.54);
-    padding-inline-start: 5px;
   }
 
   .editable-row:hover > .hover-block {
