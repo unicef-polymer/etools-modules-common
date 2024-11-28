@@ -26,7 +26,7 @@ export class AreYouSure extends LitElement {
         @close="${(e: CustomEvent) => this.handleDialogClosed(e)}"
         @confirm-btn-clicked="${(e: CustomEvent) => this.handleDialogClosed(e)}"
       >
-        <div class="content">${this.content}</div>
+        <div class="content">${unsafeHTML(this.content)}</div>
       </etools-dialog>`;
   }
 
