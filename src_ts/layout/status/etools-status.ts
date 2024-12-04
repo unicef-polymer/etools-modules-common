@@ -1,7 +1,7 @@
 import {LitElement, html} from 'lit';
 import {customElement, property} from 'lit/decorators.js';
 import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
-import {listenForLangChanged, translate, translateConfig} from 'lit-translate';
+import {listenForLangChanged, translate, translateConfig} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
 export type EtoolsStatusItem = [string, string];
 
@@ -129,9 +129,7 @@ export class EtoolsStatus extends LitElement {
     return html`
       <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
         <span class="icon">
-          ${completed
-            ? html`<etools-icon name="done"></etools-icon>`
-            : html`${this.getBaseOneIndex(index)}`}
+          ${completed ? html`<etools-icon name="done"></etools-icon>` : html`${this.getBaseOneIndex(index)}`}
         </span>
         <span class="label">
           ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {

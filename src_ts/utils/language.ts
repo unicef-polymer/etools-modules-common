@@ -1,4 +1,9 @@
-import {langChanged, translateConfig, get as getTranslation, translate} from 'lit-translate';
+import {
+  langChanged,
+  translateConfig,
+  get as getTranslation,
+  translate
+} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import {formatDate} from '@unicef-polymer/etools-utils/dist/date.util';
 
 export function getTranslatedValue(value: string, keyPrefix?: string) {

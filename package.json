@@ -29,7 +29,6 @@
   },
   "dependencies": {
     "lit": "^3.2.1",
-    "lit-translate": "^2.0.1",
     "lodash-es": "^4.17.21",
     "redux": "^4.2.0"
   },
@@ -41,7 +40,7 @@
   },
   "devDependencies": {
     "@unicef-polymer/etools-types": "^1.11.19",
-    "@unicef-polymer/etools-unicef": "^1.1.0",
+    "@unicef-polymer/etools-unicef": "^1.1.1",
     "@unicef-polymer/etools-utils": "^2.0.1",
     "@unicef-polymer/etools-piwik-analytics": "^4.1.0",
     "@types/lodash-es": "^4.17.5",
