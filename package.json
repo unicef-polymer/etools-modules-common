@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "5.1.1",
+  "version": "5.1.2",
   "description": "Common styles, mixins, utils",
   "repository": {
     "type": "git",
