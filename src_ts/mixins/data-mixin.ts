@@ -8,7 +8,6 @@ export const DataMixin =
   <T extends Constructor<LitElement>>() =>
   <B>(superclass: T) =>
     class extends superclass {
-      /* eslint-enable @typescript-eslint/typedef,@typescript-eslint/explicit-function-return-type */
       editedData: Partial<B> = {};
       originalData!: B | null;
       errors: GenericObject = {};

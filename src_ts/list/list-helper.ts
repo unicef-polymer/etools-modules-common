@@ -26,7 +26,10 @@ export class ListHelper<T> {
   requestInProcess = false;
   readonly requestUid = 'INTERVENTIONS_REQUEST';
 
-  constructor(public endpoint: EtoolsEndpoint, public store: any) {}
+  constructor(
+    public endpoint: EtoolsEndpoint,
+    public store: any
+  ) {}
 
   async getList(params: GenericObject<string>, forceReGet: boolean): Promise<ListHelperResponse<T>> {
     const {page = 1, page_size: pageSize = this.listData.length, sort, ...filters} = params;

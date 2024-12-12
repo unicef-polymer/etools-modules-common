@@ -1,7 +1,8 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "5.1.2",
+  "version": "5.1.3",
   "description": "Common styles, mixins, utils",
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/unicef-polymer/etools-modules-common.git"
@@ -22,8 +23,10 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "tsToJs": "rm -rf dist && gulp",
-    "lint": "eslint . --ext js,html --ignore-path .gitignore",
-    "format": "eslint --ext .ts . --fix --ignore-path .gitignore",
+    "lint:eslint": "eslint src_ts/**",
+    "format:eslint": "eslint src_ts/** --fix",
+    "lint": "npm run lint:eslint",
+    "format": "npm run format:eslint",
     "publishPackage": "npm run tsToJs && npm publish",
     "prepublishOnly": "npm run tsToJs"
   },
@@ -33,31 +36,31 @@
     "redux": "^4.2.0"
   },
   "peerDependencies": {
-    "@unicef-polymer/etools-types": ">=1.11.19",
-    "@unicef-polymer/etools-unicef": ">=1.1.0",
-    "@unicef-polymer/etools-utils": ">=2.0.1",
-    "@unicef-polymer/etools-piwik-analytics": ">=4.1.0"
+    "@unicef-polymer/etools-types": ">=1.11.20",
+    "@unicef-polymer/etools-unicef": ">=1.1.2",
+    "@unicef-polymer/etools-utils": ">=2.0.3",
+    "@unicef-polymer/etools-piwik-analytics": ">=4.1.3"
   },
   "devDependencies": {
-    "@unicef-polymer/etools-types": "^1.11.19",
-    "@unicef-polymer/etools-unicef": "^1.1.1",
-    "@unicef-polymer/etools-utils": "^2.0.1",
-    "@unicef-polymer/etools-piwik-analytics": "^4.1.0",
-    "@types/lodash-es": "^4.17.5",
-    "@typescript-eslint/eslint-plugin": "^5.7.0",
-    "@typescript-eslint/parser": "^5.7.0",
-    "@typescript-eslint/typescript-estree": "^5.7.0",
-    "eslint": "^7.32.0",
-    "eslint-config-google": "^0.14.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-lit": "^1.6.1",
-    "eslint-plugin-lit-a11y": "^2.2.0",
-    "eslint-plugin-prettier": "^4.0.0",
-    "minimatch": ">=3.1.2",
-    "prettier": "~2.5.1",
-    "gulp": "^4.0.2",
-    "gulp-typescript": "^6.0.0-alpha.1",
-    "through2": "^4.0.2",
-    "typescript": "^4.5.4"
+    "@unicef-polymer/etools-types": "^1.11.20",
+    "@unicef-polymer/etools-unicef": "^1.1.2",
+    "@unicef-polymer/etools-utils": "^2.0.3",
+    "@unicef-polymer/etools-piwik-analytics": "^4.1.3",
+    "@types/lodash-es": "^4.17.12",
+    "@typescript-eslint/eslint-plugin": "^8.17.0",
+    "@typescript-eslint/parser": "^8.17.0",
+    "eslint": "^9.16.0",
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.16.0",
+    "@rollup/plugin-commonjs": "^28.0.1",
+    "@rollup/plugin-node-resolve": "^15.3.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-html": "^8.1.2",
+    "eslint-plugin-lit": "^1.15.0",
+    "eslint-plugin-lit-a11y": "^4.1.4",
+    "eslint-plugin-prettier": "^5.2.1",
+    "globals": "^15.13.0",
+    "prettier": "~3.4.2",
+    "typescript": "^4.9.5"
   }
 }

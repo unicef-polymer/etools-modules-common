@@ -111,7 +111,6 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     renderNameEmailPhone(item: any) {
-      // eslint-disable-next-line
       return html`${item.first_name} ${item.last_name}
       (${item.email ? item.email : ''}${item.phone ? ', ' + item.phone : ''})`;
     }
