@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const gulp = require('gulp');
-const through2 = require('through2').obj;
-const path = require('path');
-const ts = require('gulp-typescript');
+import gulp from 'gulp';
+import through2 from 'through2';
+import path from 'path';
+import ts from 'gulp-typescript';
+import {fileURLToPath} from 'node:url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const tsProject = ts.createProject('tsconfig.json', {noEmitOnError: false});
 
 const SRC = 'src_ts/';
@@ -26,7 +30,7 @@ gulp.task('default', () =>
   gulp
     .src(`${SRC}/**/*.ts`)
     .pipe(
-      through2((file, enc, callback) => {
+      through2.obj((file, enc, callback) => {
         if (isMixin(file)) {
           prepareAndMapFile(file);
         }
@@ -38,7 +42,7 @@ gulp.task('default', () =>
       /* Ignore compiler errors */
     })
     .pipe(
-      through2((file, enc, callback) => {
+      through2.obj((file, enc, callback) => {
         // check if file exists in global map object
         const filePath = path.relative(`${__dirname}/${DIST}`, file.path);
         const interoperabilFilePath = cleanUpFilePath(filePath);
