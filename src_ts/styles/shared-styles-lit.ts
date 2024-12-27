@@ -278,4 +278,3 @@ export const sharedStylesPolymer = () => {
    </style>`;
   return template;
 };
-

@@ -4,7 +4,7 @@ import {html, LitElement, TemplateResult} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
-import {use} from 'lit-translate';
+import {use} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import {parseRequestErrorsAndShowAsToastMsgs} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-error-parser';
 import {toolbarDropdownStyles} from '@unicef-polymer/etools-unicef/src/styles/toolbar-dropdown-styles';
 import {EtoolsUser} from '@unicef-polymer/etools-types';

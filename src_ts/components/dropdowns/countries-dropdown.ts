@@ -36,7 +36,7 @@ class CountriesDropdown extends LitElement {
   changeCountryEndpoint!: RequestEndpoint;
 
   @property({type: Object})
-  selectionValidator: (newCountryId: number, previousCountryId: number) => Boolean = () => true;
+  selectionValidator: (newCountryId: number, previousCountryId: number) => boolean = () => true;
 
   get countries() {
     return (
@@ -75,7 +75,7 @@ class CountriesDropdown extends LitElement {
             font-size: var(--etools-font-size-16, 16px);
             text-align: left;
             width: 100px;
-          }
+          };
         }
       </style>
       <!-- shown options limit set to 250 as there are currently 195 countries in the UN council and about 230 total -->

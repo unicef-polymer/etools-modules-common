@@ -1,6 +1,5 @@
 import {LitElement, html} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
-import {AnyObject} from '@unicef-polymer/etools-types';
 import {repeat} from 'lit/directives/repeat.js';
 
 import '@shoelace-style/shoelace/dist/components/tab-group/tab-group.js';
@@ -208,7 +207,6 @@ export class EtoolsTabs extends LitElement {
           tab.click();
         }
       }
-
     }, transitionValue);
   }
 

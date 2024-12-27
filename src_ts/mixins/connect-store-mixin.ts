@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import {Store, Unsubscribe} from 'redux';
 import {Constructor} from '@unicef-polymer/etools-types';
 import {getStoreAsync} from '@unicef-polymer/etools-utils/dist/store.util';

@@ -8,7 +8,7 @@ import isEmpty from 'lodash-es/isEmpty';
 import ContentPanelMixin from './content-panel-mixin';
 import ModelChangedMixin from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
-import {translate} from 'lit-translate';
+import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
@@ -111,7 +111,6 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     renderNameEmailPhone(item: any) {
-      // eslint-disable-next-line
       return html`${item.first_name} ${item.last_name}
       (${item.email ? item.email : ''}${item.phone ? ', ' + item.phone : ''})`;
     }

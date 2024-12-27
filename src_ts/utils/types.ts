@@ -1,4 +1,4 @@
-import {Constructor} from 'lit-element';
+import {Constructor} from '@lit/reactive-element/decorators/base';
 
 export type MixinTarget<T extends object> = Constructor<{
   // Enumerate only public members to avoid the following compiler error:
