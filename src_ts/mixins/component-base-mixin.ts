@@ -1,4 +1,5 @@
-import {LitElement, property, html} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {property} from 'lit/decorators.js';
 import cloneDeep from 'lodash-es/cloneDeep';
 import {filterByIds} from '@unicef-polymer/etools-utils/dist/general.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
@@ -7,7 +8,8 @@ import isEmpty from 'lodash-es/isEmpty';
 import ContentPanelMixin from './content-panel-mixin';
 import ModelChangedMixin from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
-import {translate} from 'lit-translate';
+import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
+import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixin(baseClass)) {
@@ -57,7 +59,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     validate() {
-      return validateRequiredFields(this);
+      return validateRequiredFields(this as any);
     }
 
     // To be implemented in child component
@@ -82,9 +84,9 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return this.hideActionButtons(editMode, canEditAnyFields)
         ? html``
         : html`
-            <div class="layout-horizontal right-align row-padding-v">
-              <paper-button class="default" @click="${this.cancel}">${translate('GENERAL.CANCEL')}</paper-button>
-              <paper-button class="primary" @click="${this.save}"> ${translate('GENERAL.SAVE')} </paper-button>
+            <div class="right-align padding-v">
+              <etools-button variant="neutral" @click="${this.cancel}">${translate('GENERAL.CANCEL')}</etools-button>
+              <etools-button variant="primary" @click="${this.save}"> ${translate('GENERAL.SAVE')} </etools-button>
             </div>
           `;
     }
@@ -92,7 +94,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     renderEditBtn(editMode: boolean, canEditAnyFields: boolean) {
       return this.hideEditIcon(editMode, canEditAnyFields)
         ? html``
-        : html` <paper-icon-button @click="${this.allowEdit}" icon="create"> </paper-icon-button> `;
+        : html` <etools-icon-button @click="${this.allowEdit}" name="create"> </etools-icon-button> `;
     }
 
     renderReadonlyUserDetails(selectedUsers: any[], allUsers?: any[]) {
@@ -109,7 +111,6 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
 
     renderNameEmailPhone(item: any) {
-      // eslint-disable-next-line
       return html`${item.first_name} ${item.last_name}
       (${item.email ? item.email : ''}${item.phone ? ', ' + item.phone : ''})`;
     }

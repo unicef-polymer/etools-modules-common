@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 
 // language=HTML
 export const sectionContentStyles = html` <style>
@@ -14,9 +14,6 @@ export const sectionContentStyles = html` <style>
   @media print {
     .content-section {
       border: 1px solid var(--list-divider-color);
-      --paper-material-elevation-1: {
-        box-shadow: none;
-      }
     }
   }
 </style>`;

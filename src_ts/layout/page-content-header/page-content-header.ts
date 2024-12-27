@@ -1,4 +1,5 @@
-import {LitElement, html, property, customElement} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
 
 /**
  * @LitElement
@@ -24,15 +25,6 @@ export class PageContentHeader extends LitElement {
           padding: 0 24px;
           min-height: 85px;
           border-bottom: 1px solid var(--dark-divider-color);
-
-          --page-title: {
-            margin: 0;
-            font-weight: normal;
-            text-transform: capitalize;
-            font-size: 24px;
-            line-height: 1.3;
-            min-height: 31px;
-          }
         }
 
         :host([with-tabs-visible]) {
@@ -53,7 +45,12 @@ export class PageContentHeader extends LitElement {
 
         .title-row h1 {
           flex: 1;
-          @apply --page-title;
+          margin: 0;
+          font-weight: normal;
+          text-transform: capitalize;
+          font-size: var(--etools-font-size-24, 24px);
+          line-height: 1.3;
+          min-height: 31px;
         }
 
         .tabs {
@@ -69,7 +66,7 @@ export class PageContentHeader extends LitElement {
           }
 
           .title-row h1 {
-            font-size: 18px;
+            font-size: var(--etools-font-size-18, 18px);
           }
         }
 

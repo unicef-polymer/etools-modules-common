@@ -1,7 +1,8 @@
-import {html, LitElement, customElement, property} from 'lit-element';
-import {unsafeHTML} from 'lit-html/directives/unsafe-html';
-import '@unicef-polymer/etools-dialog/etools-dialog.js';
-import {translate} from 'lit-translate';
+import {html, LitElement} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import {unsafeHTML} from 'lit/directives/unsafe-html.js';
+import '@unicef-polymer/etools-unicef/src/etools-dialog/etools-dialog.js';
+import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 
 @customElement('are-you-sure')
@@ -19,12 +20,13 @@ export class AreYouSure extends LitElement {
         no-padding
         opened
         theme="confirmation"
+        confirmBtnVariant="danger"
         .okBtnText="${this.confirmBtnText}"
         cancel-btn-text=${this.cancelBtnText}
         @close="${(e: CustomEvent) => this.handleDialogClosed(e)}"
         @confirm-btn-clicked="${(e: CustomEvent) => this.handleDialogClosed(e)}"
       >
-        <div class="content">${unsafeHTML(this.content)}</div>
+        <div class="content">${this.content}</div>
       </etools-dialog>`;
   }
 
@@ -38,7 +40,7 @@ export class AreYouSure extends LitElement {
   cancelBtnText = translate('CANCEL') as unknown as string;
 
   set dialogData({content, confirmBtnText, cancelBtnText}: any) {
-    this.content = content;
+    this.content = typeof content === 'string' ? unsafeHTML(content) : content;
     if (confirmBtnText) {
       this.confirmBtnText = confirmBtnText;
     }

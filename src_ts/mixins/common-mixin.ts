@@ -1,7 +1,7 @@
 import {prettyDate} from '@unicef-polymer/etools-utils/dist/date.util';
-import {LitElement} from 'lit-element';
+import {LitElement} from 'lit';
 import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
-import {get} from 'lit-translate';
+import {get} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
 function CommonMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class CommonClass extends baseClass {

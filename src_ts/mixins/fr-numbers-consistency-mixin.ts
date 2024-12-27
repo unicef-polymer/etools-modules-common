@@ -1,8 +1,9 @@
-import {LitElement, property} from 'lit-element';
-import {displayCurrencyAmount} from '@unicef-polymer/etools-currency-amount-input/mixins/etools-currency-module';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
+import {displayCurrencyAmount} from '@unicef-polymer/etools-unicef/src/utils/currency';
 import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
-import {get as getTranslation} from 'lit-translate';
+import {get as getTranslation} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
 function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass: T) {
   class FrNumbersConsistencyClass extends baseClass {
@@ -234,9 +235,9 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
 
     getFrsCurrencyTooltipIcon(frsCurrencyMatch: boolean) {
       if (!frsCurrencyMatch) {
-        return 'pmp-custom-icons:1+';
+        return '1+';
       }
-      return 'pmp-custom-icons:not-equal';
+      return 'not-equal';
     }
 
     getFrsValueNAClass(valIsAvailable: boolean, negateFlagValFirst?: boolean) {

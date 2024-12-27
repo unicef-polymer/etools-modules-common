@@ -1,5 +1,6 @@
-import {LitElement, query} from 'lit-element';
-import {EtoolsContentPanel} from '@unicef-polymer/etools-content-panel/etools-content-panel';
+import {LitElement} from 'lit';
+import {query} from 'lit/decorators.js';
+import {EtoolsContentPanel} from '@unicef-polymer/etools-unicef/src/etools-content-panel/etools-content-panel';
 import {Constructor} from '@unicef-polymer/etools-types';
 
 function ContentPanelMixin<T extends Constructor<LitElement>>(baseClass: T) {

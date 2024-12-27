@@ -1,7 +1,8 @@
-import {customElement, html, LitElement, property, TemplateResult} from 'lit-element';
+import {html, LitElement, TemplateResult} from 'lit';
+import {property, customElement} from 'lit/decorators.js';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
-import '@polymer/paper-input/paper-textarea';
-import '@unicef-polymer/etools-dialog/etools-dialog.js';
+import '@unicef-polymer/etools-unicef/src/etools-dialog/etools-dialog.js';
+import '@unicef-polymer/etools-unicef/src/etools-input/etools-textarea.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';
 
 @customElement('reason-popup')
@@ -24,12 +25,6 @@ export class ReasonPopup extends LitElement {
         .container {
           padding: 15px 20px;
         }
-        paper-textarea {
-          outline: none;
-          --paper-input-container-input: {
-            display: block;
-          }
-        }
 
         etools-dialog::part(ed-scrollable) {
           margin-top: 0 !important;
@@ -47,7 +42,7 @@ export class ReasonPopup extends LitElement {
         @confirm-btn-clicked="${() => this.confirmReason()}"
       >
         <div class="container">
-          <paper-textarea
+          <etools-textarea
             id="details-input"
             .value="${this.reason}"
             required
@@ -57,8 +52,7 @@ export class ReasonPopup extends LitElement {
             @focus="${() => (this.error = '')}"
             ?invalid="${Boolean(this.error)}"
             error-message="${this.error}"
-            max-rows="3"
-          ></paper-textarea>
+          ></etools-textarea>
         </div>
       </etools-dialog>
     `;

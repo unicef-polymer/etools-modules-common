@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 
 // language=HTML
 export const actionIconBtnsStyles = html` <style>
@@ -10,6 +10,7 @@ export const actionIconBtnsStyles = html` <style>
 
   .action.delete {
     color: var(--icon-delete-color);
+    --sl-color-primary-600: var(--error-color);
   }
   .action.edit {
     color: var(--medium-icon-color);

@@ -1,9 +1,10 @@
-import {LitElement, property} from 'lit-element';
-import {sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
+import {sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
 import {cloneDeep} from '@unicef-polymer/etools-utils/dist/general.util';
 import '../layout/are-you-sure';
 import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
-import {translate} from 'lit-translate';
+import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import {openDialog} from '@unicef-polymer/etools-utils/dist/dialog.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 

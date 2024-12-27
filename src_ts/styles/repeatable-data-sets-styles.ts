@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 
 import {actionIconBtnsStyles} from './action-icon-btns-styles';
 
@@ -73,7 +73,7 @@ export const repeatableDataSetsStylesV2 = html` <style>
     color: var(--light-primary-text-color);
     content: attr(data-item-nr);
     text-align: center;
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     width: 24px;
     height: 24px;
     border-radius: 50%;

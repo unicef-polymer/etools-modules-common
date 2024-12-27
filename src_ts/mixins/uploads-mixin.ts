@@ -1,4 +1,5 @@
-import {LitElement, property} from 'lit-element';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
 import {Constructor} from '@unicef-polymer/etools-types';
 import {getStore} from '@unicef-polymer/etools-utils/dist/store.util';
 
@@ -8,7 +9,7 @@ const INCREASE_UNSAVED_UPLOADS = 'INCREASE_UNSAVED_UPLOADS';
 const DECREASE_UNSAVED_UPLOADS = 'DECREASE_UNSAVED_UPLOADS';
 
 /**
- * @polymer
+ * @LitElement
  * @mixinFunction
  */
 function UploadsMixin<T extends Constructor<LitElement>>(baseClass: T) {

@@ -1,7 +1,9 @@
-import {LitElement, html, property} from 'lit-element';
+import {LitElement, html} from 'lit';
+import {property} from 'lit/decorators.js';
 import {sharedStyles} from '../../styles/shared-styles-lit';
-import '@unicef-polymer/etools-content-panel/etools-content-panel';
-import {get as getTranslation} from 'lit-translate';
+import '@unicef-polymer/etools-unicef/src/etools-content-panel/etools-content-panel';
+import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
+import {get as getTranslation} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
 /**
  * @customElement
@@ -23,12 +25,12 @@ export class ReasonDisplay extends LitElement {
         etools-content-panel::part(ecp-header-title) {
           font-weight: 500;
           text-align: left;
-          font-size: 18px;
+          font-size: var(--etools-font-size-18, 18px);
           margin-inline-start: 80px;
         }
 
         .text {
-          font-size: 17px;
+          font-size: var(--etools-font-size-17, 17px);
           white-space: var(--text-wrap, pre-wrap);
           color: var(--primary-text-color);
           padding: var(--text-padding, 26px 12px 26px 80px);
@@ -48,15 +50,14 @@ export class ReasonDisplay extends LitElement {
           opacity: 1;
         }
 
-        div[slot='panel-btns'].bookmark iron-icon {
-          width: 60px !important;
-          height: 60px !important;
+        div[slot='panel-btns'].bookmark etools-icon {
+          --etools-icon-font-size: var(--etools-font-size-60, 60px);
           color: var(--flag-color, gray);
         }
       </style>
       <etools-content-panel class="cancellation-tab" .panelTitle="${this.title}">
         <div slot="panel-btns" class="bookmark">
-          <iron-icon icon="bookmark"></iron-icon>
+          <etools-icon name="bookmark"></etools-icon>
         </div>
 
         <div class="text"><slot>${this.justification}</slot></div>

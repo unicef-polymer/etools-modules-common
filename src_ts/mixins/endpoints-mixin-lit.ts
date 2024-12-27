@@ -1,8 +1,10 @@
-import {LitElement, property} from 'lit-element';
-import {EtoolsRequestEndpoint, sendRequest} from '@unicef-polymer/etools-ajax/etools-ajax-request';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
+import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
 import {isJsonStrMatch} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
-import {logError} from '@unicef-polymer/etools-behaviors/etools-logging';
-import {tokenEndpointsHost, tokenStorageKeys, getTokenEndpoints} from '../config/config';
+import {EtoolsLogger} from '@unicef-polymer/etools-utils/dist/singleton/logger';
+import {Environment} from '@unicef-polymer/etools-utils/dist/singleton/environment';
+import {tokenStorageKeys, getTokenEndpoints} from '../config/config';
 import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
 import get from 'lodash-es/get';
 
@@ -57,7 +59,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
     getEndpoint(endpointsList: AnyObject, endpointName: string, data?: AnyObject) {
       const endpoint = JSON.parse(JSON.stringify((endpointsList as any)[endpointName]));
       const authorizationTokenMustBeAdded = this.authorizationTokenMustBeAdded(endpoint);
-      const baseSite = authorizationTokenMustBeAdded ? tokenEndpointsHost(endpoint.token) : window.location.origin;
+      const baseSite = authorizationTokenMustBeAdded ? Environment.getHost(endpoint.token) : window.location.origin;
 
       if (this._hasUrlTemplate(endpoint)) {
         if (data && authorizationTokenMustBeAdded && this._urlTemplateHasCountryId(endpoint.template!)) {
@@ -132,7 +134,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return {Authorization: 'JWT ' + token};
     }
 
-    requestToken(endpoint: EtoolsRequestEndpoint) {
+    requestToken(endpoint: RequestEndpoint) {
       return sendRequest({
         endpoint: endpoint
       });
@@ -213,7 +215,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       activeReqKey?: string
     ) {
       if (!endpoint) {
-        logError('Endpoint name is missing.', 'Endpoints:fireRequest');
+        EtoolsLogger.error('Endpoint name is missing.', 'Endpoints:fireRequest');
         return;
       }
       const defer = this._getDeferrer();

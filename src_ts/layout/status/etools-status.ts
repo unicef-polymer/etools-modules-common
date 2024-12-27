@@ -1,7 +1,7 @@
-import {LitElement, html, property, customElement} from 'lit-element';
-import '@polymer/iron-icons/iron-icons';
-import {completedStatusIcon} from './status-icons';
-import {listenForLangChanged, translate, translateConfig} from 'lit-translate';
+import {LitElement, html} from 'lit';
+import {customElement, property} from 'lit/decorators.js';
+import '@unicef-polymer/etools-unicef/src/etools-icons/etools-icon';
+import {listenForLangChanged, translate, translateConfig} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
 export type EtoolsStatusItem = [string, string];
 
@@ -38,7 +38,7 @@ export class EtoolsStatus extends LitElement {
           flex-direction: row;
           align-items: center;
           color: var(--secondary-text-color);
-          font-size: 16px;
+          font-size: var(--etools-font-size-16, 16px);
           margin-bottom: 22px;
         }
 
@@ -63,7 +63,7 @@ export class EtoolsStatus extends LitElement {
           background-color: var(--secondary-text-color);
           margin-inline-end: 8px;
           margin-inline-start: 8px;
-          font-size: 14px;
+          font-size: var(--etools-font-size-14, 14px);
           line-height: 24px;
         }
 
@@ -74,6 +74,18 @@ export class EtoolsStatus extends LitElement {
         .status.completed .icon {
           background-color: var(--success-color);
           fill: #ffffff;
+        }
+        etools-icon {
+          --etools-icon-font-size: var(--etools-font-size-20, 20px);
+          vertical-align: baseline;
+          padding: 2px;
+        }
+        @media (max-width: 576px) {
+          .status:not(:last-of-type)::after {
+            width: 25px;
+            margin-inline-end: 8px;
+            margin-inline-start: 12px;
+          }
         }
       </style>
       ${this.statuses.map((item: any, index: number) => this.getStatusHtml(item, index, activeStatusIndex))}
@@ -86,7 +98,7 @@ export class EtoolsStatus extends LitElement {
   @property({type: Array})
   statuses: EtoolsStatusItem[] = [];
 
-  constructor(){
+  constructor() {
     super();
     listenForLangChanged(() => {
       this.statuses = [...this.statuses];
@@ -102,7 +114,7 @@ export class EtoolsStatus extends LitElement {
         // special icon for terminated status
         return html`
           <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-            <iron-icon class="custom-icon" style="color: #ea4022" icon="report-problem"> </iron-icon>
+            <etools-icon class="custom-icon" style="color: #ea4022" name="report-problem"> </etools-icon>
             <span class="label"
               >${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
                 ...translateConfig,
@@ -116,11 +128,15 @@ export class EtoolsStatus extends LitElement {
 
     return html`
       <div class="status ${this.getStatusClasses(index, activeStatusIndex)}">
-        <span class="icon"> ${completed ? html`${completedStatusIcon}` : html`${this.getBaseOneIndex(index)}`} </span>
-        <span class="label"> ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
-          ...translateConfig,
-          empty: () => item[1]
-        } as any)}</span>
+        <span class="icon">
+          ${completed ? html`<etools-icon name="done"></etools-icon>` : html`${this.getBaseOneIndex(index)}`}
+        </span>
+        <span class="label">
+          ${translate(`PD_STATUS.${item[1].toUpperCase()}`, undefined, {
+            ...translateConfig,
+            empty: () => item[1]
+          } as any)}</span
+        >
       </div>
     `;
   }

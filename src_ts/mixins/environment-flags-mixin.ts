@@ -1,8 +1,9 @@
-import {LitElement, property} from 'lit-element';
+import {LitElement} from 'lit';
+import {property} from 'lit/decorators.js';
 import {EnvFlags, Constructor} from '@unicef-polymer/etools-types';
 
 /**
- * @polymer
+ * @LitElement
  * @mixinFunction
  */
 function EnvironmentFlagsMixin<T extends Constructor<LitElement>>(baseClass: T) {

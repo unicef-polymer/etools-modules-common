@@ -1,15 +1,13 @@
-import {LitElement, PropertyDeclarations} from 'lit-element';
+import {LitElement, PropertyDeclarations} from 'lit';
 import {cloneDeep} from '@unicef-polymer/etools-utils/dist/general.util';
 import {GenericObject} from '@unicef-polymer/etools-types';
 
 type Constructor<B> = new (...args: any[]) => B;
 
-/* @polymerMixin */
 export const DataMixin =
   <T extends Constructor<LitElement>>() =>
   <B>(superclass: T) =>
     class extends superclass {
-      /* eslint-enable @typescript-eslint/typedef,@typescript-eslint/explicit-function-return-type */
       editedData: Partial<B> = {};
       originalData!: B | null;
       errors: GenericObject = {};

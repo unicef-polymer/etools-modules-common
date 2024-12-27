@@ -1,4 +1,4 @@
-import {html} from 'lit-element';
+import {html} from 'lit';
 import {ReadonlyStyles} from './readonly-styles';
 import {RequiredFieldsStyles} from './required-fields-styles';
 // language=css
@@ -6,7 +6,7 @@ export const sharedStylesContent = `
   :host {
     display: block;
     box-sizing: border-box;
-    font-size: 16px;
+    font-size: var(--etools-font-size-16, 16px);
   }
 
   *[hidden] {
@@ -22,11 +22,11 @@ export const sharedStylesContent = `
 
   h1 {
     text-transform: capitalize;
-    font-size: 24px;
+    font-size: var(--etools-font-size-24, 24px);
   }
 
   h2 {
-    font-size: 20px;
+    font-size: var(--etools-font-size-20, 20px);
   }
 
   a {
@@ -40,24 +40,8 @@ export const sharedStylesContent = `
 
   .error {
     color: var(--error-color);
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     align-self: center;
-  }
-
-  paper-input-container {
-    margin: 0 12px;
-    --paper-input-container-focus-color: var(--module-primary);
-    --paper-input-container: {
-
-      font-size: 13px;
-      opacity: 1 !important;
-    }
-    --paper-input-container-underline: {
-      display: none !important;
-    }
-    --paper-input-container-underline-focus: {
-      display: none;
-    }
   }
 
   etools-dropdown,
@@ -69,60 +53,21 @@ export const sharedStylesContent = `
     }
   }
 
-  paper-input,
-  paper-textarea,
-  paper-input-container,
-  datepicker-lite,
-  etools-dropdown,
-  etools-dropdown-multi,
-  etools-upload,
-  etools-currency-amount-input {
-    --paper-input-container-label: {
-      color: var(--secondary-text-color, #737373);
-    }
-    --paper-input-container-label-floating: {
-      color: var(--secondary-text-color, #737373);
-    }
-  }
-
   .font-bold {
     font-weight: bold;
   }
 
   .font-bold-12 {
     font-weight: bold;
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     color: var(--primary-text-color);
   }
 
-  paper-textarea {
-    --paper-input-container-input: {
-      display: block;
-    }
-    --iron-autogrow-textarea: {
-      overflow: hidden;
-      padding: 0;
-    }
-  }
-
-  etools-dialog paper-textarea {
-    --iron-autogrow-textarea: {
-      overflow: auto;
-      padding: 0;
-      max-height: 96px;
-    }
-  }
-
-  paper-textarea[readonly] {
-    --paper-input-container-underline: {
-      display: none;
-    }
-  }
   .w100 {
     width: 100%;
   }
   .header-text {
-    font-size: 12px;
+    font-size: var(--etools-font-size-12, 12px);
     color: var(--list-secondary-text-color, #757575);
     font-weight: bold;
     -webkit-user-select: none;
@@ -140,24 +85,12 @@ export const sharedStylesContent = `
     width: 100%;
   }
 
-  paper-radio-group:focus,
-  paper-textarea[focused],
-  .nav-menu-item {
-    outline: none;
-  }
-
   .readonly {
     pointer-events: none;
   }
 
-  .readonly {
-    --paper-radio-button-checked-ink-color: transparent !important;
-    --paper-radio-button-unchecked-ink-color: transparent !important;
-  }
-
   etools-data-table-column, *[slot="row-data"] .col-data {
     box-sizing: border-box;
-    padding-inline-end: 16px;
   }
 
   *[slot="row-data"] {
@@ -183,7 +116,7 @@ export const sharedStylesContent = `
       padding: 0;
       padding-inline-end: 24px;
       text-align: start;
-      font-size: 18px;
+      font-size: var(--etools-font-size-18, 18px);
       font-weight: 500;
   }
 
@@ -203,11 +136,12 @@ export const sharedStylesContent = `
     line-height: 48px;
     background-color: #eeeeee;
     z-index: 100;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
   }
 
-  .editable-row .hover-block paper-icon-button {
+  .editable-row .hover-block etools-icon-button {
     color: rgba(0, 0, 0, 0.54);
-    padding-inline-start: 5px;
   }
 
   .editable-row:hover > .hover-block {
@@ -222,8 +156,8 @@ export const sharedStylesContent = `
     --list-second-bg-color: rgba(204, 204, 204, 0.3);
   }
 
-  .paper-label {
-    font-size: 12px;
+  .label {
+    font-size: var(--etools-font-size-12, 12px);
     color: var(--secondary-text-color);
     padding-top: 6px;
   }
@@ -233,7 +167,7 @@ export const sharedStylesContent = `
     padding-top: 4px;
     padding-bottom: 6px;
     min-width: 0;
-    font-size: 16px;
+    font-size: var(--etools-font-size-16, 16px);
   }
 
   .input-label[empty]::after {
@@ -251,8 +185,15 @@ export const sharedStylesContent = `
 
   .lifted-up-icon {
     bottom: 0.4rem;
-    --iron-icon-width: 14px;
-    --iron-icon-height: 14px;
+    --etools-icon-font-size: var(--etools-font-size-14, 14px);
+  }
+
+  .text-btn-style {
+    color: var(--primary-color);
+    font-weight: 500;
+    text-decoration: none;
+    outline: inherit;
+    text-transform: uppercase;
   }
 
   .secondary-btn:focus {
@@ -267,11 +208,11 @@ export const sharedStylesContent = `
     background-color: rgba(170, 165, 165, 0.2);
   }
 
-  *:focus-visible:not(a):not(paper-icon-button):not(paper-radio-button):not(paper-checkbox) {
-    outline: 2px solid rgb(170 165 165 / 50%);
+  datepicker-lite::part(dp-etools-icon) {
+    color: var(--secondary-text-color, rgba(0, 0, 0, 0.54));
   }
 
-  datepicker-lite::part(dp-iron-icon):focus-visible,
+  datepicker-lite::part(dp-etools-icon):focus-visible,
   info-icon-tooltip::part(etools-iit-icon):focus-visible {
     outline: 0;
     background-color: rgba(170, 165, 165, 0.5);
@@ -301,6 +242,25 @@ export const sharedStylesContent = `
   etools-content-panel::part(ecp-header-btns-wrapper) {
     display: flex;
     align-item: center;
+  }
+  etools-icon-button {
+    color: var(--primary-text-color);
+  }
+  etools-icon-button[name='more-vert'] {
+    color: inherit;
+  }
+  sl-radio,
+  etools-checkbox {
+    --sl-input-border-width: 2px;
+    --sl-input-border-color: var(--secondary-text-color, rgba(0, 0, 0, 0.54));
+  }
+  sl-radio[disabled]::part(base),
+  etools-checkbox[disabled]::part(base) {
+    opacity: 0.65;
+  }
+  sl-radio[disabled]::part(control--checked),
+  etools-checkbox[disabled]::part(control--checked) {
+    opacity: 0.65;
   }
 `;
 // export const sharedStyles = html`${unsafeCSS(sharedStylesContent)}`;
