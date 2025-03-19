@@ -1,6 +1,4 @@
 import {html} from 'lit';
-import {ReadonlyStyles} from './readonly-styles';
-import {RequiredFieldsStyles} from './required-fields-styles';
 // language=css
 export const sharedStylesContent = `
   :host {
@@ -268,7 +266,6 @@ export const sharedStyles = html`
   <style>
     ${sharedStylesContent}
   </style>
-  ${ReadonlyStyles} ${RequiredFieldsStyles}
 `;
 
 export const sharedStylesPolymer = () => {
