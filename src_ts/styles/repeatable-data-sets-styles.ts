@@ -1,53 +1,60 @@
 import {html} from 'lit';
 
-import {actionIconBtnsStyles} from './action-icon-btns-styles';
-
 // language=HTML
-export const repeatableDataSetsStyles = html` ${actionIconBtnsStyles}
-  <style>
-    .item-container {
-      background: var(--ecp-content-bg-color, var(--primary-background-color));
-    }
-
-    .item-container.no-h-margin {
-      padding-inline-end: 0;
-      padding-inline-start: 0;
-    }
-
-    .item-actions-container {
-      display: flex;
-      flex-direction: row;
-    }
-
-    .item-actions-container .actions {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .item-container .item-content {
-      display: flex;
-      flex-direction: column;
-      flex: 1;
-      margin-inline-start: 10px;
-      border-inline-start: 1px solid var(--darker-divider-color);
-    }
-
-    .item-container .item-content > * {
-      padding: 0 0 16px 0;
-      padding-inline-start: 24px;
-    }
-
-    #bottom-actions {
-      display: flex;
-      flex-direction: row;
-      justify-content: flex-end;
-      overflow: visible;
-      padding-top: 15px;
-      padding-bottom: 25px;
-    }
-  </style>`;
+export const repeatableDataSetsStyles = html` <style>
+  .action {
+    color: var(--medium-icon-color);
+    width: 36px;
+    height: 36px;
+  }
+  .action.delete {
+    color: var(--icon-delete-color);
+    --sl-color-primary-600: var(--error-color);
+  }
+  .action.edit {
+    color: var(--medium-icon-color);
+  }
+  .action.delete[disabled],
+  .action.edit[disabled] {
+    visibility: hidden;
+  }
+  .item-container {
+    background: var(--ecp-content-bg-color, var(--primary-background-color));
+  }
+  .item-container.no-h-margin {
+    padding-inline-end: 0;
+    padding-inline-start: 0;
+  }
+  .item-actions-container {
+    display: flex;
+    flex-direction: row;
+  }
+  .item-actions-container .actions {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .item-container .item-content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin-inline-start: 10px;
+    border-inline-start: 1px solid var(--darker-divider-color);
+  }
+  .item-container .item-content > * {
+    padding: 0 0 16px 0;
+    padding-inline-start: 24px;
+  }
+  #bottom-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    overflow: visible;
+    padding-top: 15px;
+    padding-bottom: 25px;
+  }
+</style>`;
 
 // language=HTML
 export const repeatableDataSetsStylesV2 = html` <style>

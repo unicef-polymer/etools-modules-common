@@ -1,18 +1,21 @@
 import {LitElement, html} from 'lit';
-import {property} from 'lit/decorators.js';
+import {property, query} from 'lit/decorators.js';
 import cloneDeep from 'lodash-es/cloneDeep';
 import {filterByIds} from '@unicef-polymer/etools-utils/dist/general.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
 import {validateRequiredFields} from '../utils/validation-helper';
 import isEmpty from 'lodash-es/isEmpty';
-import ContentPanelMixin from './content-panel-mixin';
 import ModelChangedMixin from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
+import {EtoolsContentPanel} from '@unicef-polymer/etools-unicef/src/etools-content-panel/etools-content-panel';
 
 function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
-  class ComponentBaseClass extends ContentPanelMixin(ModelChangedMixin(baseClass)) {
+  class ComponentBaseClass extends ModelChangedMixin(baseClass) {
+    @query('etools-content-panel')
+    contentPanel?: EtoolsContentPanel;
+
     @property({type: Boolean})
     editMode = false;
 
@@ -135,6 +138,12 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
         availableUsers.sort((a, b) => (a.name < b.name ? -1 : 1));
       }
       return changed;
+    }
+
+    openContentPanel(): void {
+      if (this.contentPanel) {
+        this.contentPanel.open = true;
+      }
     }
   }
   return ComponentBaseClass;

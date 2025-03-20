@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "5.1.5",
+  "version": "5.1.7",
   "description": "Common styles, mixins, utils",
   "type": "module",
   "repository": {
