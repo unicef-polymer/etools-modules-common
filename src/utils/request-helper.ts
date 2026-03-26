@@ -1,6 +1,6 @@
-import {sendRequest, RequestConfig} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
-import {formatServerErrorAsText} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-error-parser';
-import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
+import {sendRequest, RequestConfig} from '@unicef-polymer/etools-utils/src/etools-ajax/ajax-request';
+import {formatServerErrorAsText} from '@unicef-polymer/etools-utils/src/etools-ajax/ajax-error-parser';
+import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 
 export const _sendRequest = (etoolsReqConfig: RequestConfig, _requestKey?: string) => {
   return sendRequest(etoolsReqConfig, _requestKey)

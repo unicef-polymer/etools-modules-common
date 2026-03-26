@@ -3,9 +3,9 @@ import '@unicef-polymer/etools-unicef/src/etools-dropdown/etools-dropdown';
 import {html, LitElement, TemplateResult} from 'lit';
 import {customElement, property, state} from 'lit/decorators.js';
 
-import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
+import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 import {use} from '@unicef-polymer/etools-unicef/src/etools-translate';
-import {parseRequestErrorsAndShowAsToastMsgs} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-error-parser';
+import {parseRequestErrorsAndShowAsToastMsgs} from '@unicef-polymer/etools-utils/src/etools-ajax/ajax-error-parser';
 import {toolbarDropdownStyles} from '@unicef-polymer/etools-unicef/src/styles/toolbar-dropdown-styles';
 import {EtoolsUser} from '@unicef-polymer/etools-types';
 import 'dayjs/locale/fr.js';
@@ -15,7 +15,7 @@ import 'dayjs/locale/ar.js';
 import 'dayjs/locale/ro.js';
 import 'dayjs/locale/es.js';
 import dayjs from 'dayjs';
-import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax';
+import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/src/etools-ajax';
 /**
  * @LitElement
  * @customElement

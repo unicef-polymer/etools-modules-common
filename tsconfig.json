@@ -17,5 +17,5 @@
     "importHelpers": true,
     "outDir": "dist"
   },
-  "include": ["src_ts/**/*.ts"]
+  "include": ["src/**/*.ts"]
 }

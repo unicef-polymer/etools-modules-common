@@ -1,9 +1,9 @@
 import {LitElement} from 'lit';
 import {property} from 'lit/decorators.js';
-import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
-import {isJsonStrMatch} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
-import {EtoolsLogger} from '@unicef-polymer/etools-utils/dist/singleton/logger';
-import {Environment} from '@unicef-polymer/etools-utils/dist/singleton/environment';
+import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/src/etools-ajax/ajax-request';
+import {isJsonStrMatch} from '@unicef-polymer/etools-utils/src/equality-comparisons.util';
+import {EtoolsLogger} from '@unicef-polymer/etools-utils/src/singleton/logger';
+import {Environment} from '@unicef-polymer/etools-utils/src/singleton/environment';
 import {tokenStorageKeys, getTokenEndpoints} from '../config/config';
 import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
 import get from 'lodash-es/get';

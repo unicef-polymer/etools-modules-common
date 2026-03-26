@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const tsProject = ts.createProject('tsconfig.json', {noEmitOnError: false});
 
-const SRC = 'src_ts/';
+const SRC = 'src/';
 const DIST = 'dist/';
 
 const LIT_CONSTRUCTOR = 'Constructor<LitElement>';

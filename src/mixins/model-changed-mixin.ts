@@ -1,6 +1,6 @@
 import {LitElement} from 'lit';
-import {areEqual} from '@unicef-polymer/etools-utils/dist/equality-comparisons.util';
-import {formatDate} from '@unicef-polymer/etools-utils/dist/date.util';
+import {areEqual} from '@unicef-polymer/etools-utils/src/equality-comparisons.util';
+import {formatDate} from '@unicef-polymer/etools-utils/src/date.util';
 import {Constructor} from '@unicef-polymer/etools-types';
 
 function ModelChangedMixin<T extends Constructor<LitElement>>(baseClass: T) {

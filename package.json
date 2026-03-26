@@ -1,6 +1,6 @@
 {
   "name": "@unicef-polymer/etools-modules-common",
-  "version": "5.1.10",
+  "version": "6.0.0",
   "description": "Common styles, mixins, utils",
   "type": "module",
   "repository": {
@@ -22,7 +22,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "tsToJs": "rm -rf dist && gulp",
+    "tsToJs": "gulp",
     "lint:eslint": "eslint src_ts/**",
     "format:eslint": "eslint src_ts/** --fix",
     "lint": "npm run lint:eslint",
@@ -37,10 +37,10 @@
     "through2": "^4.0.2"
   },
   "peerDependencies": {
-    "@unicef-polymer/etools-piwik-analytics": ">=4.1.3",
-    "@unicef-polymer/etools-types": ">=1.11.20",
-    "@unicef-polymer/etools-unicef": ">=1.1.8",
-    "@unicef-polymer/etools-utils": ">=2.0.3"
+    "@unicef-polymer/etools-piwik-analytics": "workspace:*",
+    "@unicef-polymer/etools-types": "workspace:*",
+    "@unicef-polymer/etools-unicef": "workspace:*",
+    "@unicef-polymer/etools-utils": "workspace:*"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.2.0",
@@ -50,10 +50,10 @@
     "@types/lodash-es": "^4.17.12",
     "@typescript-eslint/eslint-plugin": "^8.17.0",
     "@typescript-eslint/parser": "^8.17.0",
-    "@unicef-polymer/etools-piwik-analytics": "^4.1.3",
-    "@unicef-polymer/etools-types": "^1.11.20",
-    "@unicef-polymer/etools-unicef": "^1.2.12",
-    "@unicef-polymer/etools-utils": "^2.0.5",
+    "@unicef-polymer/etools-piwik-analytics": "workspace:*",
+    "@unicef-polymer/etools-types": "workspace:*",
+    "@unicef-polymer/etools-unicef": "workspace:*",
+    "@unicef-polymer/etools-utils": "workspace:*",
     "eslint": "^9.16.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-html": "^8.1.2",
@@ -64,6 +64,6 @@
     "gulp": "^4.0.2",
     "gulp-typescript": "^6.0.0-alpha.1",
     "prettier": "~3.4.2",
-    "typescript": "^4.9.5"
+    "typescript": "^5.3.3"
   }
 }

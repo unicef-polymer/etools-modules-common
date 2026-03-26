@@ -1,6 +1,6 @@
 import {Store, Unsubscribe} from 'redux';
 import {Constructor} from '@unicef-polymer/etools-types';
-import {getStoreAsync} from '@unicef-polymer/etools-utils/dist/store.util';
+import {getStoreAsync} from '@unicef-polymer/etools-utils/src/store.util';
 
 interface CustomElement {
   connectedCallback?(): void;

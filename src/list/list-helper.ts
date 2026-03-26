@@ -1,9 +1,9 @@
 import isEqual from 'lodash-es/isEqual';
 import sortBy from 'lodash-es/sortBy';
-import {sendRequest} from '@unicef-polymer/etools-utils/dist/etools-ajax/ajax-request';
-import {abortRequestByKey} from '@unicef-polymer/etools-utils/dist/etools-ajax/request';
+import {sendRequest} from '@unicef-polymer/etools-utils/src/etools-ajax/ajax-request';
+import {abortRequestByKey} from '@unicef-polymer/etools-utils/src/etools-ajax/request';
 import {EtoolsEndpoint, GenericObject} from '@unicef-polymer/etools-types';
-import {getEndpoint} from '@unicef-polymer/etools-utils/dist/endpoint.util';
+import {getEndpoint} from '@unicef-polymer/etools-utils/src/endpoint.util';
 
 export const defaultPaginator = {
   page: 1,

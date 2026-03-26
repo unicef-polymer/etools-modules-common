@@ -1,8 +1,8 @@
 import {html, LitElement, TemplateResult} from 'lit';
 import {property, customElement} from 'lit/decorators.js';
-import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
-import '@unicef-polymer/etools-unicef/src/etools-dialog/etools-dialog.js';
-import '@unicef-polymer/etools-unicef/src/etools-input/etools-textarea.js';
+import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
+import '@unicef-polymer/etools-unicef/src/etools-dialog/etools-dialog';
+import '@unicef-polymer/etools-unicef/src/etools-input/etools-textarea';
 import {sharedStyles} from '../../styles/shared-styles-lit';
 
 @customElement('reason-popup')

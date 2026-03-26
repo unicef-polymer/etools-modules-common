@@ -1,8 +1,8 @@
 import {LitElement, html} from 'lit';
 import {property, query} from 'lit/decorators.js';
 import cloneDeep from 'lodash-es/cloneDeep';
-import {filterByIds} from '@unicef-polymer/etools-utils/dist/general.util';
-import {fireEvent} from '@unicef-polymer/etools-utils/dist/fire-event.util';
+import {filterByIds} from '@unicef-polymer/etools-utils/src/general.util';
+import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 import {validateRequiredFields} from '../utils/validation-helper';
 import isEmpty from 'lodash-es/isEmpty';
 import ModelChangedMixin from './model-changed-mixin';
