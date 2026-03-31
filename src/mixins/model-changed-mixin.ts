@@ -7,7 +7,12 @@ export interface ModelChangedMixinMethods {
   getParentObject(parentObject?: string | object): object;
   triggerUpdateValue(value: any, key: string, parentObject?: string | object): void;
 
-  selectedItemChanged(detail: {selectedItem: any}, key: string, optionValue?: string, parentObject?: string | object): void;
+  selectedItemChanged(
+    detail: {selectedItem: any},
+    key: string,
+    optionValue?: string,
+    parentObject?: string | object
+  ): void;
   selectedUserChanged(detail: {selectedItem: any}, key: string, parentObject?: string | object): void;
   selectedUsersChanged(detail: {selectedItems: any}, key: string, parentObject?: string | object): void;
   dateHasChanged(detail: {date: Date}, key: string, parentObject?: string | object): void;
@@ -20,11 +25,9 @@ export interface ModelChangedMixinMethods {
   ): void;
   valueChanged(detail: {value: any}, key: string, parentObject?: string | object): void;
   numberChanged(detail: {value: any}, key: string, parentObject?: string | object): void;
-};
+}
 
-function ModelChangedMixin<T extends Constructor<LitElement>>(
-  baseClass: T
-): T & Constructor<ModelChangedMixinMethods> {
+function ModelChangedMixin<T extends Constructor<LitElement>>(baseClass: T): T & Constructor<ModelChangedMixinMethods> {
   class ModelChangedClass extends baseClass {
     getParentObject(parentObject?: string | object): object {
       if (!parentObject) {
@@ -124,7 +127,7 @@ function ModelChangedMixin<T extends Constructor<LitElement>>(
 
   // Explicit return typing prevents TS from emitting an "exported anonymous class type"
   // that includes LitElement private/protected internals (e.g. `__childPart`).
-  return ModelChangedClass as unknown as  T & Constructor<ModelChangedMixinMethods>;
+  return ModelChangedClass as unknown as T & Constructor<ModelChangedMixinMethods>;
 }
 
 export default ModelChangedMixin;

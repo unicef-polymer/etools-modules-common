@@ -5,7 +5,7 @@ import {filterByIds} from '@unicef-polymer/etools-utils/src/general.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 import {validateRequiredFields} from '../utils/validation-helper';
 import isEmpty from 'lodash-es/isEmpty';
-import ModelChangedMixin, { ModelChangedMixinMethods } from './model-changed-mixin';
+import ModelChangedMixin, {ModelChangedMixinMethods} from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
@@ -39,10 +39,7 @@ export interface ComponentBaseMixinMethods {
   renderReadonlyUserDetails(selectedUsers: any[], allUsers?: any[]): any;
   renderNameEmailPhone(item: any): any;
 
-  handleUsersNoLongerAssignedToCurrentCountry(
-    availableUsers: AnyObject[],
-    savedUsers?: MinimalUser[]
-  ): boolean;
+  handleUsersNoLongerAssignedToCurrentCountry(availableUsers: AnyObject[], savedUsers?: MinimalUser[]): boolean;
 
   openContentPanel(): void;
 }

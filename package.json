@@ -23,8 +23,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "tsToJs": "gulp",
-    "lint:eslint": "eslint src_ts/**",
-    "format:eslint": "eslint src_ts/** --fix",
+    "lint:eslint": "eslint src/**",
+    "format:eslint": "eslint src/** --fix",
     "lint": "npm run lint:eslint",
     "format": "npm run format:eslint",
     "publishPackage": "npm run tsToJs && npm publish",

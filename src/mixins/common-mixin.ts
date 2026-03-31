@@ -11,9 +11,7 @@ export interface CommonMixinMethods {
   _translate(textKey: string): any;
 }
 
-function CommonMixin<T extends Constructor<LitElement>>(
-  baseClass: T
-): T & Constructor<CommonMixinMethods> {
+function CommonMixin<T extends Constructor<LitElement>>(baseClass: T): T & Constructor<CommonMixinMethods> {
   class CommonClass extends baseClass {
     /**
      * Prepare and return the string value we have to display on the interface.

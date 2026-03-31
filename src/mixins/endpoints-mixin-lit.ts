@@ -42,9 +42,7 @@ interface EndpointsLitMixinMethods {
   ): Promise<any>;
 }
 
-function EndpointsLitMixin<T extends Constructor<LitElement>>(
-  baseClass: T
-): T & Constructor<EndpointsLitMixinMethods> {
+function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T): T & Constructor<EndpointsLitMixinMethods> {
   class EndpointsMixinLitClass extends baseClass {
     @property({type: Object})
     prpCountries!: AnyObject[];
