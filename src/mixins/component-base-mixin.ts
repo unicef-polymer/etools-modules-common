@@ -5,13 +5,51 @@ import {filterByIds} from '@unicef-polymer/etools-utils/src/general.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 import {validateRequiredFields} from '../utils/validation-helper';
 import isEmpty from 'lodash-es/isEmpty';
-import ModelChangedMixin from './model-changed-mixin';
+import ModelChangedMixin, { ModelChangedMixinMethods } from './model-changed-mixin';
 import {AnyObject, Constructor, MinimalUser} from '@unicef-polymer/etools-types';
 import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import '@unicef-polymer/etools-unicef/src/etools-icon-button/etools-icon-button';
 import {EtoolsContentPanel} from '@unicef-polymer/etools-unicef/src/etools-content-panel/etools-content-panel';
 
-function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
+type ComponentBaseMixinContentPanel = EtoolsContentPanel | undefined;
+
+export interface ComponentBaseMixinMethods {
+  contentPanel?: ComponentBaseMixinContentPanel;
+  editMode: boolean;
+  canEditAtLeastOneField: boolean;
+  originalData: any;
+  data: any;
+  permissions: any;
+
+  set_canEditAtLeastOneField(editPermissions: AnyObject): void;
+  hideEditIcon(editMode: boolean, canEdit: boolean): boolean;
+  hideActionButtons(editMode: boolean, canEdit: boolean): boolean;
+  isReadonly(editMode: boolean, canEdit: boolean): boolean;
+
+  allowEdit(): void;
+  cancel(): void;
+  validate(): any;
+
+  // Implemented in child components
+  saveData(): Promise<any>;
+  save(): void;
+
+  renderActions(editMode: boolean, canEditAnyFields: boolean): any;
+  renderEditBtn(editMode: boolean, canEditAnyFields: boolean): any;
+  renderReadonlyUserDetails(selectedUsers: any[], allUsers?: any[]): any;
+  renderNameEmailPhone(item: any): any;
+
+  handleUsersNoLongerAssignedToCurrentCountry(
+    availableUsers: AnyObject[],
+    savedUsers?: MinimalUser[]
+  ): boolean;
+
+  openContentPanel(): void;
+}
+
+function ComponentBaseMixin<T extends Constructor<LitElement>>(
+  baseClass: T
+): T & Constructor<ComponentBaseMixinMethods & ModelChangedMixinMethods> {
   class ComponentBaseClass extends ModelChangedMixin(baseClass) {
     @query('etools-content-panel')
     contentPanel?: EtoolsContentPanel;
@@ -146,7 +184,7 @@ function ComponentBaseMixin<T extends Constructor<LitElement>>(baseClass: T) {
       }
     }
   }
-  return ComponentBaseClass;
+  return ComponentBaseClass as unknown as T & Constructor<ComponentBaseMixinMethods & ModelChangedMixinMethods>;
 }
 
 export default ComponentBaseMixin;

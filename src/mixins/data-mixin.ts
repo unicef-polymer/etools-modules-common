@@ -4,10 +4,23 @@ import {GenericObject} from '@unicef-polymer/etools-types';
 
 type Constructor<B> = new (...args: any[]) => B;
 
+type DataMixinMethods<B> = {
+  editedData: Partial<B>;
+  originalData: B | null;
+  errors: GenericObject;
+
+  set data(data: B | null);
+
+  connectedCallback(): void;
+  resetFieldError(fieldName: string): void;
+  updateModelValue(fieldName: keyof B, value: any): void;
+  checkEquality(valueA: any, valueB: any): boolean;
+};
+
 export const DataMixin =
   <T extends Constructor<LitElement>>() =>
-  <B>(superclass: T) =>
-    class extends superclass {
+  <B>(superclass: T): T & Constructor<DataMixinMethods<B>> => {
+    class DataMixinClass extends superclass {
       editedData: Partial<B> = {};
       originalData!: B | null;
       errors: GenericObject = {};
@@ -65,4 +78,7 @@ export const DataMixin =
           baseValue.flat().every((value: any, index: number) => `${value}` === `${valueToMatch[index]}`)
         );
       }
-    };
+    }
+
+    return DataMixinClass as unknown as T & Constructor<DataMixinMethods<B>>;
+  };

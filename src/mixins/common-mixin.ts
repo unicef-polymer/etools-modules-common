@@ -3,7 +3,17 @@ import {LitElement} from 'lit';
 import {AnyObject, Constructor} from '@unicef-polymer/etools-types';
 import {get} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
-function CommonMixin<T extends Constructor<LitElement>>(baseClass: T) {
+export interface CommonMixinMethods {
+  getDisplayValue(value: any, separator: string, skipSpaces: boolean): any;
+  getDateDisplayValue(dateString: string): any;
+  prepareEtoolsFileDataFromUrl(fileUrl: string): AnyObject[];
+  getFileNameFromURL(url: string): string;
+  _translate(textKey: string): any;
+}
+
+function CommonMixin<T extends Constructor<LitElement>>(
+  baseClass: T
+): T & Constructor<CommonMixinMethods> {
   class CommonClass extends baseClass {
     /**
      * Prepare and return the string value we have to display on the interface.
@@ -61,7 +71,7 @@ function CommonMixin<T extends Constructor<LitElement>>(baseClass: T) {
     }
   }
 
-  return CommonClass;
+  return CommonClass as unknown as T & Constructor<CommonMixinMethods>;
 }
 
 export default CommonMixin;

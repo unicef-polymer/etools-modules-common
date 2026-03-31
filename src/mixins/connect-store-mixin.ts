@@ -8,8 +8,19 @@ interface CustomElement {
   readonly isConnected: boolean;
 }
 
-export function connectStore<T extends Constructor<CustomElement>>(baseClass: T) {
-  return class ConnectStoreMixin extends baseClass {
+interface ConnectStoreMixinMethods {
+  _storeUnsubscribe: Unsubscribe | null;
+  _store: Store<any>;
+
+  stateChanged(_state: any): void;
+  getLazyReducers(): any;
+  _subscribeOnStore(): void;
+}
+
+export function connectStore<T extends Constructor<CustomElement>>(
+  baseClass: T
+): T & Constructor<ConnectStoreMixinMethods> {
+  const ConnectStoreMixinClass = class ConnectStoreMixin extends baseClass {
     _storeUnsubscribe: Unsubscribe | null = null;
 
     _store!: Store<any>;
@@ -56,4 +67,6 @@ export function connectStore<T extends Constructor<CustomElement>>(baseClass: T)
       this.stateChanged(this._store.getState());
     }
   };
+
+  return ConnectStoreMixinClass as unknown as T & Constructor<ConnectStoreMixinMethods>;
 }

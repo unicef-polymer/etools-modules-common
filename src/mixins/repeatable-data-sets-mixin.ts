@@ -8,7 +8,29 @@ import {translate} from '@unicef-polymer/etools-unicef/src/etools-translate';
 import {openDialog} from '@unicef-polymer/etools-utils/src/dialog.util';
 import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 
-function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(baseClass: T) {
+interface RepeatableDataSetsMixinMethods {
+  deleteConfirmationTitle: string;
+  deleteConfirmationMessage: string;
+  deleteActionLoadingMsg: string;
+  deleteLoadingSource: string;
+  deleteActionDefaultErrMsg: string;
+
+  data: any[];
+  editMode: boolean;
+  dataSetModel: AnyObject | null;
+  elToDeleteIndex: number;
+
+  _openDeleteConfirmation(event: CustomEvent, index: number): Promise<void>;
+  _onDeleteConfirmation(confirmed: boolean): void;
+  _handleDeleteResponse(): void;
+  _handleDeleteError(responseErr: any): void;
+  _deleteElement(): void;
+  isAlreadySelected(selValue: any, selIndex: any, itemValueName: any): any;
+}
+
+function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(
+  baseClass: T
+): T & Constructor<RepeatableDataSetsMixinMethods> {
   class RepeatableDataSetsClass extends baseClass {
     @property({type: String})
     deleteConfirmationTitle = translate('DELETE_CONFIRMATION') as unknown as string;
@@ -152,7 +174,7 @@ function RepeatableDataSetsMixin<T extends Constructor<LitElement>>(baseClass: T
       return duplicateItems && duplicateItems.length;
     }
   }
-  return RepeatableDataSetsClass;
+  return RepeatableDataSetsClass as unknown as T & Constructor<RepeatableDataSetsMixinMethods>;
 }
 
 export default RepeatableDataSetsMixin;

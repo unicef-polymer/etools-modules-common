@@ -6,7 +6,18 @@ import {EnvFlags, Constructor} from '@unicef-polymer/etools-types';
  * @LitElement
  * @mixinFunction
  */
-function EnvironmentFlagsMixin<T extends Constructor<LitElement>>(baseClass: T) {
+interface EnvironmentFlagsMixinMethods {
+  environmentFlags: EnvFlags | null;
+  envFlagsStateChanged(state: any): void;
+  envFlagsLoaded(): boolean;
+  showPrpReports(): any;
+  prpServerIsOn(): any;
+  waitForEnvFlagsToLoad(): Promise<boolean>;
+}
+
+function EnvironmentFlagsMixin<T extends Constructor<LitElement>>(
+  baseClass: T
+): T & Constructor<EnvironmentFlagsMixinMethods> {
   class EnvironFlagsClass extends baseClass {
     @property({type: Object})
     environmentFlags: EnvFlags | null = null;
@@ -44,7 +55,7 @@ function EnvironmentFlagsMixin<T extends Constructor<LitElement>>(baseClass: T) 
       });
     }
   }
-  return EnvironFlagsClass;
+  return EnvironFlagsClass as unknown as T & Constructor<EnvironmentFlagsMixinMethods>;
 }
 
 export default EnvironmentFlagsMixin;

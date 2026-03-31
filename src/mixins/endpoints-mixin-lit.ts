@@ -8,7 +8,43 @@ import {tokenStorageKeys, getTokenEndpoints} from '../config/config';
 import {AnyObject, Constructor, User} from '@unicef-polymer/etools-types';
 import get from 'lodash-es/get';
 
-function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
+interface EndpointsLitMixinMethods {
+  prpCountries: AnyObject[];
+  currentUser: User;
+
+  endStateChanged(state: any): void;
+  _getPrpCountryId(): any;
+  _urlTemplateHasCountryId(template: string): boolean;
+  getEndpoint(endpointsList: AnyObject, endpointName: string, data?: AnyObject): any;
+  _generateUrlFromTemplate(tmpl: string, data: AnyObject | undefined): string;
+  _hasUrlTemplate(endpoint: AnyObject): any;
+  _getDeferrer(): any;
+
+  authorizationTokenMustBeAdded(endpoint: AnyObject): boolean;
+  getCurrentToken(tokenKey: string): string | null;
+  storeToken(tokenKey: string, tokenBase64Encoded: string): void;
+  decodeBase64Token(encodedToken: string): any;
+  tokenIsValid(token: string): boolean;
+  getAuthorizationHeader(token: string): any;
+  requestToken(endpoint: RequestEndpoint): Promise<any> | any;
+
+  _buildOptionsWithTokenHeader(options: any, token: string): any;
+  getTokenEndpointName(tokenKey: string): any;
+  addTokenToRequestOptions(endpointsCollection: AnyObject, endpointName: string, data: AnyObject): Promise<any>;
+  _addAdditionalRequestOptions(options: any, requestAdditionalOptions: any): any;
+
+  fireRequest(
+    endpointsCollection: AnyObject,
+    endpoint: any,
+    endpointTemplateData: AnyObject,
+    requestAdditionalOptions?: AnyObject,
+    activeReqKey?: string
+  ): Promise<any>;
+}
+
+function EndpointsLitMixin<T extends Constructor<LitElement>>(
+  baseClass: T
+): T & Constructor<EndpointsLitMixinMethods> {
   class EndpointsMixinLitClass extends baseClass {
     @property({type: Object})
     prpCountries!: AnyObject[];
@@ -233,7 +269,7 @@ function EndpointsLitMixin<T extends Constructor<LitElement>>(baseClass: T) {
       return defer.promise;
     }
   }
-  return EndpointsMixinLitClass;
+  return EndpointsMixinLitClass as unknown as T & Constructor<EndpointsLitMixinMethods>;
 }
 
 export default EndpointsLitMixin;

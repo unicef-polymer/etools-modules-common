@@ -5,7 +5,94 @@ import {Constructor, InterventionListData} from '@unicef-polymer/etools-types';
 import {Fr, FrsDetails, Intervention} from '@unicef-polymer/etools-types';
 import {get as getTranslation} from '@unicef-polymer/etools-unicef/src/etools-translate';
 
-function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass: T) {
+interface FrNumbersConsistencyMixinMethods {
+  frNumbersMessageKeys: {
+    amountsCannotBeCompared: string;
+    tooManyFrsCurencies: string;
+    amountAndDisbursementNotDisplayed: string;
+    currencyMismatch: string;
+    cannotCalcDisbursement: string;
+    addedFrsCurrenciesMismatch: string;
+    amount: string;
+    dateTmpl: string;
+    warningTmpl: string;
+    FCmultiCurrFlagErrorMsg: string;
+    start_date: string;
+    end_date: string;
+    pd_unicef_cash_contribution: string;
+    fr_earliest_date: string;
+    fr_latest_date: string;
+    fr_total_amount: string;
+  };
+
+  _frsAndPlannedBudgetCurrenciesMatch(frs: Fr[], plannedBudgetCurrency: string): boolean;
+  _frsCurrenciesMatch(frs: Fr[]): boolean;
+
+  checkFrsConsistency(frsDetails: FrsDetails, intervention: Intervention, skipEmptyListCheck?: boolean): any;
+  checkFrsAndUnicefCashAmountsConsistency(
+    unicefCash: string,
+    frsTotalAmt: string,
+    intervention: Intervention,
+    interventionIsFromWhere: string,
+    returnMsg: boolean,
+    skipEmptyListCheck?: boolean
+  ): any;
+  validateFrsVsUnicefCashAmounts(
+    unicefCash: string,
+    frsTotalAmt: string,
+    intervention: Intervention,
+    interventionIsFromWhere: string,
+    skipEmptyListCheck?: boolean
+  ): boolean;
+  checkFrsAndIntervDateConsistency(
+    intervDateStr: string,
+    frsDateStr: string | null,
+    fieldName?: string,
+    returnMsg?: boolean
+  ): any;
+  validateFrsVsInterventionDates(intervDateStr: string, frsDateStr: string | null): boolean;
+
+  _buildFrsWarningMsg(msgTemplate: string, searchStr: string, replacementStr: string): string;
+  getFrsTotalAmountInconsistencyMsg(): string;
+  getFrsStartDateValidationMsg(): string;
+  getFrsEndDateValidationMsg(): string;
+
+  frsConsistencyWarningIsActive(active: boolean | string): boolean;
+
+  emptyFrsList(intervention: Intervention, interventionIsFromWhere: 'interventionMetadata'): boolean;
+  emptyFrsList(intervention: InterventionListData, interventionIsFromWhere: 'interventionsList'): boolean;
+  emptyFrsList(intervention: any, interventionIsFromWhere: string): boolean;
+
+  getFrsCurrency(frsCurrencyMatch: boolean, frs: Fr[]): string;
+  getFrsTotal(frsCurrencyMatch: boolean, totalAmt: string, negateCurrencyMatchFlagFirst?: boolean): string;
+  allCurrenciesMatch(frsCurrencyMatch: boolean, frs: Fr[], plannedBudgetCurrency: string): any;
+  hideFrCurrencyTooltip(frsCurrencyMatch: boolean, frCurrency: string, plannedBudgetCurrency?: string): any;
+  hideFrsAmountTooltip(
+    frsCurrencyMatch: boolean,
+    frs: any,
+    plannedBudgetCurrency: string,
+    frsTotalAmountWarning: string
+  ): any;
+  getFrsCurrencyTooltipIcon(frsCurrencyMatch: boolean): string;
+  getFrsValueNAClass(valIsAvailable: boolean, negateFlagValFirst?: boolean): string;
+  getFrsCurrencyTooltipMsg(frsCurrencyMatch: boolean): any;
+  getFrCurrencyTooltipMsg(): any;
+  _allCurrenciesAreConsistent(allCurrenciesAreConsistent: any): any;
+
+  hideIntListUnicefCashAmountTooltip(
+    allCurrenciesAreConsistent: any,
+    unicefCash: string,
+    frsTotalAmt: string,
+    intervention: Intervention
+  ): any;
+  getCurrencyMismatchClass(allCurrenciesAreConsistent: any): string;
+  getIntListUnicefCashAmountTooltipMsg(allCurrenciesAreConsistent: any, frsCurrenciesAreConsistent: boolean): any;
+  getFrsMultiCurrFlagErrTooltipMsg(): any;
+}
+
+function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(
+  baseClass: T
+): T & Constructor<FrNumbersConsistencyMixinMethods> {
   class FrNumbersConsistencyClass extends baseClass {
     @property({type: Object})
     frNumbersMessageKeys = {
@@ -303,7 +390,7 @@ function FrNumbersConsistencyMixin<T extends Constructor<LitElement>>(baseClass:
     }
   }
 
-  return FrNumbersConsistencyClass;
+  return FrNumbersConsistencyClass as unknown as T & Constructor<FrNumbersConsistencyMixinMethods>;
 }
 
 export default FrNumbersConsistencyMixin;
