@@ -1,6 +1,6 @@
 import '@unicef-polymer/etools-unicef/src/etools-dropdown/etools-dropdown';
 import {RequestEndpoint, sendRequest} from '@unicef-polymer/etools-utils/src/etools-ajax/ajax-request';
-import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util.js';
+import {fireEvent} from '@unicef-polymer/etools-utils/src/fire-event.util';
 import {EtoolsLogger} from '@unicef-polymer/etools-utils/src/singleton/logger';
 import {EtoolsDropdownEl} from '@unicef-polymer/etools-unicef/src/etools-dropdown/etools-dropdown';
 import {EtoolsUser} from '@unicef-polymer/etools-types';
